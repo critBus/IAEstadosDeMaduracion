@@ -1,0 +1,2125 @@
+{% extends "Visual/plantillaPadre.html" %}
+{% load static %}
+{% load poll_extras_rene_app %}
+
+{% block titulo %}
+Agregar Dataset
+{% endblock %}
+
+{% block contenido %}
+
+{#    <form>#}
+                    <div class="row">
+                        <div class="col">
+                            <ul class="nav nav-tabs " id="myTab" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
+                                        aria-controls="home" aria-selected="true">Descripcion</a>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                                        aria-controls="profile" aria-selected="false">Configuración</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+
+
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="tab-content " id="myTabContent">
+                                <div class="tab-pane fade show active" id="home" role="tabpanel"
+                                    aria-labelledby="home-tab">
+
+                                    <div class="row mt-3">
+                                        <div class="col-sm-6">
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="basic-addon1">Nombre</span>
+                                                </div>
+                                                <input id="idTextoNombreDataset" type="text" class="form-control"
+                                                    placeholder="Nombre" aria-label="Nombre" maxlength="50"
+                                                    aria-describedby="basic-addon1">
+                                                <div id="idTextoNombreDataset_MensajeInvalidoBoostrap"
+                                                    class="invalid-feedback">
+                                                    Please select a valid state.
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col col-sm-6">
+
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                  <label class="input-group-text" for="idSelectFrutos">Fruto</label>
+                                                    <button id="idBuscarFruto" type="button" for="idSelectFrutos"
+                                                    class="input-group-text btn btn-success">
+                                                        <i class="fas fa-fas fa-search"></i>
+                                                    </button>
+                                                </div>
+                                                <select class="custom-select" id="idSelectFrutos">
+                                                  <option  selected>Agrega un Fruto</option>
+{#                                                  <option value="1">One</option>#}
+{#                                                  <option value="2">Two</option>#}
+{#                                                  <option value="3">Three</option>#}
+                                                </select>
+
+
+                                                <div class="input-group-append">
+                                                    <button id="idAgregarFruto" type="button" for="idSelectFrutos"
+                                                    class="input-group-text btn btn-success">
+                                                        <i class="fas fa-plus"></i>
+                                                    </button>
+                                                    <button id="idEditarFruto" type="button" for="idSelectFrutos"
+                                                    class="input-group-text btn btn-success">
+                                                        <i class="fas fa-pencil-alt"></i>
+                                                    </button>
+                                                    <button id="idDetallesFruto" type="button" for="idSelectFrutos"
+                                                    class="input-group-text btn btn-success">
+                                                        <i class="fas fa-question"></i>
+                                                    </button>
+
+                                                  </div>
+                                               <div id="idSelectFrutos_MensajeInvalidoBoostrap"
+                                                        class="invalid-feedback ">
+                                                        Seccione un dataset comprimido en formato rar
+                                                    </div>
+                                            </div>
+
+
+                                        </div>
+
+
+{#                                        <div class="col-sm-6">#}
+{#                                            <div class="input-group mb-3">#}
+{#                                                <div class="input-group-prepend">#}
+{#                                                    <span class="input-group-text" id="basic-addon2">Tipo De#}
+{#                                                        Fruto</span>#}
+{#                                                </div>#}
+{#                                                <input id="idTextoTipoDeFruto" type="text" class="form-control "#}
+{#                                                    placeholder="Tipo De Fruto" aria-label="Tipo De Fruto"#}
+{#                                                    aria-describedby="basic-addon2">#}
+{#                                                <div id="idTextoTipoDeFruto_MensajeInvalidoBoostrap"#}
+{#                                                    class="invalid-feedback">#}
+{#                                                    otro mal.#}
+{#                                                </div>#}
+{#                                            </div>#}
+{#                                        </div>#}
+
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col">
+                                            <!-- <textarea name="Descripcion" class=" ckeditor" id="id_Descripcion" rows="3" ></textarea> -->
+                                            <textarea name="editor1" id="editor1">
+
+                                            </textarea>
+
+                                            <div id="editor1_MensajeInvalidoBoostrap" class="invalid-feedback">
+                                                otro mal.
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                    <div class="row  mt-3">
+
+                                        <div class="col">
+                                             <div id="idDivDatasetASubir" class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <button class="btn btn-dark" type="button"
+                                                        id="idBSubirArchivo">Subir</button>
+
+                                                </div>
+                                                <div class="custom-file">
+                                                    <input required type="file" class="custom-file-input"
+                                                        id="idArchivoDataset" aria-describedby="idArchivoDataset_MensajeInvalidoBoostrap">
+                                                    <div id="idArchivoDataset_MensajeInvalidoBoostrap"
+                                                        class="invalid-feedback ">
+                                                        Seccione un dataset comprimido en formato zip
+                                                    </div>
+                                                    <label id="idLabelDatasetASubir" class="custom-file-label label_input_archivo"
+                                                        for="idArchivoDataset">
+
+                                                        Archivo Seleccionado
+                                                    </label>
+
+                                                </div>
+                                            </div>
+
+                                            <div id="idDivDatasetSubido" class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <button class="btn btn-dark" type="button"
+                                                    data-toggle="tooltip" data-placement="top" title="Eliminar el Dataset subido con anterioridad "
+                                                        id="idBotonEliminarDatasetSubido">Eliminar</button>
+
+                                                </div>
+                                                <input id="idTextoDatasetSubido" type="text" class="form-control "
+                                                data-toggle="tooltip" data-placement="top" title="Dataset subido con anterioridad "
+                                                    aria-describedby="basic-addon2" disabled>
+
+                                            </div>
+
+
+
+                                        </div>
+
+
+
+
+
+
+
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                             <div id="idMensajeArchivoInvalido" class="alert alert-danger w-100 text-center" role="alert" style="display: none;">
+                                                Seccione un dataset comprimido en formato zip
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="row mt-3 ">
+                                        <div class="col">
+                                            <div    id="idContendorDeBordeDeListaclasificaciones"
+                                                    class="container border border-secondary">
+                                                <div id="idAlerta_Listaclasificaciones"
+                                                     class="row alert alert-danger h-100 mb-0" role="alert"
+
+                                                >
+                                                    A simple danger alert—check it out!
+                                                  </div>
+                                                <div class="row bg-dark text-light">
+                                                    <div class="container">
+                                                        <div class="row text-center mb-2 mt-2">
+                                                            <div class="col-6">Clasificación</div>
+                                                            <div class="col-6 border-left">Carpeta</div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div id="idContenedorDeLista" class="row overflow-auto" style="max-height: 150px;">
+
+                                                    <div id="idLista_2ColTextInput" class="list-group w-100">
+
+                                                        <div id="{idItemLista}"
+                                                        class="list-group-item list-group-item-action">
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <input id="{IdInputClasificacion}"
+                                                                    class="form-control " type="text"
+                                                                        placeholder="Clasificación"
+                                                                        value="{Clasificacion}"
+                                                                           maxlength="256"
+                                                                        >
+                                                                        <div id="{IdInputClasificacion}_MensajeInvalidoBoostrap" class="invalid-feedback ">
+                                                                            otro mal.
+                                                                        </div>
+                                                                </div>
+                                                                <!-- border-left -->
+                                                                <div
+                                                                class="col ">
+                                                                    <input id="{IdInputCarpeta}"
+
+                                                                     class="form-control " type="text"
+                                                                        placeholder="Carpeta"
+                                                                        value="{Carpeta}"
+                                                                        >
+                                                                        <div id="{IdInputCarpeta}_MensajeInvalidoBoostrap" class="invalid-feedback">
+                                                                            otro mal.
+                                                                        </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
+
+
+
+
+                                                    </div>
+
+                                                </div>
+                                                <div class="row mt-2 mb-2 d-flex flex-row-reverse">
+                                                    <button
+                                                    id="idB_ListaClases_Agregar"
+                                                    class="btn btn-primary waves-effect waves-light ml-3 mr-3 "
+                                                        type="button">
+                                                        <span class="btn-label"><i class="fas fa-plus"></i></span>
+                                                    </button>
+                                                    <button
+                                                    id="idB_ListaClases_Eliminar"
+                                                     class="btn btn-primary waves-effect waves-light ml-3"
+                                                        type="button">
+                                                        <span class="btn-label"><i class="fas fa-minus"></i></span>
+                                                    </button>
+                                                    <button
+                                                    id="idB_ListaClases_Arriba"
+                                                     class="btn btn-primary waves-effect waves-light ml-3"
+                                                        type="button">
+                                                        <span class="btn-label"><i class="fas fa-angle-up"></i></span>
+                                                    </button>
+                                                    <button
+                                                    id="idB_ListaClases_Abajo"
+                                                     class="btn btn-primary waves-effect waves-light ml-3"
+                                                        type="button">
+                                                        <span class="btn-label"><i class="fas fa-angle-down"></i></span>
+                                                    </button>
+
+                                                     <button id="idB_ListaClases_ReiniciarClases"
+                                                        class="btn btn-primary waves-effect waves-light ml-3"
+                                                        type="button">
+                                                        <span class="btn-label"><i class="icon-refresh"></i></span>
+                                                    </button>
+
+                                                    <button id="idB_ListaClases_DetallesClase"
+                                                        class="btn btn-primary waves-effect waves-light ml-3"
+                                                            data-toggle="tooltip" data-placement="right" title="Editar descripción de la clasificación seleccionada "
+                                                        type="button">
+                                                        <span class="btn-label"><i class="fas fa-align-left"></i></span>
+                                                    </button>
+
+                                                </div>
+                                            </div>
+
+
+
+                                        </div>
+
+                                    </div>
+
+                                    <style>
+                                        #mycontainer {
+                                            width: 140px;
+                                            height: 200px;
+                                            border: 1px solid #ccc;
+                                        }
+                                    </style>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+                    <div class="row mt-3">
+                        <div class="col d-flex justify-content-center">
+                            <button id="idBotonAgregar" type="button" class="btn btn-dark btn-lg">Agregar</button>
+                        </div>
+                    </div>
+
+
+{#                </form>#}
+
+
+
+
+
+
+
+                <div id="idDlgHayCamposInvalidos" data-backdrop="static" class="modal fade" tabindex="-1" role="dialog"
+                    style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-body p-4">
+                                <div class="text-center">
+                                    <i class="dripicons-information h1 text-dark"></i>
+                                    <h4 class="mt-2 text-dark">Aviso</h4>
+                                    <p class="mt-3 text-dark">Existen campos con informaciones erróneas!, por favor
+                                        rectifique sus datos y vuelva a intentarlo </p>
+                                    <p id="idSpamContenidoDlgHayCamposInvalidos" style="display: none;"
+                                        class="mt-3 text-dark"></p>
+
+                                    <button type="button" class="btn btn-info my-2" data-dismiss="modal">
+                                        <!-- <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> -->
+                                        Aceptar
+                                    </button>
+                                </div>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div>
+
+                <div id="idDlgProgresoCancelar" data-backdrop="static" class="modal fade" tabindex="-1" role="dialog"
+                    style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-body p-4">
+                                <div class="text-center">
+                                    <i class="dripicons-information h1 text-info"></i>
+                                    <h4 id="idTitulo_DlgProgresoCancelar"  class="mt-2">Subiendo Dataset </h4>
+                                    <p id="idContenido_DlgProgresoCancelar" class="mt-3">Espere mientras se envía hacia nuestros servidores el Dataset
+                                        seleccionado por usted previamente </p>
+
+                                    <div id="idDivProgres_DlgProgresoCancelar" class="progress">
+
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated"
+                                            role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"
+                                            style="width: 75%" id="idBarraProgres_DlgProgresoCancelar">
+
+                                        </div>
+                                        <span id="idSpamProgres_DlgProgresoCancelar" class="text-center" style="width: 25%"> 0%
+                                        </span>
+                                    </div>
+                                    <button id="idBoton_DlgProgresoCancelar" type="button"
+                                        class="btn btn-info my-2" data-dismiss="modal">
+
+                                        Detener </button>
+                                </div>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div>
+
+
+                <div id="idDlgEsperando" data-backdrop="static" class="modal fade" tabindex="-1" role="dialog"
+                    style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-body p-4">
+                                <div class="text-center">
+                                    <i class="dripicons-information h1 text-dark"></i>
+                                    <h4 id="idTitulo_DlgEsperando" class="mt-2 text-dark">Aviso</h4>
+                                    <p id="idContenido_DlgEsperando" class="mt-3 text-dark">Espere mientras ultimamos los detalles de la detención
+                                        solicitada </p>
+
+
+                                    <button type="button" class="btn btn-info my-2" data-dismiss="modal" disabled>
+                                        <span class="spinner-border spinner-border-sm" role="status"
+                                            aria-hidden="true"></span>
+                                            <span id="idSpamEsperando_DlgEsperando">Deteniendo</span>
+
+                                    </button>
+                                </div>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div>
+
+
+
+
+                <div id="idDlgProsesandoImagenes" class="modal fade" tabindex="-1" role="dialog" style="display: none;"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+
+                            <div class="modal-body">
+                                <div class="text-center">
+                                    <i class="dripicons-information h1 text-info"></i>
+                                    <h4 id="idTitulo_DlgProsesandoImagenes" class="mt-2">Procesando Dataset </h4>
+                                    <p id="idTexto_Contenido_DlgProsesandoImagenes"
+                                    class="mt-3">Espere mientras se procesan las imágenes dentro de su Dataset </p>
+                                    <p id="idTexto_ProgresoGeneral_DlgProsesandoImagenes" class="mt-3">Procesando clasificaciones … </p>
+                                    <div id="idDivDlgProsesandoImagenes_ProgresoGeneral" class="progress">
+
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated"
+                                            role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"
+                                            style="width: 75%" id="idBarraDlgProsesandoImagenes_ProgresoGeneral">
+
+                                        </div>
+                                        <span id="idSpamDlgProsesandoImagenes_ProgresoGeneral" class="text-center"
+                                            style="width: 25%"> 0% </span>
+                                    </div>
+                                    <p id="idTexto_ProgresoCarpeta_DlgProsesandoImagenes" class="mt-3">Carpeta Actual: Rallonas </p>
+
+                                    <div id="idDivDlgProsesandoImagenes_ProgresoCarpeta" class="progress">
+
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-success"
+                                            role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"
+                                            style="width: 75%" id="idBarraDlgProsesandoImagenes_ProgresoCarpeta">
+
+                                        </div>
+                                        <span id="idSpamDlgProsesandoImagenes_ProgresoCarpeta" class="text-center"
+                                            style="width: 25%"> 0% </span>
+                                    </div>
+                                    <p id="idTexto_ProgresoImagen_DlgProsesandoImagenes" class="mt-3">Algoritmo Actual: Grey Word </p>
+
+                                    <div id="idDivDlgProsesandoImagenes_ProgresoImagen" class="progress">
+
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated  bg-warning"
+                                            role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"
+                                            style="width: 75%" id="idBarraDlgProsesandoImagenes_ProgresoImagen">
+
+                                        </div>
+                                        <span id="idSpamDlgProsesandoImagenes_ProgresoImagen" class="text-center"
+                                            style="width: 25%"> 0% </span>
+                                    </div>
+                                    <button id="idBotonDlgProsesandoImagenes_Detener" type="button"
+                                        class="btn btn-info my-2" data-dismiss="modal">
+
+                                        Detener </button>
+                                </div>
+
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div>
+
+                <div id="idDlgError" data-backdrop="static" class="modal fade" tabindex="-1" role="dialog"
+                    style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-body p-4">
+                                <div class="text-center">
+                                    <i class="dripicons-information h1 text-dark"></i>
+                                    <h4 id="idTitulo_idDlgError" class="mt-2 text-dark">Aviso</h4>
+                                    <p id="idContenido_DlgError" class="mt-3 text-dark">Le informamos de la existencia
+                                        de un error interno del servidor </p>
+
+
+                                    <button id="idBotonAceptar_DlgError"
+                                            type="button" class="btn btn-info my-2" data-dismiss="modal">
+                                        <!-- <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> -->
+                                        Aceptar
+                                    </button>
+                                </div>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div>
+
+                <div id="idDlgAceptarCancelarAdvertencia" class="modal fade" tabindex="-1" role="dialog"
+                    aria-labelledby="fill-dark-modalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content modal-filled bg-dark">
+                            <div class="modal-header">
+                                <h4  id="idTitulo_DlgAceptarCancelarAdvertencia" class="modal-title">Detener el Entrenamiento</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            </div>
+                            <div id="idContenido_DlgAceptarCancelarAdvertencia" class="modal-body">
+                                <p>¿Estás seguro de detener el entrenamiento? Se perderá el progreso actual   </p>
+                            </div>
+                            <div class="modal-footer">
+                                <button id="idBotonCancelar_DlgAceptarCancelarAdvertencia" type="button" class="btn btn-light" data-dismiss="modal">Cancelar </button>
+                                <button id="idBotonAceptar_DlgAceptarCancelarAdvertencia" type="button" class="btn btn-outline-light" data-dismiss="modal">Detener</button>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+
+                </div>
+
+
+    <div class="modal fade" id="idDlgDetalles"
+                tabindex="-1" aria-labelledby="idClasificacion_idDlgDetalles" aria-hidden="true"
+                data-backdrop="static"
+                >
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable  modal-xl">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="idClasificacion_idDlgDetalles">Detalles de Clasificación</h5>
+
+                        </div>
+                        <div class="modal-body">
+                            <textarea name="editor2" id="editor2">
+
+                            </textarea>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                          <button id="idBAceptar_idDlgDetalles" type="button" class="btn btn-primary" data-dismiss="modal" >Aceptar</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+    <div class="modal fade" id="idDlgSeleccionarFruto" tabindex="-1" role="dialog" aria-labelledby="scrollableModalTitle" aria-hidden="true" style="display: none;">
+                    <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="scrollableModalTitle">Seleccione el Fruto</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body" style="min-height: 300px;">
+                                <div class="row justify-content-between">
+                                    <div class="col-10">
+                                        <form  >
+                                            <!-- method="post" action="/{{urls.URL_VISTA_LISTA_CLASIFICACIONES_USUARIO}}/"
+                                                    {% csrf_token %} -->
+                                            <div class="input-group">
+                                                <input name="{{nombre_text_filtro}}" id="idTextoFiltro" type="text" class="form-control"
+                                                    aria-label="Text input with segmented dropdown button">
+                                                <div class="input-group-append">
+                                                    <button type="submit" class="btn btn-secondary "><i class="fas fa-search"></i></button>
+                                                    <button type="button" class="btn btn-secondary  dropdown-toggle dropdown-toggle-split"
+                                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="fas fa-angle-down"></i>
+                                                        <span class="sr-only">Toggle Dropdown</span>
+                                                    </button>
+                                                    <div class="dropdown-menu ">
+                                                        <label class="btn btn-outline btn-info dropdown-item">
+                                                            <div class="custom-control custom-radio">
+                                                                <input type="checkbox" id="idCBFiltroNombre" name="tipoDeFiltro" value="idCBFiltroNombre"
+                                                                    class="custom-control-input">
+                                                                <label class="custom-control-label" for="idCBFiltroNombre">
+                                                                    Nombre</label>
+                                                            </div>
+                                                        </label>
+
+                                                        <label class="btn btn-outline btn-info dropdown-item">
+                                                            <div class="custom-control custom-radio">
+                                                                <input type="checkbox" id="idCBFiltroVariedad" name="tipoDeFiltro" value="idCBFiltroVariedad"
+                                                                    class="custom-control-input">
+                                                                <label class="custom-control-label" for="idCBFiltroVariedad">
+                                                                    Variedad</label>
+                                                            </div>
+                                                        </label>
+                                                        <label class="btn btn-outline btn-info dropdown-item">
+                                                            <div class="custom-control custom-radio">
+                                                                <input type="checkbox" id="idCBFiltroCientifico" name="tipoDeFiltro" value="idCBFiltroCientifico"
+                                                                    class="custom-control-input">
+                                                                <label class="custom-control-label" for="idCBFiltroCientifico">
+                                                                    Nombre Científico</label>
+                                                            </div>
+                                                        </label>
+
+
+
+
+
+                                                        <div role="separator" class="dropdown-divider"></div>
+                                                        <label class="btn btn-outline btn-info dropdown-item">
+                                                            <div class="custom-control custom-radio">
+                                                                <input type="radio" id="idCBFiltroTodos" name="tipoDeFiltro" value="idCBFiltroTodos"
+                                                                    class="custom-control-input" checked>
+                                                                <label class="custom-control-label" for="idCBFiltroTodos">
+                                                                    Todos</label>
+                                                            </div>
+                                                        </label>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <input type="hidden" name="{{nombre_form_ubicacion_post}}" value="{{nombre_formulario_filtro}}">
+                                        </form>
+                                    </div>
+
+                                    <div class="col-1 ">
+
+                                        <div class="input-group d-flex justify-content-end">
+                                            <div class="input-group-append ">
+                                                <button id="idBDireccionDeOrden" type="button" class="btn btn-secondary ">
+
+                                                    <i id="idIconoDireccionDeOrden" class="fas fa-search"></i></button>
+                                                <!-- <button  type="button" class="btn btn-secondary "><i class="fas fa-search"></i></button> -->
+                                                <button type="button" class="btn btn-secondary  dropdown-toggle dropdown-toggle-split"
+                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i id="idIconoOrdenSeleccionado" class="fas fa-angle-down"></i>
+                                                    <span class="sr-only">Toggle Dropdown</span>
+                                                </button>
+                                                <div class="dropdown-menu ">
+                                                    <label class="btn btn-outline btn-info dropdown-item">
+                                                        <div class="custom-control custom-radio">
+                                                            <input type="radio" id="idCBOrdenarNombre" name="tipoDeOrden" value="idCBOrdenarNombre"
+                                                                class="custom-control-input">
+                                                            <label class="custom-control-label" for="idCBOrdenarNombre">
+                                                                Nombre</label>
+                                                        </div>
+                                                    </label>
+
+                                                    <label class="btn btn-outline btn-info dropdown-item">
+                                                        <div class="custom-control custom-radio">
+                                                            <input type="radio" id="idCBOrdenarVariedad" name="tipoDeOrden" value="idCBOrdenarVariedad"
+                                                                class="custom-control-input">
+                                                            <label class="custom-control-label" for="idCBOrdenarVariedad">
+                                                                Variedad</label>
+                                                        </div>
+                                                    </label>
+                                                    <label class="btn btn-outline btn-info dropdown-item">
+                                                        <div class="custom-control custom-radio">
+                                                            <input type="radio" id="idCBOrdenarCientifico" name="tipoDeOrden" value="idCBOrdenarCientifico"
+                                                                class="custom-control-input">
+                                                            <label class="custom-control-label" for="idCBOrdenarCientifico">
+                                                                Nombre Científico</label>
+                                                        </div>
+                                                    </label>
+
+
+
+
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- active onclick="setValueEnHiddenDataset('{id}')" -->
+                                <ul id="idListaDeDataset" class="list-group  mt-3">
+                                    <li  id="{idItem}" class="list-group-item   iten_navegacion_carpeta">
+                                      <div class="row align-items-center">
+
+                                          <div class="col-3 text-truncate">
+                                            {NOMBRE_FRUTO}
+                                          </div>
+                                          <div class="col-3 text-truncate">
+                                            {VARIEDAD_FRUTO}
+                                          </div>
+                                          <div class="col-3 text-truncate">
+                                            {NOMBRE_CIENTIFICO_FRUTO}
+                                        </div>
+                                          <!-- <div class="col-5 text-truncate">
+                                            <div class="row text-truncate font-weight-lighter text-muted subtexto_iten_navegacion">{VARIEDAD_FRUTO}</div>
+                                             <div class="row text-truncate font-weight-lighter text-muted subtexto_iten_navegacion">{NOMBRE_CIENTIFICO_FRUTO}</div>
+
+                                          </div> -->
+
+                                          <div class="col-2 text-truncate">
+                                            <div id="{idSpinner1_}" style="width: 80%; " class="card-img-top div_i">
+                                                <div  class="spinner-border spinner-border-sm text-primary"  role="status">
+                                                    <span class="sr-only">Loading...</span>
+                                                  </div>
+                                            </div>
+                                            <img id="{idImg1_}" src="img/temp/50.jpg" style="width: 80%; display: none;"   alt="...">
+                                            <!-- {NOMBRE_CIENTIFICO_FRUTO}
+                                             <button type="button" class="btn  btn-dark boton_en_navegacion"
+                                            data-toggle="tooltip" data-placement="top" title="Detalles"
+                                            >
+                                                <i class="far fa-question-circle"></i>
+                                            </button>  -->
+                                          </div>
+
+                                      </div>
+
+
+
+
+                                    </li>
+
+                                  </ul>
+
+                            </div>
+                            <div class="modal-footer justify-content-between">
+                                <button type="button" class="btn btn-primary"  data-dismiss="modal">Cancelar</button>
+                                <button id="idBotonSeleccionarDlgDataset" type="button" class="btn btn-dark" data-dismiss="modal">Seleccionar</button>
+
+
+                            </div>
+                            <!-- <input id="idHiddenDataset" type="hidden" name="{{nombre_form_ubicacion_post}}" value="{{form_loguin.nombre_form_loguin}}"/> -->
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div>
+
+
+<form id="idFormDetenerUpload"  method="post" action="/{{urls.URL_POST_METODO_DETENER_UPLOAD_DATASET}}/">
+        {% csrf_token %}
+{#        <button type="submit" class="btn btn-primary btn-lg ml-4">Guardar</button>#}
+{#        <input type="hidden" name="{{nombre_form_ubicacion_post}}" value="{{forms.GUARDAR_MODELO  }}">#}
+    </form>
+
+    <form id="idFormRecargarPagina"  method="post" action="/{{urls.URL_VISTA_AGREGAR_DATASET_RECARGAR}}/">
+        {% csrf_token %}
+{#        <button type="submit" class="btn btn-primary btn-lg ml-4">Guardar</button>#}
+{#        <input type="hidden" name="{{nombre_form_ubicacion_post}}" value="{{forms.GUARDAR_MODELO  }}">#}
+    </form>
+    <form id="idFormIrAListarDataset"  method="get" action="/{{urls.URL_VISTA_LISTAR_DATASET}}/">
+        {% csrf_token %}
+{#        <button type="submit" class="btn btn-primary btn-lg ml-4">Guardar</button>#}
+{#        <input type="hidden" name="{{nombre_form_ubicacion_post}}" value="{{forms.GUARDAR_MODELO  }}">#}
+    </form>
+
+    {#                                        <form   method="post" action="/{{urls.URL_POST_SUBIR_ARCHIVO}}/">#}
+{#                                        {% csrf_token %}#}
+                                        {#        <button type="submit" class="btn btn-primary btn-lg ml-4">Guardar</button>#}
+                                        {#        <input type="hidden" name="{{nombre_form_ubicacion_post}}" value="{{forms.GUARDAR_MODELO  }}">#}
+{#                                            </form>#}
+{% endblock%}
+
+
+
+{% block scripts_extras %}
+
+
+
+    <script src="{% static 'js/Librerias/date.format.js' %}"></script>
+    <script src="{% static 'js/Librerias/ckeditor/ckeditor.js' %}"></script>
+
+    <script src="{% static 'js/reneJavaScritp/reneJS_UtilesDeLibrerias.js' %}"></script>
+    <script src="{% static 'js/reneJavaScritp/reneJS_Componentes/reneJS_ListaSeleccionable.js' %}"></script>
+
+    <script src="{% static 'js/reneJavaScritp/reneJS_Upload.js' %}"></script>
+
+    <script src="{% static 'js/controladores/rene_controlador_parte_clasificaciones_fijas_editables_dataset.js' %}"></script>
+
+<script>
+
+
+
+
+
+class ProgresoDeImagenes{
+    constructor(progreso_General
+        , progreso_Carpeta
+        , progreso_Imagen
+        , mensaje_General
+        ,  mensaje_Carpeta
+        , mensaje_Imagen
+        ){
+    this.progreso_General=progreso_General;
+    this.progreso_Carpeta=progreso_Carpeta;
+    this.progreso_Imagen=progreso_Imagen;
+
+    this.mensaje_General=mensaje_General;
+    this.mensaje_Carpeta=mensaje_Carpeta;
+    this.mensaje_Imagen=mensaje_Imagen;
+    }
+
+    esMayorQue(progresoDeImagenes){
+        if(this.progreso_General>progresoDeImagenes.progreso_General){
+            return true;
+        }
+        if(this.progreso_General<progresoDeImagenes.progreso_General){
+            return false;
+        }
+        if(this.progreso_Carpeta>progresoDeImagenes.progreso_Carpeta){
+            return true;
+        }
+        if(this.progreso_Carpeta<progresoDeImagenes.progreso_Carpeta){
+            return false;
+        }
+        return this.progreso_Imagen>progresoDeImagenes.progreso_Imagen;
+    }
+}
+
+
+
+
+
+class EstadoDeEstaPagina{
+    constructor() {
+        this.mandoAUploadDatsetResicente=false;
+        this.mandoADetenerUploadDatasetReciente=false;
+        this.mostrandoOpcionDetenerUploadDataset=false;
+        this.mostrandoOpcionEliminarDatasetSubido=false;
+        this.mandoAEliminarDatasetSubido=false;
+
+        this.mostrandoOpcionDetenerDescompresionDataset=false;
+        this.mandoADetenerDescompresionDeDataset=false;
+
+        this.mostrandoOpcionDetenerProcesamientoDeImagenes=false;
+        this.mandoADetenerProcesamientoDeImagenes=false;
+        this.mandoAPrepararProcesamientoDeImagenes=false;
+
+        this.nombreCarpetasDeclasificacion=[];
+        this.faseDatasetDescomprimido=false;
+
+        this.mostrandoMensajeDeErrorAceptar=false;
+
+        //this.progreso=0;
+
+        this.mostrandoProgresoUploadDataset=false;//No es una accion reciente
+        this.mostrandoProgresoDescompresionDataset=false;//No es una accion reciente
+        this.mostrandoProgresoProcesamientoDeImagenes=false;//No es una accion reciente
+    }
+    hayUnaAccionReciente(){
+        return this.mandoAUploadDatsetResicente
+        ||this.mandoADetenerUploadDatasetReciente
+        ||this.mostrandoOpcionDetenerUploadDataset
+        ||this.mostrandoOpcionEliminarDatasetSubido
+        ||this.mandoAEliminarDatasetSubido
+            ||this.mostrandoOpcionDetenerDescompresionDataset
+        ||this.mandoADetenerDescompresionDeDataset
+            ||this.mostrandoMensajeDeErrorAceptar
+            ||this.mostrandoOpcionDetenerProcesamientoDeImagenes
+            ||this.mandoADetenerProcesamientoDeImagenes
+        ||this.mandoAPrepararProcesamientoDeImagenes;
+    }
+}
+const estado=new EstadoDeEstaPagina()
+
+const ID_B_EDITAR_FRUTO="idEditarFruto";
+const ID_B_DETALLES_FRUTO="idDetallesFruto";
+const ID_SELECT_FRUTO="idSelectFrutos";
+
+const mngSelcFruto=new ManagerContenidoSelecSimple();
+mngSelcFruto.idSelect=ID_SELECT_FRUTO;
+
+mngSelcFruto.listaParLabelValue=[
+    {% for dato in listaDatosDeFrutos %}
+        ["{{ dato.nombreCientifico }}","{{ dato.id }}"],
+    {% endfor %}
+];
+mngSelcFruto.setAlActivar(id=>displayNone(id,false));
+mngSelcFruto.setAlDesactivar(id=>displayNone(id,true));
+mngSelcFruto.listaIdADesactivarSiEstaVacio=[ID_B_EDITAR_FRUTO,ID_B_DETALLES_FRUTO];
+mngSelcFruto.aplicarConfiguracionVisual();
+
+const ID_INPUT_NOMBRE_DATASET="idTextoNombreDataset"
+{#const ID_INPUT_TIPO_DE_FRUTO="idTextoTipoDeFruto"#}
+const ID_INPUT_DESCRIPCION="editor1"
+
+
+const ID_FILE="idArchivoDataset";
+
+CKEDITOR.replace( ID_INPUT_DESCRIPCION);
+const MIN_CARACTERES=5;
+const MAX_CARACTERES=50;
+const V=new ValidacionConEventos_Boostrap();
+V.addText_CON_ALFANUMERICOS(ID_INPUT_NOMBRE_DATASET).setMinCar(MIN_CARACTERES).setMaxCar(MAX_CARACTERES)
+
+const ID_B_AGREGAR_DATASET="idBotonAgregar";
+const elementoValidacionARchivo=V.addInputFile_Zip(ID_FILE,v=>!estado.mostrandoOpcionEliminarDatasetSubido).verAlSerInvalido("idMensajeArchivoInvalido");//idMensajeArchivoInvalido
+V.addSelect_TipoValuePositivo(ID_SELECT_FRUTO,"Agrege algun fruto");
+V.addBotonADesactivar(ID_B_AGREGAR_DATASET);
+
+
+const mngDivDatasetASubir=new MangerElementoAOcultar("idDivDatasetASubir");
+const mngDivDatasetSubido=new MangerElementoAOcultar("idDivDatasetSubido",true);
+
+const mngDlgEsperando=new ManagerDlg_ContenidoText_Bootstrap("idDlgEsperando");
+mngDlgEsperando.idContenido="idContenido_DlgEsperando";
+mngDlgEsperando.idTitulo="idTitulo_DlgEsperando";
+mngDlgEsperando.idMensajeCargando="idSpamEsperando_DlgEsperando";
+
+
+
+
+const mngDlgError=new ManagerDlg_AceptarCancelar_Bootstrap("idDlgError");
+mngDlgError.idContenido="idContenido_DlgError";
+mngDlgError.idTitulo="idTitulo_idDlgError";
+mngDlgError.setIdBotonAceptar("idBotonAceptar_DlgError");
+
+
+
+
+function showDlgError(){
+    estado.mostrandoMensajeDeErrorAceptar=true
+    mngDlgError.showDlg("Advertencia "
+    ,"Le informamos de la existencia de un error interno del servidor"
+    ,"Aceptar",()=>{
+        estado.mostrandoMensajeDeErrorAceptar=false
+        submit("idFormRecargarPagina");
+        });
+}
+function showDlgDatasetErroneo(){
+    estado.mostrandoMensajeDeErrorAceptar=true
+    mngDlgError.showDlg("Dataset Erróneo"
+    ,"El archivo Dataset a enviar debe de estar comprimido en formato ’.zip’ el cual en su interior contenga una carpeta principal, la que debe de tener en su interior un conjunto de carpetas que representen cada una de las clasificaciones, y estas solo deben de contener imágenes en formato ‘.jpg’ o ‘.png’, con un mínimo de unas dos carpetas de clasificación con al menos 20 imágenes por cada una "
+    ,"Aceptar",()=>{
+        estado.mostrandoMensajeDeErrorAceptar=false
+            submit("idFormRecargarPagina");
+        });
+}
+function showDlgFalloEnLaValidacion(mensaje){
+    estado.mostrandoMensajeDeErrorAceptar=true
+    mngDlgError.showDlg("Datos Inválidos "
+    ,mensaje
+    ,"Aceptar",()=>{
+        estado.mostrandoMensajeDeErrorAceptar=false
+
+        });
+}
+
+function showDlgFaltaDeDatosParaIntentarAgregarDataset(){
+    estado.mostrandoMensajeDeErrorAceptar=true
+    mngDlgError.showDlg("Advertencia "
+    ,"Aún no ha rellenado todos los datos, por favor cerciórese primero de haber subido el Dataset con éxito "
+    ,"Aceptar",()=>{
+        estado.mostrandoMensajeDeErrorAceptar=false
+
+        });
+}
+//mngDlgError.show();
+
+const mngDlgAceptarCancelar=new ManagerDlg_AceptarCancelar_Bootstrap("idDlgAceptarCancelarAdvertencia");
+mngDlgAceptarCancelar.idContenido="idContenido_DlgAceptarCancelarAdvertencia";
+mngDlgAceptarCancelar.idTitulo="idTitulo_DlgAceptarCancelarAdvertencia";
+mngDlgAceptarCancelar.setIdBotonAceptar("idBotonAceptar_DlgAceptarCancelarAdvertencia");
+mngDlgAceptarCancelar.setIdBotonCancelar("idBotonCancelar_DlgAceptarCancelarAdvertencia")
+
+
+
+
+const mngDlgProgresoCancelar=new ManagerDlg_ProgresCancelar_Bootstrap("idDlgProgresoCancelar");
+mngDlgProgresoCancelar.idContenido="idContenido_DlgProgresoCancelar";
+mngDlgProgresoCancelar.idTitulo="idTitulo_DlgProgresoCancelar";
+mngDlgProgresoCancelar.setIdBotonCancelar("idBoton_DlgProgresoCancelar");
+mngDlgProgresoCancelar.idBrProgreso="idBarraProgres_DlgProgresoCancelar";
+mngDlgProgresoCancelar.idSpamProgreso="idSpamProgres_DlgProgresoCancelar";
+
+
+class ManagerDlg_ProsesandoImagenes extends ManagerDlg_Aceptar_Bootstrap {
+    constructor(id) {
+        super(id);
+        this.idBarraDlgProsesandoImagenes_ProgresoGeneral = "idBarraDlgProsesandoImagenes_ProgresoGeneral";
+        this.idSpamDlgProsesandoImagenes_ProgresoGeneral = "idSpamDlgProsesandoImagenes_ProgresoGeneral";
+        this.idTexto_ProgresoGeneral_DlgProsesandoImagenes = "idTexto_ProgresoGeneral_DlgProsesandoImagenes";
+
+        this.idBarraDlgProsesandoImagenes_ProgresoCarpeta = "idBarraDlgProsesandoImagenes_ProgresoCarpeta";
+        this.idSpamDlgProsesandoImagenes_ProgresoCarpeta = "idSpamDlgProsesandoImagenes_ProgresoCarpeta";
+        this.idTexto_ProgresoCarpeta_DlgProsesandoImagenes = "idTexto_ProgresoCarpeta_DlgProsesandoImagenes";
+
+        this.idBarraDlgProsesandoImagenes_ProgresoImagen = "idBarraDlgProsesandoImagenes_ProgresoImagen";
+        this.idSpamDlgProsesandoImagenes_ProgresoImagen = "idSpamDlgProsesandoImagenes_ProgresoImagen";
+        this.idTexto_ProgresoImagen_DlgProsesandoImagenes = "idTexto_ProgresoImagen_DlgProsesandoImagenes";
+
+        // this.ultimoProgreso_General=0;
+        // this.ultimoProgreso_Carpeta=0;
+        // this.ultimoProgreso_Imagen=0;
+        this.ultimoProgreso=null;
+    }
+    ajustarProgreso(progreso){
+        let ajustado=Number.parseFloat(progreso);
+        ajustado=(!Number.isNaN(ajustado))?sprintf("%.2f",ajustado):0;
+        return Number.parseFloat(ajustado);
+    }
+    setProgresos(Progreso_General, mensaje_General
+        , Progreso_Carpeta, mensaje_Carpeta
+        , Progreso_Imagen, mensaje_Imagen
+        // ,forzar=false
+    ) {
+        // if(forzar||this.ultimoProgreso_General<){}
+        setProgressBoostrap(
+            this.idBarraDlgProsesandoImagenes_ProgresoGeneral
+            , this.idSpamDlgProsesandoImagenes_ProgresoGeneral
+            , this.ajustarProgreso(Progreso_General)
+        );
+        setHTML(this.idTexto_ProgresoGeneral_DlgProsesandoImagenes, mensaje_General);
+        setProgressBoostrap(
+            this.idBarraDlgProsesandoImagenes_ProgresoCarpeta
+            , this.idSpamDlgProsesandoImagenes_ProgresoCarpeta
+            , this.ajustarProgreso(Progreso_Carpeta)
+        );
+        setHTML(this.idTexto_ProgresoCarpeta_DlgProsesandoImagenes, mensaje_Carpeta);
+        setProgressBoostrap(
+            this.idBarraDlgProsesandoImagenes_ProgresoImagen
+            , this.idSpamDlgProsesandoImagenes_ProgresoImagen
+            , this.ajustarProgreso(Progreso_Imagen)
+        );
+        setHTML(this.idTexto_ProgresoImagen_DlgProsesandoImagenes, mensaje_Imagen);
+    }
+
+    showDlg(progresoDeImagenes,forzar=false){
+            if((!forzar)&&this.ultimoProgreso!=null&&this.ultimoProgreso.esMayorQue(progresoDeImagenes)){
+                return;
+            }
+            this.ultimoProgreso=progresoDeImagenes;
+            
+            this.setProgresos(progresoDeImagenes.progreso_General, progresoDeImagenes.mensaje_General
+                , progresoDeImagenes.progreso_Carpeta, progresoDeImagenes.mensaje_Carpeta
+                , progresoDeImagenes.progreso_Imagen, progresoDeImagenes.mensaje_Imagen);
+            estado.mostrandoProgresoDescompresionDataset=false;
+            estado.mostrandoProgresoUploadDataset=false;
+            estado.mostrandoProgresoProcesamientoDeImagenes=true;
+
+            estado.mandoAPrepararProcesamientoDeImagenes=false;
+            super.showDlg("Procesando Dataset"
+                ,"Espere mientras se procesan las imágenes dentro de su Dataset"
+                ,"Detener"
+                ,v=>{
+            estado.mostrandoOpcionDetenerProcesamientoDeImagenes=true
+            showDlgDetenerProcesamientoDeImagenes();
+            });
+
+    }
+
+}
+
+const mngDlgProcesandoImagenes = new ManagerDlg_ProsesandoImagenes("idDlgProsesandoImagenes");
+mngDlgProcesandoImagenes.idContenido = "idTexto_Contenido_DlgProsesandoImagenes";
+mngDlgProcesandoImagenes.idTitulo = "idTitulo_DlgProsesandoImagenes";
+mngDlgProcesandoImagenes.setIdBotonAceptar("idBotonDlgProsesandoImagenes_Detener");
+
+mngDlgProcesandoImagenes.idBarraDlgProsesandoImagenes_ProgresoGeneral = "idBarraDlgProsesandoImagenes_ProgresoGeneral";
+mngDlgProcesandoImagenes.idSpamDlgProsesandoImagenes_ProgresoGeneral = "idSpamDlgProsesandoImagenes_ProgresoGeneral";
+mngDlgProcesandoImagenes.idTexto_ProgresoGeneral_DlgProsesandoImagenes = "idTexto_ProgresoGeneral_DlgProsesandoImagenes";
+
+mngDlgProcesandoImagenes.idBarraDlgProsesandoImagenes_ProgresoCarpeta = "idBarraDlgProsesandoImagenes_ProgresoCarpeta";
+mngDlgProcesandoImagenes.idSpamDlgProsesandoImagenes_ProgresoCarpeta = "idSpamDlgProsesandoImagenes_ProgresoCarpeta";
+mngDlgProcesandoImagenes.idTexto_ProgresoCarpeta_DlgProsesandoImagenes = "idTexto_ProgresoCarpeta_DlgProsesandoImagenes";
+
+mngDlgProcesandoImagenes.idBarraDlgProsesandoImagenes_ProgresoImagen = "idBarraDlgProsesandoImagenes_ProgresoImagen";
+mngDlgProcesandoImagenes.idSpamDlgProsesandoImagenes_ProgresoImagen = "idSpamDlgProsesandoImagenes_ProgresoImagen";
+mngDlgProcesandoImagenes.idTexto_ProgresoImagen_DlgProsesandoImagenes = "idTexto_ProgresoImagen_DlgProsesandoImagenes";
+
+function showDlgTerminadoDeCrearElDataset(){
+    mngDlgEsperando.setMensajeCargando("Espere");
+    mngDlgEsperando.showDlg("Terminando  "
+    ,"Se están culminado los detalles para la creación del Dataset ");
+}
+function showDlgPreparandoProcesamientoDeImagenes(){
+    mngDlgEsperando.setMensajeCargando("Espere");
+    mngDlgEsperando.showDlg("Preparando "
+    ,"Espere mientras preparamos los detalles para el procesamiento de las imágenes");
+}
+
+
+function showDlgDeteniendoProcesamientoDeImagenes(){
+    mngDlgEsperando.setMensajeCargando("Espere");
+    mngDlgEsperando.showDlg("Deteniendo "
+    ,"Espere mientras ultimamos los detalles de la detención del procesamiento de las imágenes");
+}
+
+function showDlgDetenerProcesamientoDeImagenes(){
+    mngDlgAceptarCancelar.showDlg("Detener Procesamiento De Imágenes"
+    ,"Está seguro de detener el procesamiento de las imágenes actualmente en proceso "
+    ,"Detener",()=>{
+        estado.mandoADetenerProcesamientoDeImagenes=true;
+        estado.mostrandoOpcionDetenerProcesamientoDeImagenes=false;
+
+
+
+        ejecutarAjax("/{{ urls.URL_POST_METODO_DETENER_PROCESAMIENTO_DE_IMAGENES }}/",{},r=>{
+
+            mngDlgProcesandoImagenes.hide();
+            showDlgDeteniendoProcesamientoDeImagenes();
+        }
+        ,r=>{
+            console.log("error en detener prosesamiento de imagenes ");
+            mngDlgProgresoCancelar.hide(mngDlgError);
+            showDlgError();
+            });
+
+        //showDlgDeteniendoSubidaDelDataset();
+
+    },()=>{
+        //alert('se llamo a cancelar');
+
+        estado.mostrandoProgresoProcesamientoDeImagenes=true;
+        estado.mostrandoOpcionDetenerProcesamientoDeImagenes=false;
+
+        mngDlgProcesandoImagenes.showDlg(mngDlgProcesandoImagenes.ultimoProgreso);
+        //showDlgProgresoDescomprimirDatset(mngDlgProgresoCancelar.ultimoProgreso);
+        });
+}
+
+
+
+
+function hideManagersDlgs(exceptoEsteManager) {
+    if(mngDlgProcesandoImagenes!==exceptoEsteManager){
+       console.log("mando a ocultar al de mngDlgProgresoCancelar");
+        mngDlgProcesandoImagenes.hide();
+    }
+    if(mngDlgError!==exceptoEsteManager){
+//        console.log("mando a ocultar al de error");
+        mngDlgError.hide();
+    }
+    if(mngDlgEsperando!==exceptoEsteManager){
+        //console.log("mando a ocultar al de esperar");
+        mngDlgEsperando.hide();
+    }
+    if(mngDlgAceptarCancelar!==exceptoEsteManager){
+        mngDlgAceptarCancelar.hide();
+    }
+    if(mngDlgProgresoCancelar!==exceptoEsteManager){
+        mngDlgProgresoCancelar.hide();
+    }
+
+}
+
+
+function showDlgDeteniendoDescompresionDelDataset(){
+    mngDlgEsperando.setMensajeCargando("Espere");
+    mngDlgEsperando.showDlg("Deteniendo "
+    ,"Espere mientras ultimamos los detalles de la detención de la descompresión del Dataset ");
+}
+function showDlgDetenerDescompresionDatset(){
+    mngDlgAceptarCancelar.showDlg("Detener Descompresión "
+    ,"Estas seguro de detener la descompresión del Dataset enviado con anterioridad hacia nuestros servidores. Su progreso se perderá  "
+    ,"Detener",()=>{
+        estado.mandoADetenerDescompresionDeDataset=true;
+        estado.mostrandoOpcionDetenerDescompresionDataset=false;
+
+        //showDlgDeteniendoDescompresionDelDataset();
+
+        ejecutarAjax("/{{ urls.URL_POST_METODO_DETENER_DESCOMPRESION_DATASET }}/",{},r=>{
+
+            mngDlgProgresoCancelar.hide();
+            showDlgDeteniendoDescompresionDelDataset();
+        }
+        ,r=>{
+            console.log("error en detener descompresion dataset ");
+            mngDlgProgresoCancelar.hide(mngDlgError);
+            showDlgError();
+            });
+
+        //showDlgDeteniendoSubidaDelDataset();
+
+    },()=>{
+        //alert('se llamo a cancelar');
+        estado.mostrandoOpcionDetenerDescompresionDataset=false;
+        estado.mostrandoProgresoDescompresionDataset=true;
+        showDlgProgresoDescomprimirDatset(mngDlgProgresoCancelar.ultimoProgreso);
+        });
+}
+function showDlgProgresoDescomprimirDatset(progreso){
+
+    let porcentage=0;
+    if(progreso!==undefined&&progreso!==null){
+        porcentage=progreso;
+    }
+    mngDlgProgresoCancelar.setProgreso(porcentage,estado.mostrandoProgresoUploadDataset);
+
+    estado.mostrandoProgresoDescompresionDataset=true;
+    estado.mostrandoProgresoUploadDataset=false;
+    return mngDlgProgresoCancelar.showDlg("Descomprimiendo Dataset "
+    ,"Espera mientras se descomprimen los archivos de su Dataset"
+    ,"Detener",()=>{
+        estado.mostrandoOpcionDetenerDescompresionDataset=true
+        showDlgDetenerDescompresionDatset();
+    });
+}
+
+
+
+function showDlgDeteniendoSubidaDelDataset(){
+    mngDlgEsperando.setMensajeCargando("Espere");
+    mngDlgEsperando.showDlg("Deteniendo "
+    ,"Espere mientras ultimamos los detalles de la detención del envió del Dataset ");
+}
+
+function showDlgDetenerSubirDatset(){
+    estado.mostrandoOpcionDetenerUploadDataset=true;
+    estado.mostrandoProgresoUploadDataset=false;
+
+    mngDlgAceptarCancelar.showDlg("Detener  Upload "
+    ,"Estas seguro de detener el envió del Dataset hacia nuestros servidores. Su progreso se perderá"
+    ,"Detener",()=>{
+         estado.mostrandoOpcionDetenerUploadDataset=false;
+         estado.mandoADetenerUploadDatasetReciente=true;
+
+        ejecutarAjax("/{{ urls.URL_POST_METODO_DETENER_UPLOAD_DATASET }}/",{},r=>{
+            mng.detenerUpload();
+            mngDlgProgresoCancelar.hide();
+            //alert("se detuvo!!");
+            showDlgDeteniendoSubidaDelDataset();
+        }
+        ,r=>{
+             mng.detenerUpload();
+            console.log("error en detener dataset suvido");
+            mngDlgProgresoCancelar.hide(mngDlgError);
+            showDlgError();
+            });
+
+        //showDlgDeteniendoSubidaDelDataset();
+    },()=>{
+        //alert('se llamo a cancelar2');
+        estado.mostrandoOpcionDetenerUploadDataset=false;
+        estado.mostrandoProgresoUploadDataset=true;
+        showDlgProgresoSubirDatset(mngDlgProgresoCancelar.ultimoProgreso);
+        });
+}
+
+function showDlgProgresoSubirDatset(progreso){
+    let porcentage=0;
+    if(progreso!==undefined&&progreso!==null){
+        porcentage=progreso;
+    }
+    mngDlgProgresoCancelar.setProgreso(porcentage,estado.mostrandoProgresoDescompresionDataset);
+
+    estado.mostrandoProgresoDescompresionDataset=false;
+    estado.mostrandoProgresoUploadDataset=true;
+    return mngDlgProgresoCancelar.showDlg("Subiendo Dataset"
+    ,"Espere mientras se envía hacia nuestros servidores el Dataset seleccionado por usted previamente "
+    ,"Detener",()=>{
+        estado.mostrandoOpcionDetenerUploadDataset=true;
+        showDlgDetenerSubirDatset();
+    });
+}
+
+
+function showDlgEliminandoDatsetSubido(){
+    mngDlgEsperando.setMensajeCargando("Espere");
+    mngDlgEsperando.showDlg("Eliminando "
+    ,"Espere mientras se elimina el Dataset subido con anterioridad ");
+}
+
+function showDlgEliminarDatsetSubido(){
+    mngDlgAceptarCancelar.showDlg("Eliminar el Dataset  "
+    ,"Estas seguro de eliminar el Dataset subido con anterioridad "
+    ,"Eliminar",()=>{
+        estado.mostrandoOpcionEliminarDatasetSubido=false;
+        estado.mandoAEliminarDatasetSubido=true;
+        showDlgEliminandoDatsetSubido();
+        ejecutarAjax("/{{ urls.URL_POST_METODO_ELIMINAR_DATASET_SUBIDO }}/",{},r=>{
+
+        mngDivDatasetASubir.desocultar();
+        mngDivDatasetSubido.ocultar();
+
+        }
+        ,r=>{
+            console.log("error en mandar a eliminar dataset suvido");
+            mngDlgProgresoCancelar.hide(mngDlgError);
+            showDlgError();
+            });
+    });
+}
+
+addOnClick("idBotonEliminarDatasetSubido",v=>{
+     mng.detenerUpload();
+    estado.mostrandoOpcionEliminarDatasetSubido=true;
+    showDlgEliminarDatsetSubido();
+});
+
+
+
+class GestorDeFases{
+    constructor() {
+        this.fases=[];
+        this.indice=0;
+        this.indiceAnterior=0;
+    }
+    add(fase){
+        this.fases.push(fase);
+    }
+    setFase(fase){
+        for (let i = 0; i <this.fases.length ; i++) {
+            let faseActual=this.fases[i];
+            if(fase===faseActual){
+                this.setIndiceFase(i);
+                break;
+            }
+        }
+    }
+    getFaseActual(){
+        return this.fases[this.indice];
+    }
+    getFaseAnterior(){
+        return this.fases[this.indiceAnterior];
+    }
+    setIndiceFase(indice){
+        this.indiceAnterior=this.indice;
+
+        this.indice=indice;
+    }
+}
+GestorDeFases.FASE_COMIENZO="FASE_COMIENZO";
+GestorDeFases.FASE_SUVIENDO_DATASET = "FASE_SUVIENDO_DATASET";
+GestorDeFases.FASE_DETENIENDO_UPLOAD_DATASET = "FASE_DETENIENDO_UPLOAD_DATASET";
+GestorDeFases.FASE_ERROR_SUVIENDO_DATASET = "FASE_ERROR_SUVIENDO_DATASET";
+GestorDeFases.FASE_ARCHIVO_DATASET_SUVIDO = "FASE_ARCHIVO_DATASET_SUVIDO";
+GestorDeFases.FASE_DESCOMPRIMIENDO_DATASET = "FASE_DESCOMPRIMIENDO_DATASET";
+GestorDeFases.FASE_DETENIENDO_DESCOMPRESION_DATASET="FASE_DETENIENDO_DESCOMPRESION_DATASET";
+GestorDeFases.FASE_DATASET_DESCOMPRIMIDO_CON_ERROR = "FASE_DATASET_DESCOMPRIMIDO_CON_ERROR";
+GestorDeFases.FASE_DATASET_DESCOMPRIMIDO = "FASE_DATASET_DESCOMPRIMIDO";
+GestorDeFases.FASE_DATASET_SUVIDO_CON_CLASES_ERRONEAS = "FASE_DATASET_SUVIDO_CON_CLASES_ERRONEAS";
+GestorDeFases.FASE_DATASET_DESCOMPRIDO_PASO_VALIDACION = "FASE_DATASET_DESCOMPRIDO_PASO_VALIDACION";
+GestorDeFases.FASE_PROCESANDO_IMAGENES  = "FASE_PROCESANDO_IMAGENES ";
+GestorDeFases.FASE_DETENIENDO_PROCESAMIENTO_DE_IMAGENES = "FASE_DETENIENDO_PROCESAMIENTO_DE_IMAGENES ";
+GestorDeFases.FASE_TERMINANDO_LA_CREACION_DEL_DATASET = "FASE_TERMINANDO_LA_CREACION_DEL_DATASET ";
+GestorDeFases.FASE_TERMINO_LA_CREACION_DEL_DATASET = "FASE_TERMINO_LA_CREACION_DEL_DATASET";
+
+const gf=new GestorDeFases();
+gf.add(GestorDeFases.FASE_COMIENZO);
+gf.add(GestorDeFases.FASE_SUVIENDO_DATASET);
+gf.add(GestorDeFases.FASE_DETENIENDO_UPLOAD_DATASET);
+gf.add(GestorDeFases.FASE_ERROR_SUVIENDO_DATASET);
+gf.add(GestorDeFases.FASE_ARCHIVO_DATASET_SUVIDO);
+gf.add(GestorDeFases.FASE_DESCOMPRIMIENDO_DATASET);
+gf.add(GestorDeFases.FASE_DETENIENDO_DESCOMPRESION_DATASET);
+gf.add(GestorDeFases.FASE_DATASET_DESCOMPRIMIDO_CON_ERROR);
+gf.add(GestorDeFases.FASE_DATASET_DESCOMPRIMIDO);
+gf.add(GestorDeFases.FASE_DATASET_SUVIDO_CON_CLASES_ERRONEAS);
+gf.add(GestorDeFases.FASE_DATASET_DESCOMPRIDO_PASO_VALIDACION);
+gf.add(GestorDeFases.FASE_PROCESANDO_IMAGENES);
+gf.add(GestorDeFases.FASE_DETENIENDO_PROCESAMIENTO_DE_IMAGENES);
+gf.add(GestorDeFases.FASE_TERMINANDO_LA_CREACION_DEL_DATASET);
+gf.add(GestorDeFases.FASE_TERMINO_LA_CREACION_DEL_DATASET);
+
+function resetearAlTerminar(){
+    ejecutarAjax("/{{ urls.URL_POST_METODO_RESETEAR_ESTADOS_AGREGAR_DATASET }}/",{},r=>{
+
+    });
+    submit("idFormIrAListarDataset");
+}
+
+
+
+addOnClick(ID_B_AGREGAR_DATASET,v=>{
+    if(gf.getFaseActual()===GestorDeFases.FASE_DATASET_DESCOMPRIMIDO){
+        const matrisDeNombreDeClasificaciones=[]
+        /*for (let i = 0; i < bd.size(); i++) {
+            let fila = bd.getFila(i);
+            let m=fila.map;
+            matrisDeNombreDeClasificaciones.push([m.get(KEY_CLASIFICACION),m.get(KEY_CARPETA)]);
+        }*/
+        mngClases.L.__actualizarBD();
+        for (let i = 0; i < mngClases.bd.size(); i++) {
+            let fila = mngClases.bd.getFila(i);
+            let m=fila.map;
+            matrisDeNombreDeClasificaciones.push([
+                m.get(mngClases.KEY_CLASIFICACION)
+                ,m.get(mngClases.KEY_CARPETA)
+                ,m.get(mngClases.KEY_DETALLES)
+            ]);
+        }
+
+        let listaDeCarpetas=[];
+        let listaDeCalificaciones=[];
+        let listaDeDetalles=[];
+         for (let i = 0; i <matrisDeNombreDeClasificaciones.length ; i++) {
+             listaDeCalificaciones.push(matrisDeNombreDeClasificaciones[i][0]);
+            listaDeCarpetas.push(matrisDeNombreDeClasificaciones[i][1]);
+            listaDeDetalles.push(matrisDeNombreDeClasificaciones[i][2]);
+        }
+
+        let d={
+            "{{form.nombre}}":getValue(ID_INPUT_NOMBRE_DATASET)
+            ,"{{form.tipoDeFruto}}":getValue(ID_SELECT_FRUTO)
+            ,"{{form.descripcion}}":CKEDITOR.instances.editor1.getData()//getValue(ID_INPUT_DESCRIPCION)
+            ,"listaDeCalificaciones":listaDeCalificaciones
+            ,"listaDeCarpetas":listaDeCarpetas
+            ,"listaDeDetalles":listaDeDetalles
+            //,"leng_matrisDeNombreDeClasificaciones":matrisDeNombreDeClasificaciones.length
+            //,"matrisDeNombreDeClasificaciones":matrisDeNombreDeClasificaciones
+            };
+         estado.mandoAPrepararProcesamientoDeImagenes=true;
+        showDlgPreparandoProcesamientoDeImagenes();
+
+        ejecutarAjax("/{{ urls.URL_POST_METODO_INTENTAR_COMENZAR_PROCESO_AGREGAR_DATASET }}/",d
+            ,r=>{//exito
+                hideManagersDlgs();
+                estado.mandoAPrepararProcesamientoDeImagenes=false;
+                console.log("r.fueValido="+r.fueValido);
+                if(!r.fueValido){
+
+                    showDlgFalloEnLaValidacion(r.mensaje);
+                }else{
+                    //alert('fue valido');
+                    if(r.mandoAdetener){
+                        console.log("fue mandado a detener")
+                    } else if(r.llegoAlFinal){
+                        hideManagersDlgs();
+                        showDlgTerminadoDeCrearElDataset();
+                        resetearAlTerminar();
+                        {#submit("idFormIrAListarDataset");#}
+                        //alert("llego al final");
+                    }else {
+                        //alert("nada de lo anterior")
+                    }
+                }
+            }
+            ,r=>{ //error
+            hideManagersDlgs();
+            estado.mandoAPrepararProcesamientoDeImagenes=false;
+                    showDlgError();
+                    });
+    }else{
+        showDlgFaltaDeDatosParaIntentarAgregarDataset();
+    }
+
+});
+
+
+
+const N=[0];
+const mng=new ManagerSubmitConProgress();//showDlgFalloEnLaValidacion(mensaje)
+mng.condicionDeValidacion=()=>elementoValidacionARchivo.esValido();
+mng.addSiNoEsValido(()=>showDlgFalloEnLaValidacion(elementoValidacionARchivo.mensajeInvalido));
+//
+const mngActualizador=new MangerFuncionAutomatica(1000,()=>{
+ejecutarAjax("/{{ urls.URL_POST_METODO_GET_ESTADO_VISTA_ENTRADA_DATASET }}/",{},r=>{
+            let estaEnFaseComienzo=r.content.estaEnFaseComienzo;
+            if(estaEnFaseComienzo){
+                console.log("esta en fase comienzo");
+                gf.setFase(GestorDeFases.FASE_COMIENZO);
+            }
+            let estaEnSuviendoDataset=r.content.estaEnSuviendoDataset;
+            if(estaEnSuviendoDataset){
+                console.log("esta en fase estaEnSuviendoDataset");
+                gf.setFase(GestorDeFases.FASE_SUVIENDO_DATASET);
+            }
+            let estaEnDeteniendoUploadDataset=r.content.estaEnDeteniendoUploadDataset;
+             if(estaEnDeteniendoUploadDataset){
+                console.log("esta en fase estaEnDeteniendoUploadDataset");
+                gf.setFase(GestorDeFases.FASE_DETENIENDO_UPLOAD_DATASET);
+            }
+            let estaEnErrorSuviendoDataset=r.content.estaEnErrorSuviendoDataset;
+             if(estaEnErrorSuviendoDataset){
+                console.log("esta en fase estaEnErrorSuviendoDataset");
+                gf.setFase(GestorDeFases.FASE_ERROR_SUVIENDO_DATASET);
+            }
+            let estaEnFaseArchivoDatasetSuvido=r.content.estaEnFaseArchivoDatasetSuvido;
+ if(estaEnFaseArchivoDatasetSuvido){
+                console.log("esta en fase estaEnFaseArchivoDatasetSuvido");
+                gf.setFase(GestorDeFases.FASE_ARCHIVO_DATASET_SUVIDO);
+            }
+            let estaEnFaseDescomprimiendoDataset=r.content.estaEnFaseDescomprimiendoDataset;
+ if(estaEnFaseDescomprimiendoDataset){
+                console.log("esta en fase estaEnFaseDescomprimiendoDataset");
+                gf.setFase(GestorDeFases.FASE_DESCOMPRIMIENDO_DATASET);
+            }
+            let estaEnDeteniendoDescompresionDataset=r.content.estaEnDeteniendoDescompresionDataset;
+ if(estaEnDeteniendoDescompresionDataset){
+                console.log("esta en fase estaEnDeteniendoDescompresionDataset");
+                gf.setFase(GestorDeFases.FASE_DETENIENDO_DESCOMPRESION_DATASET);
+            }
+            let estaEnFaseDatasetDescomprimidoConError=r.content.estaEnFaseDatasetDescomprimidoConError;
+  if(estaEnFaseDatasetDescomprimidoConError){
+                console.log("esta en fase estaEnFaseDatasetDescomprimidoConError");
+                gf.setFase(GestorDeFases.FASE_DATASET_DESCOMPRIMIDO_CON_ERROR);
+            }
+            let estaEnFaseDatasetDescomprimido=r.content.estaEnFaseDatasetDescomprimido;
+  if(estaEnFaseDatasetDescomprimido){
+                console.log("esta en fase estaEnFaseDatasetDescomprimido");
+                gf.setFase(GestorDeFases.FASE_DATASET_DESCOMPRIMIDO);
+            }
+
+            let estaEnFaseProcesandoImagenes=r.content.estaEnFaseProcesandoImagenes;
+            if(estaEnFaseProcesandoImagenes){
+                console.log("esta en fase estaEnFaseProcesandoImagenes");
+                gf.setFase(GestorDeFases.FASE_PROCESANDO_IMAGENES);
+            }
+
+            let estaEnFaseDeteniendoProcesamientoDeImagenes=r.content.estaEnFaseDeteniendoProcesamientoDeImagenes;
+            if(estaEnFaseDeteniendoProcesamientoDeImagenes){
+                console.log("esta en fase estaEnFaseDeteniendoProcesamientoDeImagenes");
+                gf.setFase(GestorDeFases.FASE_DETENIENDO_PROCESAMIENTO_DE_IMAGENES);
+            }
+            let estaEnFaseTerminandoLaCreacionDelDataset=r.content.estaEnFaseTerminandoLaCreacionDelDataset;
+            if(estaEnFaseTerminandoLaCreacionDelDataset){
+                console.log("esta en fase estaEnFaseTerminandoLaCreacionDelDataset");
+                gf.setFase(GestorDeFases.FASE_TERMINANDO_LA_CREACION_DEL_DATASET);
+            }
+            let estaEnFaseTerminoLaCreacionDelDataset=r.content.estaEnFaseTerminoLaCreacionDelDataset;
+            if(estaEnFaseTerminoLaCreacionDelDataset){
+                console.log("esta en fase estaEnFaseTerminoLaCreacionDelDataset");
+                gf.setFase(GestorDeFases.FASE_TERMINO_LA_CREACION_DEL_DATASET);
+
+                //submit("idFormIrAListarDataset");
+                resetearAlTerminar();
+            }
+
+
+            if(estado.mandoAPrepararProcesamientoDeImagenes
+                &&(!estaEnFaseDatasetDescomprimido)
+            ){
+                estado.mandoAPrepararProcesamientoDeImagenes=false;
+            }
+
+            if(estado.mostrandoOpcionDetenerProcesamientoDeImagenes
+                &&(!estaEnFaseProcesandoImagenes)
+            ){
+                estado.mostrandoOpcionDetenerProcesamientoDeImagenes=false;
+            }
+
+
+            if(estado.mandoADetenerProcesamientoDeImagenes
+                &&(!estaEnFaseProcesandoImagenes)
+            ){
+                estado.mandoADetenerProcesamientoDeImagenes=false;
+            }
+
+
+            //
+           if(estado.mandoAUploadDatsetResicente
+           //&&(estaEnSuviendoDataset||estaEnDeteniendoUploadDataset||estaEnErrorSuviendoDataset||estaEnFaseArchivoDatasetSuvido)){
+               &&(!estaEnFaseComienzo)){
+
+               estado.mandoAUploadDatsetResicente=false;
+           }
+           if(estado.mandoADetenerUploadDatasetReciente
+
+           //&&(estaEnDeteniendoUploadDataset||estaEnFaseComienzo||estaEnErrorSuviendoDataset||estaEnFaseArchivoDatasetSuvido)){
+               &&(!estaEnSuviendoDataset)){
+               estado.mandoADetenerUploadDatasetReciente=false;
+           }
+
+
+           if(estado.mostrandoOpcionDetenerUploadDataset
+           //&&(estaEnFaseComienzo||estaEnDeteniendoUploadDataset||estaEnErrorSuviendoDataset||estaEnFaseArchivoDatasetSuvido)){
+               &&(!estaEnSuviendoDataset)){
+               estado.mostrandoOpcionDetenerUploadDataset=false;
+               //console.log("lo desactivo algo")
+           }
+
+           if(estado.mostrandoOpcionEliminarDatasetSubido
+           &&(!estaEnFaseDatasetDescomprimido)){
+                estado.mostrandoOpcionEliminarDatasetSubido=false;
+           }
+           if(estado.mandoAEliminarDatasetSubido
+           &&(!estaEnFaseDatasetDescomprimido)){
+                estado.mandoAEliminarDatasetSubido=false;
+           }
+
+           if(estado.mostrandoOpcionDetenerDescompresionDataset
+           &&(!(estaEnFaseArchivoDatasetSuvido||estaEnFaseDescomprimiendoDataset))){
+                estado.mostrandoOpcionDetenerDescompresionDataset=false;
+           }
+
+           if(estado.mandoADetenerDescompresionDeDataset
+           &&(!(estaEnFaseArchivoDatasetSuvido||estaEnFaseDescomprimiendoDataset))){
+               console.log("va a quitar el dialogo mandoADetenerDescompresionDeDataset");
+                estado.mandoADetenerDescompresionDeDataset=false;
+           }
+
+           estado.faseDatasetDescomprimido=estaEnFaseDatasetDescomprimido;
+
+
+           {#if(!(estado.mandoAUploadDatsetResicente#}
+           {#    ||estado.mandoADetenerUploadDatasetReciente#}
+           {#    ||estado.mostrandoOpcionDetenerUploadDataset)){#}
+            if(!(estado.hayUnaAccionReciente())){
+               //console.log("entro en los estados")
+               if(estaEnFaseComienzo){
+                   hideManagersDlgs();
+                   mngDivDatasetASubir.desocultar();
+                    mngDivDatasetSubido.ocultar();
+                     mng.detenerUpload();
+               }else if(estaEnSuviendoDataset){
+                   let progreso=r.content.progresoActualUpload;
+                   hideManagersDlgs(mngDlgProgresoCancelar);
+                   showDlgProgresoSubirDatset(progreso);
+               }else if(estaEnDeteniendoUploadDataset){
+                    mng.detenerUpload();
+                   hideManagersDlgs(mngDlgEsperando);
+                   showDlgDeteniendoSubidaDelDataset();
+               }else if(estaEnErrorSuviendoDataset){
+                   hideManagersDlgs(mngDlgError);
+                   showDlgError();
+               }else if(estaEnFaseArchivoDatasetSuvido){
+                   hideManagersDlgs(mngDlgProgresoCancelar);
+                   showDlgProgresoDescomprimirDatset();
+
+
+
+
+               }else if(estaEnFaseDescomprimiendoDataset){
+                   let progreso=r.content.progresoDeDescompresion;
+                   hideManagersDlgs(mngDlgProgresoCancelar);
+                   showDlgProgresoDescomprimirDatset(progreso);
+               }else if(estaEnDeteniendoDescompresionDataset){
+                    mng.detenerUpload();
+                   hideManagersDlgs(mngDlgEsperando);
+                   showDlgDeteniendoDescompresionDelDataset();
+               }else if(estaEnFaseDatasetDescomprimidoConError){
+                   hideManagersDlgs(mngDlgError);
+                   showDlgDatasetErroneo();
+
+               }else if(estaEnFaseDatasetDescomprimido){
+                    mng.detenerUpload();
+                   //console.log("llego a la fase descomprimido")
+                   let nombreArchivo=r.content.nombreArchivo;
+
+
+                   setValue("idTextoDatasetSubido",nombreArchivo)
+
+                   let listaDeCarpetasEnDatasetDescomprimido=r.content.listaDeCarpetasEnDatasetDescomprimido;
+                   //console.log("carpetas="+listaDeCarpetasEnDatasetDescomprimido);
+
+                    estado.nombreCarpetasDeclasificacion=listaDeCarpetasEnDatasetDescomprimido;
+
+
+
+                    mngDivDatasetASubir.ocultar();
+                    mngDivDatasetSubido.desocultar();
+
+
+
+                    if(gf.getFaseAnterior()!==GestorDeFases.FASE_DATASET_DESCOMPRIMIDO){
+                        let m=[];
+                       for (const carpeta of listaDeCarpetasEnDatasetDescomprimido) {
+                           m.push([carpeta,carpeta,""]);
+                       }
+                        mngClases.actualizar(m);
+                        /*mngVSizL.listaNombresDeCarpetas=estado.nombreCarpetasDeclasificacion;
+                        mngVSizL.setEvaluarElSize(true, estado.nombreCarpetasDeclasificacion.length)
+                        mngVSizL.setValoresA();
+                        */
+                        V.comprovarValidacionYDesactivar();
+
+                    }
+
+                    N[0]+=1;
+                   console.log("mando a ocultar los dialogos "+N[0]);
+                   hideManagersDlgs();
+               }else if(estaEnFaseProcesandoImagenes){
+
+                if(r.content.hayArgs){
+                    let forzar=gf.getFaseAnterior()!==GestorDeFases.FASE_PROCESANDO_IMAGENES;
+
+                    let nombreImagen=r.content.nombreImagen;
+                    let nombreCarpetaPadre=r.content.nombreCarpetaPadre;
+                    let indiceDeCarpeta=r.content.indiceDeCarpeta;
+                    let indiceDeImagenEnCarpeta=r.content.indiceDeImagenEnCarpeta;
+                    let indiceImagen=r.content.indiceImagen;
+                    let porcientoDeImagenConRespectoAlTotal=r.content.porcientoDeImagenConRespectoAlTotal;
+                    let porcientoDeImagenConRespectoAlaCarpeta=r.content.porcientoDeImagenConRespectoAlaCarpeta;
+                    let porcientoDeCarpeta=r.content.porcientoDeCarpeta;
+                    let cantidadTotalDeImagenes=r.content.cantidadTotalDeImagenes;
+                    let cantidadTotalDeImagenesEnEstaCarpeta=r.content.cantidadTotalDeImagenesEnEstaCarpeta;
+                    let indiceDeFaseDeImagen=r.content.indiceDeFaseDeImagen;
+                    let cantidadTotalDeFasesDeImagen=r.content.cantidadTotalDeFasesDeImagen;
+                    let progresoDeFasesDeImagen=r.content.progresoDeFasesDeImagen;
+                    let cantidadDeCarpetas=r.content.cantidadDeCarpetas;
+
+                    let mensaje_General="Imagen: "+nombreImagen+" "+indiceImagen+"/"+cantidadTotalDeImagenes;
+                    let mensaje_Carpeta="Carpeta: "+nombreCarpetaPadre+" "+indiceDeImagenEnCarpeta+"/"+cantidadTotalDeImagenesEnEstaCarpeta;
+                    let mensaje_Imagen="";
+                    switch (indiceDeFaseDeImagen) {
+                            case 0:
+                                mensaje_Imagen="Preparando detalles para procesar esta imagen ";
+                                break;
+                            case 1:
+                                mensaje_Imagen="Aplicando algoritmo Gray Word a la imagen ";
+                                break;
+                            case 2:
+                                mensaje_Imagen="Aplicando algoritmo Bounding Box a la imagen ";
+                                break;
+                            case 3:
+                                mensaje_Imagen="Aplicando algoritmo Resize a la imagen ";
+                                break;
+                            case 4:
+                                mensaje_Imagen="Aplicando transformación del color desde el espacio RGB a CIEL *a *b";
+                                break;
+                            case 5:
+                                mensaje_Imagen="Terminando detalles del procesamiento de esta imagen ";
+                                break;
+
+                    }
+                    let procesamientoDeImagen=new ProgresoDeImagenes(
+                        porcientoDeImagenConRespectoAlTotal
+                        ,porcientoDeImagenConRespectoAlaCarpeta
+                        ,progresoDeFasesDeImagen
+                        ,mensaje_General
+                        ,mensaje_Carpeta
+                        ,mensaje_Imagen
+                    )
+                    mngDlgProcesandoImagenes.showDlg(procesamientoDeImagen,forzar);
+                    hideManagersDlgs(mngDlgProcesandoImagenes);
+                }else if(estaEnFaseDeteniendoProcesamientoDeImagenes){
+                    hideManagersDlgs(mngDlgEsperando);
+                    showDlgDeteniendoProcesamientoDeImagenes();
+                }else if(estaEnFaseTerminandoLaCreacionDelDataset){
+                        hideManagersDlgs(mngDlgEsperando);
+                        showDlgTerminadoDeCrearElDataset()
+
+
+                }else if(estaEnFaseTerminoLaCreacionDelDataset){
+                        hideManagersDlgs();
+                        alert("Por fin termino")
+
+                }
+
+               }
+
+
+           }
+
+
+        }
+        ,r=>{
+            console.log("error en las actuallizaciones frecuentes");
+            hideManagersDlgs(mngDlgError);
+            showDlgError();
+
+            });
+});
+mngActualizador.comenzar()
+
+
+
+mng.idInputFile=ID_FILE;
+mng.idBotonSubmit="idBSubirArchivo";
+mng.url_objetivo="/{{ urls.URL_POST_SUBIR_ARCHIVO }}/";
+mng.__metodo__alComenzarLaSubida=(f,v)=>{//(f:FileUpload,v:nombreArchivo)=>{}
+    console.log("comienza la suvida");
+    estado.mandoAUploadDatsetResicente=true;
+    showDlgProgresoSubirDatset();
+    {#console.log("0 v="+v);#}
+    {#setProgressBoostrap("ideBarraDeProgreso","idSpamProgresoPequeño",0);#}
+};
+mng.__metodo__alProgresarEnSubida=(f,v)=>{//(f:FileUpload,v:porcientoActual)=>{}
+    {#setProgressBoostrap("ideBarraDeProgreso","idSpamProgresoPequeño",v);#}
+    mngDlgProgresoCancelar.setProgreso(v);
+    put("PORCIENTO",v);
+};
+mng.__metodo__alTerminar=(f,v)=>{//(f:FileUpload,v:informacion)=>{}
+    setValue("idTextoDatasetSubido",getHTML("idLabelDatasetASubir"))
+    {#mngDivDatasetASubir.ocultar();#}
+    {#mngDivDatasetSubido.desocultar();#}
+    {#mngDlgProgresoCancelar.hide();#}
+    {#console.log("1 v="+v);#}
+    //alert("Termino");
+};
+
+mng.__metodo__alDarError=(f,v)=>{//(f:FileUpload,v:informacion)=>{}
+    console.log("error suviendo dataset");
+    mng.detenerUpload();
+    mngDlgProgresoCancelar.hide();
+    showDlgError()
+    {#console.log("2 v="+v);#}
+    {#alert("dio error");#}
+};
+mng.__metodo_GetDatosDeProgreso=()=> {
+    let d = new DatosDeProgresoDeFileUpload();
+    d.porciento = get("PORCIENTO");
+    {#console.log("d interna=" + d);#}
+    {#console.log("d interna porciento=" + d.porciento);#}
+    return d;
+};
+mng.__metodo__alDetenerUpload=(f)=>{//(f:FileUpload,v:informacion)=>{}
+    //showDlgDetenerSubirDatset();
+    //mngDlgProgresoCancelar.hide();
+    //console.log("2 v="+v);
+
+    //alert("se mando a detener");
+};
+{#mng.set_metodo_getDatosDeProgreso(()=>{let d=new DatosDeProgresoDeFileUpload();#}
+{#    d.porciento=get("PORCIENTO");#}
+{#    console.log("d interna="+d);#}
+{#    console.log("d interna porciento="+d.porciento);#}
+{#    return d;#}
+
+{#console.log("mng.__metodo_GetDatosDeProgreso="+mng.__metodo_GetDatosDeProgreso);#}
+put("PORCIENTO",0);
+{#console.log("paso el put");#}
+{#mng.__metodo_GetDatosDeProgreso();#}
+{#console.log("paso la primera prueba");#}
+mng.aplicarConfiguracion();
+
+
+
+
+const mngClases=new ManagerClasesClasificicacionesFijosEditables(V);
+mngClases.metodo_CondicionComprobarCoicidenciaDeClases=()=>estado.faseDatasetDescomprimido;
+mngClases.idCkEditor2="editor2"
+mngClases.idLista = "idLista_2ColTextInput";
+mngClases.idB_Agregar_L = "idB_ListaClases_Agregar";
+mngClases.idB_Eliminar_L = "idB_ListaClases_Eliminar";
+mngClases.idB_Arriba_L = "idB_ListaClases_Arriba";
+mngClases.idB_Abajo_L = "idB_ListaClases_Abajo";
+mngClases.idContenedorDeLista_L = "idContenedorDeLista";
+mngClases.idB_Detalles_L = "idB_ListaClases_DetallesClase";
+mngClases.idTextAreaDlg_Detalles_L = "idClasificacion_idDlgDetalles";
+mngClases.idBAceptar_idDlgDetalles_L = "idBAceptar_idDlgDetalles";
+mngClases.idDlgDetalles_L = "idDlgDetalles";
+mngClases.idAlertaClasificaciones_MSL = "idAlerta_Listaclasificaciones";
+mngClases.idConendorDebordeDeListaClasificaciones_MSL = "idContendorDeBordeDeListaclasificaciones";
+mngClases.idBotonReiniciarClases_MSL = "idB_ListaClases_ReiniciarClases";
+mngClases.aplicarConfiguracion();
+
+function almacenarDatosEnLocalEstorage(){
+     put("nombre",getValue(ID_INPUT_NOMBRE_DATASET));
+    put("idFruto",getValue(ID_SELECT_FRUTO));
+    put("descripcion",CKEDITOR.instances.editor1.getData());
+
+     put("cantidad_de_clases",mngClases.bd.size());
+    for (let i = 0; i < mngClases.bd.size(); i++) {
+            let fila = mngClases.bd.getFila(i);
+            let m=fila.map;
+            put("indice_"+i+"_clasificaion",m.get(mngClases.KEY_CLASIFICACION));
+            put("indice_"+i+"_nombreCarpeta",m.get(mngClases.KEY_CARPETA));
+            put("indice_"+i+"_detalles",m.get(mngClases.KEY_DETALLES));
+
+        }
+}
+
+addOnClick("idAgregarFruto",v=>{
+   almacenarDatosEnLocalEstorage();
+    submit("idFormAgregarFruto");
+});
+addOnClick("idEditarFruto",v=>{
+   almacenarDatosEnLocalEstorage();
+   setValue("idHidenFrutoAEditar",getValue(ID_SELECT_FRUTO))
+    submit("idFormEditarFruto");
+});
+addOnClick("idDetallesFruto",v=>{
+
+   setValue("idHidenFrutoAVerDetalles",getValue(ID_SELECT_FRUTO))
+    submit("idFormDetallesFruto");
+});
+//
+if({{ hayQueRecuperarDatos|lower }}){
+    setValue(ID_INPUT_NOMBRE_DATASET,get("nombre"));
+    setValue(ID_SELECT_FRUTO,"{{ idUltimoFrutoAgregado }}");
+    CKEDITOR.instances.editor1.setData(get("descripcion"));
+
+     let m=[];
+
+
+    let cantidadDeClases=inT(get("cantidad_de_clases"));
+    for (let i = 0; i <cantidadDeClases ; i++) {
+        m.push([
+            get("indice_"+i+"_clasificaion")
+            ,get("indice_"+i+"_nombreCarpeta")
+            ,get("indice_"+i+"_detalles")
+        ]);
+
+    }
+
+    V.comprovarValidacionYDesactivar()
+    //console.log(m);
+mngClases.actualizar(m);
+
+}
+
+
+
+
+
+
+const ID_FRUTO="ID_FRUTO";
+const NOMBRE_FRUTO="NOMBRE_FRUTO";
+const NOMBRE_CIENTIFICO_FRUTO="NOMBRE_CIENTIFICO_FRUTO";
+const VARIEDAD_FRUTO="VARIEDAD_FRUTO";
+const ID_ITEM="idItem";
+
+
+const bdFrutos=new BD_RowElement();
+bdFrutos.llaves=[ID_FRUTO,NOMBRE_FRUTO,VARIEDAD_FRUTO,NOMBRE_CIENTIFICO_FRUTO];
+bdFrutos.listaDeNombresIds=[ID_ITEM];
+{% for dato in listaDatosDeFrutos %}
+     bdFrutos.addRow([
+         "{{ dato.id }}"
+         ,"{{ dato.nombre }}"
+         ,"{{ dato.variedad }}"
+         ,"{{ dato.nombreCientifico }}"
+         ]);
+{% endfor %}
+
+function actualizarImagen(idImg,idDelSpiner,idFruto) {
+
+
+            const mgb=new ManagerCargaLentaImgBase64();
+            mgb.setIdElementoQueSustituyeLaImagen(idDelSpiner);
+            mgb.setIdImagen(idImg);
+
+            function noMostrarImg() {
+                displayNone(idImg,true);
+                displayNone(idDelSpiner,true);
+            }
+
+
+             ejecutarAjax("/{{ urls.URL_POST_METODO_GET_IMG_DE_EJEMPLO_50_PX_FRUTO }}/",{
+                    "idDelFruto":idFruto
+
+                 },r=>{
+                if(r.existeFruto){
+                    mgb.cargarImgBase64(r.imgBase64);
+
+                }else{ noMostrarImg()}
+
+            }
+            ,r=>{
+                 noMostrarImg()
+                });
+}
+
+class MangerBuscarFruto{
+    constructor(bd){
+        this.bd=bd;
+
+        this.dt=new FiltroText_CByTodos_v2(this.bd);
+
+        this.listaKeysParafiltro=[];
+        this.IdBaseElemtosAOcultar="idItem";
+        this.IdCB_Todo="idCBFiltroTodos";
+        this.IdsCb=[
+            "idCBFiltroNombre"
+            ,"idCBFiltroVariedad"
+            ,"idCBFiltroCientifico"
+
+        ];
+        this.idText="idTextoFiltro";
+
+
+        this.mngRep=new ManagerRepetidor("idListaDeDataset",this.bd);
+
+        this.or=new OrdenadorRB_Visual_BD(this.bd);
+        this.idBToggleOrdenamiento="idBDireccionDeOrden";
+        this.matriz_IdsRByIcono=[
+            ["idCBOrdenarNombre","fas fa-code-branch"]
+            ,["idCBOrdenarVariedad","fas fa-bowling-ball"]
+            ,["idCBOrdenarCientifico","fas fa-calendar-alt"]
+            ];
+        this.idIconoOrdenSeleccionado="idIconoOrdenSeleccionado";
+        this.idIconoDireccionDeOrden="idIconoDireccionDeOrden";
+        this.iconoOrdenAscendente="fas fa-angle-double-down";
+        this.iconoOrdenDescendente="fas fa-angle-double-up";
+
+
+        this.L=new ListaSeleccionable();
+        this.idLista="idListaDeDataset";
+
+        this.idBotonSeleccionarDlgFruto="idBotonSeleccionarDlgDataset";
+
+        this.__metodoAlAceptarFruto=new ConjuntoDeEventos();
+
+        this.KEY_ID_FRUTO="";
+        this.KEY_ID_IMG_1="idImg1_";
+
+
+        this.KEY_ID_SPINNER_1="idSpinner1_";
+
+        this.bd.listaDeNombresIds.push(this.KEY_ID_IMG_1);
+        this.bd.listaDeNombresIds.push(this.KEY_ID_SPINNER_1);
+
+        this.__metodoActualizarImagenFruto=new ConjuntoDeEventos();
+
+    }
+    addActualizarImagenFruto(metodo){
+        //metodo (idImg,idDelSpiner,idFruto)=>{}
+        this.__metodoActualizarImagenFruto.add(metodo);
+    }
+    addAlAceptarFruto(metodo){
+        //idFruto=>{}
+        this.__metodoAlAceptarFruto.add(metodo);
+    }
+    aplicarConfiguracion(){
+        const self=this;
+
+        function actualizarImagenes() {
+            for (let index = 0; index < self.bd.size(); index++) {
+                let fila = self.bd.getFila(index);
+                let mapActual = fila.map;
+                let mIds=[
+                    [self.KEY_ID_IMG_1,self.KEY_ID_SPINNER_1]
+
+                ];
+                let cantidaDeImagenes=1;//inT(mapActual.get(KEY_CANTIDAD_DE_CLASIFICACIONES));
+               // console.log("cantidaDeImagenes="+cantidaDeImagenes);
+                for (let j = 0; j < mIds.length; j++) {
+                    const ids = mIds[j];
+                    //console.log("j="+j+" "+ids);
+                    const idImg=ids[0];
+                    //console.log("idImg="+idImg);
+                    const idDelSpiner=ids[1];
+
+                    if(!(j<cantidaDeImagenes)){
+                        displayNone(mapActual.get(idImg),true);
+                        //displayNone(mapActual.get(idDelSpiner),true);
+                        continue;
+                    }
+                    self.__metodoActualizarImagenFruto.ejecutar(mapActual.get(idImg),mapActual.get(idDelSpiner),mapActual.get(self.KEY_ID_FRUTO));
+
+                }
+
+
+
+
+
+            }
+        }
+
+
+        this.dt.llaves=this.listaKeysParafiltro;
+        this.dt.setIdBaseElemtosAOcultar(this.IdBaseElemtosAOcultar);
+        this.dt.IdCB_Todo=this.IdCB_Todo;
+        this.dt.setIdsCb(this.IdsCb);
+        this.dt.idText=this.idText;
+
+        this.dt.addAlTerminarDeFiltrar(()=>{
+            self.L.deseleccionarTodo();
+
+        });
+        this.dt.aplicarConfiguracionToggle();
+        this.dt.setFiltroText();
+
+        this.or.llaves=this.listaKeysParafiltro;
+        this.or.accionDespuesDeOrdenar=()=>{
+            self.L.actualizarVisual_APartirDeBD();
+            self.dt.filtrar();
+            actualizarImagenes();
+        }
+        this.or.idBToggleOrdenamiento=this.idBToggleOrdenamiento;
+        this.or.setMapIdsRByIcono(new Map(this.matriz_IdsRByIcono));
+        this.or.idIconoOrdenSeleccionado=this.idIconoOrdenSeleccionado;
+        this.or.idIconoDireccionDeOrden=this.idIconoDireccionDeOrden;
+        this.or.iconoOrdenAscendente=this.iconoOrdenAscendente;
+        this.or.iconoOrdenDescendente=this.iconoOrdenDescendente;
+        this.or.aplicarConfiguracionToggle();
+
+
+        function desactivarBSeleccionarFruto(desactivar){
+            setDisabled(desactivar,[self.idBotonSeleccionarDlgFruto]);
+        }
+
+        this.L.KEY_ID_ITEM_LISTA=this.IdBaseElemtosAOcultar;
+        this.L.idLista=this.idLista;
+        this.L.addAlSeleccionar(v=>{
+            desactivarBSeleccionarFruto(false);
+        });
+        this.L.addAlDeseleccionar(v=>{
+            desactivarBSeleccionarFruto(true);
+        });
+        this.L.mngRpLista=this.mngRep;
+        this.L.bd=self.bd;
+        this.L.aplicarConfiguracion();
+
+        desactivarBSeleccionarFruto(true);
+        addOnClick(this.idBotonSeleccionarDlgFruto,v=>{
+            this.__metodoAlAceptarFruto.ejecutar(self.L.bd.getFila(self.L.indiceSeleccionado).map.get(self.KEY_ID_FRUTO));
+        });
+
+        this.or.aplicarConfiguracionVisual(0);
+
+    }
+}
+const mngBFr=new MangerBuscarFruto(bdFrutos);
+mngBFr.listaKeysParafiltro=[NOMBRE_FRUTO,VARIEDAD_FRUTO,NOMBRE_CIENTIFICO_FRUTO];
+mngBFr.KEY_ID_FRUTO=ID_FRUTO;
+mngBFr.addAlAceptarFruto(id=>{
+    setValue(ID_SELECT_FRUTO,id);
+
+})
+mngBFr.addActualizarImagenFruto(actualizarImagen);
+mngBFr.aplicarConfiguracion();
+if(!bdFrutos.isEmpty()){
+    addOnClick("idBuscarFruto",v=>{
+        console.log("algo111111111111111")
+        showDlgBostrap('idDlgSeleccionarFruto');
+    });
+}
+
+        </script>
+
+    <form id="idFormAgregarFruto"  method="post" action="/{{urls.URL_VISTA_AGREGAR_FRUTO_DESDE_EXTERNO}}/">
+        {% csrf_token %}
+{#        <button type="submit" class="btn btn-primary btn-lg ml-4">Guardar</button>#}
+        <input type="hidden" name="urlSalida" value="{{urls.URL_VISTA_AGREGAR_DATASET}}">
+    </form>
+    <form id="idFormEditarFruto"  method="post" action="/{{urls.URL_VISTA_EDITAR_FRUTO_DESDE_EXTERNO}}/">
+        {% csrf_token %}
+{#        <button type="submit" class="btn btn-primary btn-lg ml-4">Guardar</button>#}
+        <input id="idHidenFrutoAEditar" type="hidden" name="idDelFruto" value="-1">
+        <input type="hidden" name="urlSalida" value="{{urls.URL_VISTA_AGREGAR_DATASET}}">
+    </form>
+
+    <form id="idFormDetallesFruto"  method="post" action="/{{urls.URL_VISTA_DETALLES_FRUTO}}/">
+        {% csrf_token %}
+{#        <button type="submit" class="btn btn-primary btn-lg ml-4">Guardar</button>#}
+        <input id="idHidenFrutoAVerDetalles" type="hidden" name="idDelFruto" value="-1">
+
+    </form>
+
+{% endblock%}
+
+
+
+
+
+
+{#setProgressBoostrap("ideBarraDeProgreso","idSpamProgresoPequeño",0);#}
+
+{#addOnClick("idBSubirArchivo",v=>{#}
+{#    estado.mandoAUploadDatsetResicente=true;#}
+{##}
+{#    ejecutarAjax("/{{ urls.URL_POST_METODO_DETENER_UPLOAD_DATASET }}/",{},r=>{#}
+{#        mng.detenerUpload();#}
+{#        alert("se detuvo!!");#}
+{#    });#}
+{# })#}
+{#addOnClick('idBotonDetenerUpload',v=>{#}
+{#    estado.mandoAUploadDatsetResicente=true;#}
+{##}
+{#    ejecutarAjax("/{{ urls.URL_POST_METODO_DETENER_UPLOAD_DATASET }}/",{},r=>{#}
+{#        mng.detenerUpload();#}
+{#        alert("se detuvo!!");#}
+{#    });#}
+{# })#}

@@ -1,0 +1,115 @@
+{% extends "Visual/plantillaPadre.html" %}
+{% load static %}
+{% load poll_extras_rene_app %}
+
+{% block titulo %}
+Detalles De Clasificación De Imagen
+{% endblock %}
+
+{% block contenido %}
+
+
+<div class="row">
+                    <!-- <div class="col-sm-12 col-md-6"></div> -->
+                    <div class="card border-primary mb-3 mr-1 p-1 card_img" style="width: 18rem;">
+                        <img src="{% static direccionImgOriginal %}" class="card-img-top" alt="...">
+                        <div class="card-body text-primary  text-center">
+                            <h4 class="card-title text-primary">Original</h4>
+
+                        </div>
+                    </div>
+
+                    <div class="card border-primary mb-3 mr-1 p-1 card_img" style="width: 18rem;">
+                        <img src="{% static direccionImgGrayWorld %}" class="card-img-top" alt="...">
+                        <div class="card-body text-primary  text-center">
+                            <h4 class="card-title text-primary">Gray World</h4>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="card border-primary mb-3 mr-1 p-1 card_img align-items-center justify-content-between"
+                        style="width: 18rem;">
+                        <div class="row no-gutters">
+                            <img src="{% static direccionImgBoundingBox %}" class="card-img" alt="...">
+                        </div>
+                        <div class="row">
+                            <div class="card-body text-primary  text-center">
+                                <h4 class="card-title text-primary">Bounding Box</h4>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="col ">
+
+                        <div class="row ml-1  btn-block">
+                            <div
+                                class="card border-primary mb-3 mr-1 p-1 card_img align-items-center justify-content-between btn-block">
+                                <div class="row no-gutters">
+                                    <img src="{% static direccionImgMresize %}" class="card-img" alt="...">
+                                </div>
+                                <div class="row">
+                                    <div class="card-body text-primary  text-center">
+                                        <h4 class="card-title text-primary">Resize</h4>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="row ml-1  btn-block ">
+
+                            <div
+                                class="card border-primary mb-3 mr-1 p-1 card_img align-items-center justify-content-between btn-block">
+                                <div class="row no-gutters">
+                                    <img src="{% static direccionImgCielAB %}" class="card-img" alt="...">
+                                </div>
+                                <div class="row">
+                                    <div class="card-body text-primary  text-center">
+                                        <h4 class="card-title text-primary">Ciel AB</h4>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+
+
+
+
+
+
+                </div>
+
+
+                <div class="row">
+                    <div class="alert alert-success btn-block text-center" role="alert">
+                        <h2 class="alert-heading ">Clasificación: <b>{{resultado}}</b></h2>
+
+                      </div>
+                </div>
+
+
+
+{% endblock%}
+
+
+
+{% block scripts_extras %}
+
+
+{% endblock%}

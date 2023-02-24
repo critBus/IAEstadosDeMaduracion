@@ -1,0 +1,1060 @@
+{% extends "Visual/plantillaPadre.html" %}
+{% load static %}
+{% load poll_extras_rene_app %}
+
+{% block titulo %}
+Entrenamiento
+{% endblock %}
+
+{% block contenido %}
+<div class="row">
+    <div class="col">
+        <ul class="nav nav-tabs " id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Descripción</a>
+            </li>
+            <li class="nav-item" role="presentation">
+              <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Configuración</a>
+            </li>
+
+          </ul>
+    </div>
+</div>
+
+
+ <form  method="post" action="/{{urls.URL_VISTA_ENTRENAMIENTO}}/">
+        {% csrf_token %}
+    <div class="row">
+        <div class="col">
+            <div class="tab-content " id="myTabContent">
+            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+
+                <div class="row mt-3">
+                    <div class="col">
+                     <div class="input-group mb-3">
+                         <div class="input-group-prepend">
+                           <span class="input-group-text" id="basic-addon1">Nombre</span>
+                         </div>
+                         <input id="idTextoNombreModelo" maxlength="50"
+                                name="{{ form.nombre  }}" type="text"
+                                class="form-control" placeholder="Nombre"
+                                aria-label="Nombre" aria-describedby="basic-addon1"
+                                value="{{ form.nombre.valor }}"
+                         >
+                         <div id="idTextoNombreModelo_MensajeInvalidoBoostrap" class="invalid-feedback">
+                                                Please select a valid state.
+                                              </div>
+
+                       </div>
+                    </div>
+
+
+{#                   <div class="col-sm-6"> col-sm-6#}
+{#                     <div class="input-group mb-3">#}
+{#                         <div class="input-group-prepend">#}
+{#                           <span class="input-group-text" id="basic-addon2">Tipo De Fruto</span>#}
+{#                         </div>#}
+{#                         <input id="idTextoTipoDeFruto"#}
+{#                                 name="{{form.tipoDeFruto   }}" type="text"#}
+{#                                class="form-control" placeholder="Tipo De Fruto"#}
+{#                                aria-label="Tipo De Fruto" aria-describedby="basic-addon2"#}
+{#                                value="{{ form.tipoDeFruto.valor }}"#}
+{#                         >#}
+{#                         <div id="idTextoTipoDeFruto_MensajeInvalidoBoostrap" class="invalid-feedback">#}
+{#                                                otro mal.#}
+{#                                            </div>#}
+{#                       </div>#}
+{#                   </div>#}
+
+                </div>
+                <div class="row mt-3">
+                    <div class="col">
+                        <!-- <textarea name="Descripcion" class=" ckeditor" id="id_Descripcion" rows="3" ></textarea> -->
+                        <textarea name="{{form.descripcion  }}" id="editor1" >
+                            {{ form.descripcion.valor }}
+                        </textarea>
+                        <div id="editor1_MensajeInvalidoBoostrap" class="invalid-feedback">
+                                                otro mal.
+                                            </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                <div class="row mt-3">
+
+                    <div class="col-md-6">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+
+                              <button class="btn btn-dark" type="button"  id="idBotonBuscarDataset"
+                              data-toggle="tooltip" data-placement="top" title="Buscar un Dataset para el entrenamiento "
+                              >Buscar</button>
+                            </div>
+                            <input id="idTextoNombreDataset" disabled="true" type="text" class="form-control"
+                                   placeholder="Dataset" aria-label="Dataset" aria-describedby="basic-addon4"
+                            >
+                            <div id="idTextoNombreDataset_MensajeInvalidoBoostrap" class="invalid-feedback">
+                                                    no puede estar vacio
+                                                  </div>
+                          </div>
+                      </div>
+
+
+                    <div class="col-md-6">
+                     <div class="input-group mb-3">
+                         <div class="input-group-prepend">
+                           <span class="input-group-text" id="basic-addon3">Epocas</span>
+                         </div>
+                         <div class="form-control" aria-describedby="basic-addon3">
+                            <input name="{{form.cantidadDeEpocas  }}"
+                                    type="range" value="{{ form.cantidadDeEpocas.valor|numeroConComa }}" min="20" step="1" max="100" class="form-control-range"
+                            id="idRangeCantidadDeEpocas"  list="tickmarks"
+                            data-toggle="tooltip" data-placement="top" title="Cantidad de epocas para desarrollar el entrenamiento" >
+                            <div id="idRangeCantidadDeEpocas_MensajeInvalidoBoostrap" class="invalid-feedback">
+                                                    no puede estar vacio
+                                                  </div>
+                            <datalist id="tickmarks">
+
+                                <option value="20" label="20">
+                                <option value="30">
+                                <option value="40">
+                                <option value="50" >
+                                <option value="60" label="60">
+                                <option value="70">
+                                <option value="80">
+                                <option value="90">
+                                <option value="100" label="100">
+                              </datalist>
+                         </div>
+                         <div class="input-group-append">
+                            <span class="input-group-text" id="idValorStrEpocas">0{{ form.cantidadDeEpocas.valor|numeroConComa }}</span>
+                          </div>
+
+                       </div>
+                    </div>
+
+
+
+
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text" style="padding-right: 0px;"
+                                data-toggle="tooltip" data-placement="top" title="Para la validación de modelo usar un porcentaje del Dataset "
+                                id="idAreaCBUsarPorcentajeParaValidacion"
+                                >
+                                    <input  type="radio" name="{{form.usarPorcentajeParaValidacion.nameRadio  }}" aria-label="Checkbox for following text input"
+                                      id="idCBUsarPorcentajeParaValidacion" value="{{form.usarPorcentajeParaValidacion  }}"
+                                    checked="{{form.usarPorcentajeParaValidacion.valor|lower  }}" />
+
+                                  </div>
+                              <span class="input-group-text" id="idSpanUsarPorcentajeParaValidacion" style="padding-left: 6px;">Validación</span>
+                            </div>
+                            <div class="form-control" aria-describedby="idSpanUsarPorcentajeParaValidacion">
+                               <input name="{{form.porsentajeParaValidacion  }}"
+                                       type="range" value="{{ form.porsentajeParaValidacion.valor|numeroConComa }}" min="0.10" step="0.01" max="0.40" class="form-control-range"
+                               id="idRangePorcentajeParaValidacion"  list="tickmarks4"
+                               data-toggle="tooltip" data-placement="top" title="Porcentaje del Dataset a usar para la validación del modelo" >
+                            <div id="idRangePorcentajeParaValidacion_MensajeInvalidoBoostrap" class="invalid-feedback">
+                                                    no puede estar vacio
+                                                  </div>
+                               <datalist id="tickmarks4">
+
+                                   <option value="0.10" label="0.10">
+                                   <option value="0.15">
+                                   <option value="0.20">
+                                   <option value="0.25" label="0.25">
+                                   <option value="0.30">
+                                   <option value="0.35">
+                                   <option value="0.40" label="0.40">
+
+                                 </datalist>
+                            </div>
+                            <div class="input-group-append">
+                               <span class="input-group-text" id="idValorStrPorcentajeParaValidacion">{{ form.porsentajeParaValidacion.valor|numeroConComa }}</span>
+                             </div>
+
+                          </div>
+                       </div>
+                       <div class="col-md-6">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <!-- style="padding-right: 0px;" -->
+                                <div class="input-group-text"
+                                data-toggle="tooltip" data-placement="top" title="Usar un Dataset para la validación del modelo"
+                                id="idAreaCBUsarDatasetParaValidacion"
+                                >
+                                    <input type="radio" name="{{form.usarDatasetParaValidacion.nameRadio  }}" aria-label="Checkbox for following text input"
+                                      id="idCBUsarDatasetParaValidacion" value="{{form.usarDatasetParaValidacion  }}"
+                                    checked="{{form.usarDatasetParaValidacion.valor|lower  }}"/>
+
+                                  </div>
+                              <button class="btn btn-dark" type="button"  id="idBotonBuscarDatasetValidacion"
+                              data-toggle="tooltip" data-placement="top" title="Buscar un Dataset para la validación del modelo"
+                               >Buscar</button>
+                               <!-- style="padding-left: 6px;" btn-outline-secondary-->
+                            </div>
+                            <input id="idTextoNombreDatasetParaValidacion"
+                                    disabled type="text" class="form-control" placeholder="Dataset Para Validación"
+                            aria-label="Dataset" aria-describedby="idBotonBuscarDatasetValidacion"
+                            data-toggle="tooltip" data-placement="top" title="Buscar un Dataset para la validación del modelo"
+                            >
+                            <div id="idTextoNombreDatasetParaValidacion_MensajeInvalidoBoostrap" class="invalid-feedback">
+                                                    no puede estar vacio
+                                                  </div>
+                          </div>
+                      </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+
+                                <div id="idAreaCbUsarLimiteDePrecision"
+                                                    data-toggle="tooltip" data-placement="top" title="Detener el entrenamiento si se llega a este límite de precisión"
+                                                    class="custom-control custom-switch input-group-text ">
+                                                        <input checked="{{form.usarLimiteDePrecision.valor|lower  }}"
+                                                               name="{{form.usarLimiteDePrecision }}"
+                                                                id="idCBUsarLimiteDePrecision"
+                                                         type="checkbox" class="custom-control-input " >
+                                                        <label id="idSpanUsarLimiteDePrecision"
+                                                        class="custom-control-label ml-2" for="idCBUsarLimiteDePrecision">Limite</label>
+                                                      </div>
+
+{#                                <div class="input-group-text" style="padding-right: 0px;"#}
+{#                                data-toggle="tooltip" data-placement="top" title="Detener el entrenamiento si se llega a este límite de precisión"#}
+{#                                id="idAreaCbUsarLimiteDePrecision">#}
+{##}
+{#                                     <input checked="{{form.usarLimiteDePrecision.valor|lower  }}" name="{{form.usarLimiteDePrecision }}"#}
+{#                                             type="checkbox" aria-label="Checkbox for following text input"#}
+{#                                      id="idCBUsarLimiteDePrecision"  />#}
+{##}
+{#                                  </div>#}
+{#                              <span class="input-group-text" id="idSpanUsarLimiteDePrecision" style="padding-left: 6px;">Limite</span>#}
+                            </div>
+                            <div class="form-control" aria-describedby="idSpanUsarLimiteDePrecision">
+                               <input name="{{form.limiteDePrecision  }}"
+                                       type="range" value="{{ form.limiteDePrecision.valor|numeroConComa }}" min="0.60" step="0.01" max="0.99" class="form-control-range"
+                               id="idRangeLimitePreciosion"  list="tickmarks2"
+                               data-toggle="tooltip" data-placement="top" title="Límite de precisión máximo" >
+                                <div id="idRangeLimitePreciosion_MensajeInvalidoBoostrap" class="invalid-feedback">
+                                                    no puede estar vacio
+                                                  </div>
+                               <datalist id="tickmarks2">
+
+                                   <option value="0.60" label="0.60">
+                                   <option value="0.65">
+                                   <option value="0.70">
+                                   <option value="0.75" >
+                                   <option value="0.80" label="0.80">
+                                   <option value="0.85">
+                                    <option value="0.90">
+                                   <option value="0.95">
+                                   <option value="0.99" label="0.99">
+                                 </datalist>
+                            </div>
+                            <div class="input-group-append">
+                               <span class="input-group-text" id="idValorStrLimitePrecision">{{ form.limiteDePrecision.valor|numeroConComa }}</span>
+                             </div>
+
+                          </div>
+                       </div>
+
+
+                    <div class="col-md-6">
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend w-100">
+                                                  <div id="idAreaCbGuardarMaximaPrecision"
+                                                  data-toggle="tooltip" data-placement="top" title="Guardar solo el modelo con la máxima precisión alcanzada  "
+                                                  class="custom-control custom-switch input-group-text w-100">
+                                                      <input name="{{form.guardarMaximaPrecision  }}"
+                                                              id="idCBGuardarMaximaPrecision"
+                                                       type="checkbox" class="custom-control-input "
+                                                      checked="{{form.guardarMaximaPrecision.valor|lower  }}"
+                                                      >
+                                                      <label id="idSpanGuardarMaximaPrecision"
+                                                      class="custom-control-label ml-2 " for="idCBGuardarMaximaPrecision">
+                                                      Solo máxima precisión
+                                                    </label>
+                                                    </div>
+
+                                                </div>
+
+                                              </div>
+                                        </div>
+
+                </div>
+
+
+            </div>
+
+          </div>
+    </div>
+    </div>
+
+
+
+
+
+    <div class="row mt-3">
+        <div class="col">
+            <button id="idBotonComenzarEntrenamiento" type="submit" class="btn btn-dark">Comenzar Entrenamiento</button>
+        </div>
+
+    </div>
+    <input id="idInputDatasetParaEntrenamiento" type="hidden" name="{{form.idDataset }}" >
+     <input id="idInputDatasetParaValidacion" type="hidden" name="{{form.idDatasetParaValidacion  }}" >
+{#    <input type="hidden" name="{{nombre_form_ubicacion_post}}" value="{{forms }}">#}
+ {{form.htmlHidden|conHTML }}
+</form>
+
+
+
+<div class="modal fade" id="scrollable-modal" tabindex="-1" role="dialog" aria-labelledby="scrollableModalTitle" aria-hidden="true" style="display: none;">
+<div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="scrollableModalTitle">Seleccione el Dataset</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+        <div class="modal-body" style="min-height: 300px;">
+            <div class="row justify-content-between">
+                <div class="col-10">
+
+                        <div class="input-group">
+                            <input  id="idTextoFiltro" type="text" class="form-control"
+                                aria-label="Text input with segmented dropdown button">
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-secondary "><i class="fas fa-search"></i></button>
+                                <button type="button" class="btn btn-secondary  dropdown-toggle dropdown-toggle-split"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-angle-down"></i>
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <div class="dropdown-menu ">
+                                    <label class="btn btn-outline btn-info dropdown-item">
+                                        <div class="custom-control custom-radio">
+                                            <input type="checkbox" id="idCBFiltroFecha"
+                                                class="custom-control-input" >
+                                            <label class="custom-control-label" for="idCBFiltroFecha">
+                                                Fecha</label>
+                                        </div>
+                                    </label>
+
+                                    <label class="btn btn-outline btn-info dropdown-item">
+                                        <div class="custom-control custom-radio">
+                                            <input type="checkbox" id="idCBFiltroUsuario"
+                                                class="custom-control-input">
+                                            <label class="custom-control-label" for="idCBFiltroUsuario">
+                                                Usuario</label>
+                                        </div>
+                                    </label>
+                                    <label class="btn btn-outline btn-info dropdown-item">
+                                        <div class="custom-control custom-radio">
+                                            <input type="checkbox" id="idCBFiltroFruto"
+                                                class="custom-control-input">
+                                            <label class="custom-control-label" for="idCBFiltroFruto">
+                                                Tipo de Fruto</label>
+                                        </div>
+                                    </label>
+                                    <label class="btn btn-outline btn-info dropdown-item">
+                                        <div class="custom-control custom-radio">
+                                            <input type="checkbox" id="idCBFiltroModelo"
+                                                class="custom-control-input">
+                                            <label class="custom-control-label" for="idCBFiltroModelo">
+                                                Nombre</label>
+                                        </div>
+                                    </label>
+
+
+
+
+                                    <div role="separator" class="dropdown-divider"></div>
+                                    <label class="btn btn-outline btn-info dropdown-item">
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" id="idCBFiltroTodos"
+                                                class="custom-control-input" checked>
+                                            <label class="custom-control-label" for="idCBFiltroTodos">
+                                                Todos</label>
+                                        </div>
+                                    </label>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                </div>
+
+                <div class="col-1 ">
+
+                    <div class="input-group d-flex justify-content-end">
+                        <div class="input-group-append ">
+                            <button id="idBDireccionDeOrden" type="button" class="btn btn-secondary ">
+
+                                <i id="idIconoDireccionDeOrden" class="fas fa-search"></i></button>
+                            <!-- <button  type="button" class="btn btn-secondary "><i class="fas fa-search"></i></button> -->
+                            <button type="button" class="btn btn-secondary  dropdown-toggle dropdown-toggle-split"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i id="idIconoOrdenSeleccionado" class="fas fa-angle-down"></i>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <div class="dropdown-menu ">
+                                <label class="btn btn-outline btn-info dropdown-item">
+                                    <div class="custom-control custom-radio">
+                                        <input type="radio" id="idCBOrdenarFecha" name="ordenarValores"
+                                            class="custom-control-input" >
+                                        <label class="custom-control-label" for="idCBOrdenarFecha">
+                                            Fecha</label>
+                                    </div>
+                                </label>
+
+                                <label class="btn btn-outline btn-info dropdown-item">
+                                    <div class="custom-control custom-radio">
+                                        <input type="radio" id="idCBOrdenarUsuario" name="ordenarValores"
+                                            class="custom-control-input">
+                                        <label class="custom-control-label" for="idCBOrdenarUsuario">
+                                            Usuario</label>
+                                    </div>
+                                </label>
+                                <label class="btn btn-outline btn-info dropdown-item">
+                                    <div class="custom-control custom-radio">
+                                        <input type="radio" id="idCBOrdenarTipoDeFruto" name="ordenarValores"
+                                            class="custom-control-input">
+                                        <label class="custom-control-label" for="idCBOrdenarTipoDeFruto">
+                                            Tipo de Fruto</label>
+                                    </div>
+                                </label>
+                                <label class="btn btn-outline btn-info dropdown-item">
+                                    <div class="custom-control custom-radio">
+                                        <input type="radio" id="idCBOrdenarNombre" name="ordenarValores"
+                                            class="custom-control-input">
+                                        <label class="custom-control-label" for="idCBOrdenarNombre">
+                                            Nombre</label>
+                                    </div>
+                                </label>
+
+
+
+
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- active -->
+            <ul id="idListaDeDataset" class="list-group  mt-3">
+                <li onclick="setValueEnHiddenDataset('{id}')" id="{idItem}" class="list-group-item   iten_navegacion_carpeta">
+                  <div class="row align-items-center">
+
+                      <div class="col-6 text-truncate">
+                        {NombreDataset}
+                      </div>
+                      <div class="col-4">
+                        <div class="row text-truncate font-weight-lighter text-muted subtexto_iten_navegacion">{Tipo_de_Fruto}</div>
+                        <div class="row text-truncate font-weight-lighter text-muted subtexto_iten_navegacion">{Usuario}</div>
+                        <div class="row text-truncate font-weight-lighter text-muted subtexto_iten_navegacion">{Fecha}</div>
+                      </div>
+
+                      <div class="col-2">
+                        <button onclick="alApretarEnDetallesDataset('{id}')" type="button" class="btn  btn-dark boton_en_navegacion"
+                        data-toggle="tooltip" data-placement="top" title="Detalles"
+                        >
+                            <i class="far fa-question-circle"></i>
+                        </button>
+                      </div>
+
+                  </div>
+
+
+
+
+                </li>
+
+              </ul>
+
+        </div>
+        <div class="modal-footer justify-content-between">
+            <button type="button" class="btn btn-primary"  data-dismiss="modal">Cancelar</button>
+            <button id="idBotonSeleccionarDlgDataset" type="button" class="btn btn-dark" data-dismiss="modal">Seleccionar</button>
+
+
+        </div>
+        <input id="idHiddenDataset" type="hidden" />
+{#        name="{{nombre_form_ubicacion_post}}" value="{{form_loguin.nombre_form_loguin}}"#}
+    </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+</div>
+
+<div id="idDlgHayCamposInvalidos" data-backdrop="static" class="modal fade" tabindex="-1" role="dialog" style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-body p-4">
+                                <div class="text-center">
+                                    <i class="dripicons-information h1 text-dark"></i>
+                                    <h4 class="mt-2 text-dark">Aviso</h4>
+                                    <p  class="mt-3 text-dark">Existen campos con informaciones erróneas!, por favor rectifique sus datos y vuelva a intentarlo   </p>
+                                    <p id="idSpamContenidoDlgHayCamposInvalidos" style="display: none;" class="mt-3 text-dark"></p>
+
+                                    <button type="button" class="btn btn-info my-2" data-dismiss="modal" >
+                                        <!-- <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> -->
+                                        Aceptar </button>
+                                </div>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div>
+
+
+    <div id="idDlgDetallesDelDataset" data-backdrop="static" class="modal fade" tabindex="-1" role="dialog" style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Detalles</h5>
+                                <button onclick="hideDlgBostrap('idDlgDetallesDelDataset')" type="button" class="close"  aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+{#                                data-dismiss="modal"#}
+                              </div>
+                            <div class="modal-body p-4" style="min-height: 500px;">
+                                    {% include "Visual/DetallesDataset/DetallesDatasetHTML.html" %}
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div>
+
+     <div id="idDlgEsperando" data-backdrop="static" class="modal fade" tabindex="-1" role="dialog"
+                    style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-body p-4">
+                                <div class="text-center">
+                                    <i class="dripicons-information h1 text-dark"></i>
+                                    <h4 id="idTitulo_DlgEsperando" class="mt-2 text-dark">Aviso</h4>
+                                    <p id="idContenido_DlgEsperando" class="mt-3 text-dark">Espere mientras ultimamos los detalles de la detención
+                                        solicitada </p>
+
+
+                                    <button type="button" class="btn btn-info my-2" data-dismiss="modal" disabled>
+                                        <span class="spinner-border spinner-border-sm" role="status"
+                                            aria-hidden="true"></span>
+                                            <span id="idSpamEsperando_DlgEsperando">Deteniendo</span>
+
+                                    </button>
+                                </div>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div>
+<div id="idDlgError" data-backdrop="static" class="modal fade" tabindex="-1" role="dialog"
+                    style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog modal-sm" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body p-4">
+                                <div class="text-center">
+                                    <i class="dripicons-information h1 text-dark"></i>
+                                    <h4 id="idTitulo_idDlgError" class="mt-2 text-dark">Aviso</h4>
+                                    <p id="idContenido_DlgError" class="mt-3 text-dark">Le informamos de la existencia
+                                        de un error interno del servidor </p>
+
+
+                                    <button id="idBotonAceptar_DlgError"
+                                            type="button" class="btn btn-info my-2" data-dismiss="modal">
+                                        <!-- <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> -->
+                                        Aceptar
+                                    </button>
+                                </div>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div>
+
+{% endblock%}
+
+
+
+{% block scripts_extras %}
+
+    <script src="{% static 'js/Librerias/date.format.js' %}"></script>
+    <script src="{% static 'js/Librerias/ckeditor/ckeditor.js' %}"></script>
+
+    <script src="{% static 'js/reneJavaScritp/reneJS_UtilesDeLibrerias.js' %}"></script>
+
+
+{#     <script src="{% static 'js/reneJavaScritp/reneJS_Componentes/reneJS_PaginacionVisual.js' %}"></script>#}
+{#    <script src="{% static 'js/reneJavaScritp/reneJS_Boostrap/reneJS_Bootstrap_PaginacionVisual.js' %}"></script>#}
+    <script src="{% static 'js/controladores/rene_controlador_detallesDataset.js' %}"></script>
+
+    <script>
+
+
+
+
+const KEY_ID="id";
+const KEY_NOMBRE_DATASET="NombreDataset";
+const KEY_CANTIDAD_DE_CLASES="cantidadDeClases";
+
+listaKeysParafiltro=[KEY_NOMBRE_DATASET,"Tipo_de_Fruto","Fecha","Usuario"]
+function vbdD(y,m,d){
+
+    let va=new ValorBD(newDate(y,m,d));
+    va.getStr=v=>{
+        //console.log("pasa por aqui v="+v);
+        let r=getStrFromDate(v,"mm/dd/yy hh:MM TT");
+        return r;
+    };
+    return va;
+}
+
+const bd=new BD_RowElement();
+listaDeLlaves=getCopia(listaKeysParafiltro);
+listaDeLlaves.push(KEY_ID);
+listaDeLlaves.push(KEY_CANTIDAD_DE_CLASES);
+bd.llaves=listaDeLlaves;
+{% for e in listaDatosDeDataset %}
+    bd.addRow([
+        "{{e.nombre}}"
+    ,"{{ e.nombreCientificoFruto }}"
+    ,vbdD({{ e.fechaDeCreacion.year }},{{ e.fechaDeCreacion.month }},{{ e.fechaDeCreacion.day }})
+    ,"{{ e.nombreUsuario }}"
+    ,"{{ e.id }}"
+        ,"{{ e.cantidadDeClasificaciones }}"
+    ]);
+{% endfor %}
+const dt=new FiltroText_CByTodos_v2(bd);
+dt.llaves=listaKeysParafiltro;
+dt.setIdBaseElemtosAOcultar("idItem");
+dt.IdCB_Todo="idCBFiltroTodos";
+dt.setIdsCb([
+    "idCBFiltroModelo"
+    ,"idCBFiltroFruto"
+    ,"idCBFiltroFecha"
+    ,"idCBFiltroUsuario"
+]);
+dt.idText="idTextoFiltro";
+dt.aplicarConfiguracionToggle();
+dt.setFiltroText();
+
+const plantillaBD=getHTML("idListaDeDataset");
+
+or=new OrdenadorRB_Visual_BD(bd);
+or.llaves=listaKeysParafiltro;
+or.accionDespuesDeOrdenar=()=>{
+    repetidor("idListaDeDataset",bd,plantillaBD);
+    dt.filtrar();
+}
+or.idBToggleOrdenamiento="idBDireccionDeOrden";
+or.setMapIdsRByIcono(new Map([
+    ["idCBOrdenarNombre","fas fa-address-card"]
+    ,["idCBOrdenarTipoDeFruto","fas fa-bowling-ball"]
+    ,["idCBOrdenarFecha","fas fa-calendar-alt"]
+    ,["idCBOrdenarUsuario","fas fa-address-book" ]
+
+
+]));
+or.idIconoOrdenSeleccionado="idIconoOrdenSeleccionado";
+or.idIconoDireccionDeOrden="idIconoDireccionDeOrden";
+or.iconoOrdenAscendente="fas fa-angle-double-down";
+or.iconoOrdenDescendente="fas fa-angle-double-up";
+or.aplicarConfiguracionToggle();
+or.aplicarConfiguracionVisual();
+
+
+
+
+
+repetidor("idListaDeDataset",bd,plantillaBD);
+
+
+listaDeElementosInternos=bd.getListaNombreIds_del(0);
+function alClickear(indice){
+    // console.log("id sele="+indice);
+}
+//console.log(listaDeElementosInternos);
+ponerClaseAlSeleccionar(listaDeElementosInternos,"active",alClickear);
+setValorDeSliderOnInput("idRangeCantidadDeEpocas","idValorStrEpocas",v=>sprintf("%03d",[v]));
+setValorDeSliderOnInput("idRangeLimitePreciosion","idValorStrLimitePrecision",v=>sprintf("%.02f",[v]));
+setValorDeSliderOnInput("idRangePorcentajeParaValidacion","idValorStrPorcentajeParaValidacion",v=>sprintf("%.02f",[v]));
+
+class DatoParaPrepararChb{
+    constructor(idCb,listaIdsConOnClick,listaIdsADesactivar){
+        // console.log("0 idCb="+idCb)
+        // console.log("0 lon="+listaIdsConOnClick)
+        // console.log("0 ld="+listaIdsADesactivar)
+        this.idCb=idCb;
+        this.listaIdsConOnClick=listaIdsConOnClick;
+        this.listaIdsADesactivar=listaIdsADesactivar;
+    }
+}
+
+function prepararCBs(listaParaPrepararChb){
+    listaParRadiosIds=[];
+    for (let i = 0; i < listaParaPrepararChb.length; i++) {
+        const dchb = listaParaPrepararChb[i];
+        //console.log("lon="+dchb.listaIdsConOnClick)
+        addOnClickTogleSelectedCB_StopProp(dchb.idCb,dchb.listaIdsConOnClick);
+        listaParRadiosIds.push(new ParIdRadioYListaIdsElementos(dchb.idCb,dchb.listaIdsADesactivar));
+
+    }
+    desactivarNotRadios(listaParRadiosIds);
+
+}
+const ID_RB_USAR_DATASET_PARA_VALIDACION="idCBUsarDatasetParaValidacion";
+prepararCBs([
+    new DatoParaPrepararChb("idCBUsarPorcentajeParaValidacion",["idAreaCBUsarPorcentajeParaValidacion","idSpanUsarPorcentajeParaValidacion"],["idRangePorcentajeParaValidacion"])
+    ,new DatoParaPrepararChb(ID_RB_USAR_DATASET_PARA_VALIDACION,["idAreaCBUsarDatasetParaValidacion"],["idBotonBuscarDatasetValidacion"])
+    ,new DatoParaPrepararChb("idCBUsarLimiteDePrecision",[],["idRangeLimitePreciosion"])//,new DatoParaPrepararChb("idCBUsarLimiteDePrecision",["idAreaCbUsarLimiteDePrecision","idSpanUsarLimiteDePrecision"],["idRangeLimitePreciosion"])
+]);
+simularClick("idCBUsarPorcentajeParaValidacion");
+
+showDlgBostrapOnClick("scrollable-modal","idBotonBuscarDataset");
+showDlgBostrapOnClick("scrollable-modal","idBotonBuscarDatasetValidacion");
+
+function setValueEnHiddenDataset(valor){
+    setValue("idHiddenDataset",valor);
+    //console.log("valor="+valor);
+    console.log("valor="+getValue("idHiddenDataset"));
+}
+
+function getNombreDataset(idABuscar){
+            for (const mapBd of bd.listaDeMapBD) {
+                let id=mapBd.get(KEY_ID);
+                if(id==idABuscar){
+                    return mapBd.get(KEY_NOMBRE_DATASET);
+                }
+            }
+            return null;
+}
+function getCantidadDeClasesDataset(idABuscar){
+            for (const mapBd of bd.listaDeMapBD) {
+                let id=mapBd.get(KEY_ID);
+                if(id==idABuscar){
+                    return mapBd.get(KEY_CANTIDAD_DE_CLASES);
+                }
+            }
+            return null;
+}
+class ManagerDlgDataset{
+    constructor(){
+        this.ponerIdEnDatasetParaEntrenamiento=true;
+        this.idBotonShowDlgDatasetParaEntrenamiento;
+        this.idBotonShowDlgDatasetParaValidacion;
+        this.idBotonSeleccionarDlg;
+        this.idHidenIdDatasetParaEntrenamiento;
+        this.idHidenIdDatasetParaValidacion;
+        this.idHidenIdDatasetEnDlg;
+        this.idTextNombreDatasetParaEntrenamiento;
+        this.idTextNombreDatasetParaValidacion;
+
+        this.idSeleccionado_DatasetValidacion=null;
+        this.idSeleccionado_DatasetEntrenamiento=null;
+
+    }
+    setValorParaDatasetDeEntrenamiento(id){
+        this.setValorEnDataset(this.idTextNombreDatasetParaEntrenamiento
+            ,this.idHidenIdDatasetParaEntrenamiento,id);
+    }
+    setValorParaDatasetDeValidacion(id){
+        this.setValorEnDataset(this.idTextNombreDatasetParaValidacion
+            ,this.idHidenIdDatasetParaValidacion,id);
+    }
+    setValorEnDataset(idElemento,IdHidenElemento,idBD){
+
+        let nombreDataset=getNombreDataset(idBD);
+        if(nombreDataset!=null){
+            //console.log("idBD="+idBD+" idElemento="+idElemento+" nombreDataset="+nombreDataset);
+            setValue(idElemento,nombreDataset);
+            setValue(IdHidenElemento,idBD);
+        }
+    }
+
+    aplicarConfiguracionVisual(){
+
+        const self=this;
+        addOnClick(this.idBotonSeleccionarDlg,e=>{
+            let idHiden=self.ponerIdEnDatasetParaEntrenamiento?self.idHidenIdDatasetParaEntrenamiento:self.idHidenIdDatasetParaValidacion;
+            let valorIdEnBD=getValue(self.idHidenIdDatasetEnDlg);
+            // console.log("self.idHidenIdDatasetEnDlg="+self.idHidenIdDatasetEnDlg);
+            // console.log("valorIdEnBD="+valorIdEnBD);
+            //setValue(idHiden,valorIdEnBD);
+
+            self.setValorEnDataset(self.ponerIdEnDatasetParaEntrenamiento?self.idTextNombreDatasetParaEntrenamiento:self.idTextNombreDatasetParaValidacion
+            ,idHiden,valorIdEnBD);
+
+            if(self.ponerIdEnDatasetParaEntrenamiento){
+                self.idSeleccionado_DatasetEntrenamiento=valorIdEnBD;
+            }else{
+                 self.idSeleccionado_DatasetValidacion=valorIdEnBD;
+            }
+
+
+        });
+        addOnClick(this.idBotonShowDlgDatasetParaEntrenamiento,e=>{
+            self.ponerIdEnDatasetParaEntrenamiento=true;
+        });
+        addOnClick(this.idBotonShowDlgDatasetParaValidacion,e=>{
+            self.ponerIdEnDatasetParaEntrenamiento=false;
+        });
+    }
+}
+
+
+mngEventosDlgDataset =new ManagerDlgDataset();
+mngEventosDlgDataset.idHidenIdDatasetEnDlg="idHiddenDataset";
+mngEventosDlgDataset.idBotonSeleccionarDlg="idBotonSeleccionarDlgDataset";
+mngEventosDlgDataset.idHidenIdDatasetParaEntrenamiento="idInputDatasetParaEntrenamiento";
+mngEventosDlgDataset.idHidenIdDatasetParaValidacion="idInputDatasetParaValidacion";
+mngEventosDlgDataset.idBotonShowDlgDatasetParaEntrenamiento="idBotonBuscarDataset";
+mngEventosDlgDataset.idBotonShowDlgDatasetParaValidacion="idBotonBuscarDatasetValidacion";
+mngEventosDlgDataset.idTextNombreDatasetParaEntrenamiento="idTextoNombreDataset";
+mngEventosDlgDataset.idTextNombreDatasetParaValidacion="idTextoNombreDatasetParaValidacion";
+mngEventosDlgDataset.aplicarConfiguracionVisual();
+
+{#{{ cnf.idDelDataset }}#}
+{#{{ cnf.idDelDatasetParaValidacion }}#}
+
+usarPorcentajeParaValidacion={{ form.usarPorcentajeParaValidacion.valor|lower }};
+
+
+if(!usarPorcentajeParaValidacion){
+    simularClick(ID_RB_USAR_DATASET_PARA_VALIDACION);
+}
+
+fueValidadoElformulario={{ form.validado|lower }};
+esValidoElFormulario={{ form.valido|lower }}
+esValidoID_DatasetDeEntrenamiento={{ form.idDataset.esValido|lower }};
+esValidoID_DatasetDeValidacion={{ form.idDatasetParaValidacion.esValido|lower }};
+
+
+
+
+
+const mngDlgError=new ManagerDlg_AceptarCancelar_Bootstrap("idDlgError");
+mngDlgError.idContenido="idContenido_DlgError";
+mngDlgError.idTitulo="idTitulo_idDlgError";
+mngDlgError.setIdBotonAceptar("idBotonAceptar_DlgError");
+function showDlgFalloEnLaValidacion(mensaje){
+    //estado.mostrandoMensajeDeErrorAceptar=true
+    mngDlgError.showDlg("Datos Inválidos "
+    ,mensaje
+    ,"Aceptar",()=>{
+        //estado.mostrandoMensajeDeErrorAceptar=false
+
+        });
+}
+
+if(fueValidadoElformulario&&!esValidoElFormulario){
+    showDlgFalloEnLaValidacion("{{ form.mensajeNoValido }}");
+}
+
+/*esValidoElFormulario={{ form.valido|lower }}
+if(!esValidoElFormulario){
+    showDlgBostrap("idDlgHayCamposInvalidos")
+}*/
+
+const MIN_CARACTERES=5;
+const MAX_CARACTERES=50;
+
+const V=new ValidacionConEventos_Boostrap();
+V.addText_CON_ALFANUMERICOS("idTextoNombreModelo").setMinCar(MIN_CARACTERES).setMaxCar(MAX_CARACTERES);
+
+{#V.addText_CON_ALFANUMERICOS("idTextoTipoDeFruto").setMinCar(MIN_CARACTERES).setMaxCar(MAX_CARACTERES);#}
+V.addText_NO_EMPTY("idTextoNombreDataset");
+
+V.addRange_EnteroPositivo("idRangeCantidadDeEpocas",20,100);
+V.addRange_Positivo("idRangePorcentajeParaValidacion",0.1,0.4);
+V.setDependeDeCB("idCBUsarPorcentajeParaValidacion");
+
+V.addText_NO_EMPTY("idTextoNombreDatasetParaValidacion").addTipoDeValidacion(
+    new TipoDeValidacion(
+        (t,v)=>{
+            return mngEventosDlgDataset.idSeleccionado_DatasetEntrenamiento!=mngEventosDlgDataset.idSeleccionado_DatasetValidacion;
+        }
+        ,"Los Dataset seleccionados tienen que ser distintos "
+    )
+).addTipoDeValidacion(
+    new TipoDeValidacion(
+        (t,v)=>{
+            let cantidadDeClases_DatasetEntrenamiento=getCantidadDeClasesDataset(mngEventosDlgDataset.idSeleccionado_DatasetEntrenamiento);
+            let cantidadDeClases_DatasetValidacion=getCantidadDeClasesDataset(mngEventosDlgDataset.idSeleccionado_DatasetEntrenamiento);
+            return cantidadDeClases_DatasetEntrenamiento==cantidadDeClases_DatasetValidacion;
+        }
+        ,"EL Dataset de validación debe de coincidir al menos en cantidad de clases de clasificación con respecto al Dataset de entrenamiento   "
+    )
+);
+V.setDependeDeCB("idCBUsarDatasetParaValidacion");
+
+V.addRange_Positivo("idRangeLimitePreciosion",0.6,0.99);
+V.setDependeDeCB("idCBUsarPorcentajeParaValidacion");
+
+V.addBotonesDisparadores(["idBotonSeleccionarDlgDataset"]);
+
+V.addBotonADesactivar("idBotonComenzarEntrenamiento");
+V.comprovarValidacionYDesactivar();
+
+
+
+CKEDITOR.replace( 'editor1' );
+console.log("termino con el script inicial")
+
+
+const mngDlgEsperando=new ManagerDlg_ContenidoText_Bootstrap("idDlgEsperando");
+mngDlgEsperando.idContenido="idContenido_DlgEsperando";
+mngDlgEsperando.idTitulo="idTitulo_DlgEsperando";
+mngDlgEsperando.idMensajeCargando="idSpamEsperando_DlgEsperando";
+
+function showDlgPreparandoDetallesDataset(){
+    mngDlgEsperando.setMensajeCargando("Espere");
+    mngDlgEsperando.showDlg("Preparando "
+    ,"Estamos preparando la información de los detalles del Dataset solicitado");
+}
+
+    function alApretarEnDetallesDataset(id) {
+        console.log("id="+id);
+        //hideDlgBostrap("scrollable-modal");
+        //showDlgPreparandoDetallesDataset();
+        ejecutarAjax("/{{ urls.URL_POST_METODO_GET_DETALLES_DEL_DATASET }}/"
+            ,{"idDelDataset":id}
+        ,r=>{
+            {#let existeElID=existe(mngDlgEsperando.id);#}
+            //mngDlgEsperando.hide();
+            {#hideDlgBostrap(mngDlgEsperando.id);#}
+            {#displayNone(mngDlgEsperando.id,true);#}
+            //console.log("r.existeDataset="+r.existeDataset);
+            if(r.existeDataset){
+
+                let dt=new DatosDelDataset();
+                dt.id=r.datosDataset.id;
+                dt.nombre=r.datosDataset.nombre;
+                dt.descripcion=r.datosDataset.descripcion;
+               // console.log("dt.descripcion="+dt.descripcion)
+                dt.tipoDeFruto=r.datosDataset.fruto;
+                dt.variedadFruto=r.datosDataset.variedadFruto;
+                dt.nombreCientificoFruto=r.datosDataset.nombreCientificoFruto;
+                dt.usuario=r.datosDataset.nombreUsuario;
+                dt.creacion=vbdD(r.datosDataset.fechaDeCreacion.year
+                    ,r.datosDataset.fechaDeCreacion.month
+                    ,r.datosDataset.fechaDeCreacion.day);
+                dt.cantidadDeImagenes=r.datosDataset.cantidadDeImagenes;
+                dt.cantidadDeClasificaciones=r.datosDataset.cantidadDeClasificaciones;
+                let matris_Clasificacion_CantidadDeImagenes=r.datosDataset.matris_Clasificacion_CantidadDeImagenes;
+                //console.log("matris_Clasificacion_CantidadDeImagenes="+matris_Clasificacion_CantidadDeImagenes);
+                for (let row of matris_Clasificacion_CantidadDeImagenes) {
+                    //console.log("row="+row);
+                    dt.listaPar_Clasificicacion_CantidadDeImagenes.push(row);
+                }
+                //dt.matriz_clasificacion_detalles=r.datosDataset.matris_Clasificacion_Carpeta_Descripcion;
+                for (let row of r.datosDataset.matris_Clasificacion_Carpeta_Descripcion) {
+                    //console.log("row="+row);
+                    dt.matriz_clasificacion_detalles.push([row[0],row[2]]);
+                }
+                {#dt.listaPar_Clasificicacion_CantidadDeImagenes=[#}
+                {#    {% for clas in datosDataset.matris_Clasificacion_CantidadDeImagenes %}#}
+                {#        ["{{ clas|getEn:0 }}",{{ clas|getEn:1 }} ],#}
+                {#    {% endfor %}#}
+                {##}
+                {#];#}
+                let clasificaciones=r.datosDataset.clasificaciones;
+                for (const cla of clasificaciones) {
+                    dt.lista_Clasificaciones.push(cla);
+                }
+
+                {#dt.lista_Clasificaciones=[ {% for clas in datosDataset.clasificaciones %} "{{ clas }}",{% endfor %}];//["Madura","Verde","Pintona","Lista"];#}
+                actualizarDatosDeImg(dt
+                    ,"{{ urls.URL_POST_METODO_GET_LISTA_IMAGENES_DEL_DATASET }}"
+                    ,"{{ urls.URL_POST_METODO_GET_IMG_DE_EJEMPLO_900_600_PX }}"
+                    ,"{{  urls.URL_POST_METODO_GET_IMG_DATASET_900_600_PX }}"
+                );
+
+                let li=[];
+                {#console.log(r.dicImagenes);#}
+                {#console.log(typeof(r.dicImagenes));#}
+                let dicImagenes=[];
+                for (let e in r.dicDeImagenes
+                ) {
+                    dicImagenes.push([r.dicDeImagenes[e],e]);
+                }
+                let cantidadDeimagenes=r.cantidadDeImg;
+                let listaDeindices=[];
+                for (let e of r.listaDeIndices){
+                    listaDeindices.push(e);
+                }
+                 let iActual=r.iActual;
+                for (let i = 0; i < cantidadDeimagenes; i++) {
+                    li.push(dicImagenes[i]);
+                }
+                let p=new Paginacion(listaDeindices,iActual);
+                mngImg.actualizar(p,li);
+
+                console.log("llamo a mostrar");
+                showDlgBostrap("idDlgDetallesDelDataset");
+
+
+
+
+            }else{
+                //mngDlgEsperando.hide();
+                showDlgError2();
+            }
+
+
+        }
+        ,r=>{
+
+            mngDlgEsperando.hide();
+            showDlgError2();
+            });
+    }
+
+
+/*
+    $(document)
+  .on('show.bs.modal', '.modal', function(event) {
+    $(this).appendTo($('body'));
+  })
+  .on('shown.bs.modal', '.modal.in', function(event) {
+    setModalsAndBackdropsOrder();
+  })
+  .on('hidden.bs.modal', '.modal', function(event) {
+    setModalsAndBackdropsOrder();
+  });
+
+function setModalsAndBackdropsOrder() {
+  var modalZIndex = 1040;
+  $('.modal.in').each(function(index) {
+    var $modal = $(this);
+    modalZIndex++;
+    $modal.css('zIndex', modalZIndex);
+    $modal.next('.modal-backdrop.in').addClass('hidden').css('zIndex', modalZIndex - 1);
+});
+  $('.modal.in:visible:last').focus().next('.modal-backdrop.in').removeClass('hidden');
+}
+*/
+
+/*
+    (function multiple_modal() {
+    $(document).on('show.bs.modal', '.modal', function () {
+        var zIndex = 1040 + (10 * $('.modal:visible').length);
+        $(this).css('z-index', zIndex);
+        setTimeout(function () {
+            $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
+        }, 0);
+    });
+
+    $(document).on('hidden.bs.modal', '.modal', function () {
+        $('.modal:visible').length && $(document.body).addClass('modal-open');
+    });
+})() */
+    </script>
+
+{% endblock%}

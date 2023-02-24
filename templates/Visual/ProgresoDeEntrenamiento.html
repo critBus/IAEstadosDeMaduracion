@@ -1,0 +1,697 @@
+{% extends "Visual/plantillaPadre.html" %}
+{% load static %}
+{% load poll_extras_rene_app %}
+
+{% block titulo %}
+Progreso De Entrenamiento
+{% endblock %}
+
+{% block contenido %}
+                <div class="row mt-3 align-items-center">
+                    <div class="col-sm-10">
+
+
+                        <div class="row">
+                            <!-- <div class="container">
+                                <div class="row d-flex justify-content-center">
+
+                                </div>
+                                <div class="row"> -->
+                                    <div class="col-sm-6  ">
+                                        <div class="container">
+                                            <div class="row d-flex justify-content-center">
+                                                <h4>Progreso Del Entrenamiento</h4>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col">
+                                                    <div id="idDivProgreso" class="progress">
+
+                                                        <div class="progress-bar progress-bar-striped progress-bar-animated"
+                                                         role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 75%"
+                                                         id="idBarraDeProgreso"
+                                                         >
+
+                                                        </div>
+                                                        <span id="idSpamProgresoPequeño" class="text-center" style="width: 25%"> 0% </span>
+                                                      </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="col-sm-6 ">
+                                        <div class="container d-flex align-items-center" style="height: 100%;">
+                                            <div class="row">
+                                                <span><b>Etapa: </b></span><span id="idSpamEtapasActuales">... </span>
+                                                <span class="ml-2"><b>Perdida: </b></span><span id="idSpamPerdidaActual">...</span>
+                                                <span class="ml-2"><b>Presicion: </b></span><span id="idSpamPresicionActual">...</span>
+                                                <!-- <div class="col"><label for="idSpamEtapasActuales"><b>Etapa: </b></label><span id="idSpamEtapasActuales">75/100 </span></div>
+                                                <div class="col"><label for="idSpamPerdidaActual"><b>Perdida: </b></label><span id="idSpamPerdidaActual">3.0 </span></div>
+                                                <div class="col"><label for="idSpamPresicionActual"><b>Presicion: </b></label><span id="idSpamPresicionActual">0.89 </span></div> -->
+
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                <!-- </div>
+                            </div> -->
+
+                        </div>
+
+                        <div class="row mt-2">
+                            <!-- <div class="container">
+                                <div class="row d-flex justify-content-center">
+
+                                </div>
+                                <div class="row"> -->
+                                    <div class="col-sm-6  ">
+                                        <div class="container">
+                                            <div class="row d-flex justify-content-center">
+                                                <h4>Progreso De La Epoca</h4>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col">
+                                                    <div id="idDivLoteProgreso" class="progress">
+
+                                                        <div class="progress-bar progress-bar-striped progress-bar-animated"
+                                                         role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 75%"
+                                                         id="idLoteBarraDeProgreso"
+                                                         >
+
+                                                        </div>
+                                                        <span id="idSpamLoteProgresoPequeño" class="text-center" style="width: 25%"> 0% </span>
+                                                      </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="col-sm-6 ">
+                                        <div class="container d-flex align-items-center" style="height: 100%;">
+                                            <div class="row">
+                                                <span><b>Lote: </b></span><span id="idSpamLotesActuales">... </span>
+                                                <span class="ml-2"><b>Perdida: </b></span><span id="idSpamLotePerdidaActual">... </span>
+                                                <span class="ml-2"><b>Presicion: </b></span><span id="idSpamLotePresicionActual">... </span>
+                                                <!-- <div class="col"><label for="idSpamEtapasActuales"><b>Etapa: </b></label><span id="idSpamEtapasActuales">75/100 </span></div>
+                                                <div class="col"><label for="idSpamPerdidaActual"><b>Perdida: </b></label><span id="idSpamPerdidaActual">3.0 </span></div>
+                                                <div class="col"><label for="idSpamPresicionActual"><b>Presicion: </b></label><span id="idSpamPresicionActual">0.89 </span></div> -->
+
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                <!-- </div>
+                            </div> -->
+
+                        </div>
+
+
+                    </div>
+
+                    <div class="col-sm-2 d-flex flex-row-reverse bd-highlight">
+                        <button type="button" class="btn btn-dark w-100" data-toggle="modal" data-target="#idDlgDetenerEntrenamiento">Detener</button>
+                    </div>
+                </div>
+
+
+
+                <div class="row mt-3 ">
+                    <div class="col d-flex justify-content-center">
+                        <div id="idGraficoProgreso"></div>
+                    </div>
+                    <div class="col d-flex justify-content-center">
+                        <div id="idGraficoProgresoLotes"></div>
+                    </div>
+                </div>
+
+
+
+            <div id="idDlgCargandoPrincipio" data-backdrop="static" class="modal fade" tabindex="-1" role="dialog" style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-body p-4">
+                                <div class="text-center">
+                                    <i class="dripicons-information h1 text-info"></i>
+                                    <h4 class="mt-2">Planificando </h4>
+                                    <p  class="mt-3">Se están preparando los datos para comenzar el entrenamiento </p>
+
+
+                                    <button type="button" class="btn btn-info my-2" data-dismiss="modal" disabled>
+                                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                        Procesando </button>
+                                </div>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div>
+
+            <div id="idDlgCargandoTerminando" data-backdrop="static" class="modal fade" tabindex="-1" role="dialog" style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-body p-4">
+                                <div class="text-center">
+                                    <i class="dripicons-information h1 text-info"></i>
+                                    <h4 class="mt-2">Terminando </h4>
+                                    <p  class="mt-3">Se están preparando los últimos detalles del entrenamiento, por favor espere</p>
+                                    <p id="idTextoTerminando" class="mt-3">Ultimando detalles finales </p>
+                                    <div id="idDivProgresoTerminado" class="progress">
+
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated"
+                                         role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 75%"
+                                         id="idBarraProgresoTerminando"
+                                         >
+
+                                        </div>
+                                        <span id="idSpamProgresoTerminando" class="text-center" style="width: 25%"> 0% </span>
+                                    </div>
+                                    <button type="button" class="btn btn-info my-2" data-dismiss="modal" disabled>
+                                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                        Procesando </button>
+                                </div>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div>
+
+
+
+
+                <!-- Dark Filled Modal -->
+                <div id="idDlgDetenerEntrenamiento" class="modal fade" tabindex="-1" role="dialog"
+                    aria-labelledby="fill-dark-modalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content modal-filled bg-dark">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="fill-dark-modalLabel">Detener el Entrenamiento</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            </div>
+                            <div class="modal-body">
+                                <p>¿Estás seguro de detener el entrenamiento? Se perderá el progreso actual   </p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar </button>
+{#                                <form id="idFormTerminoElEntrenamiento"  method="post" action="/{{urls.URL_VISTA_ENTRENAMIENTO}}/">#}
+{#                                    {% csrf_token %}#}
+                                    <button id="idBDetenerEntrenamiento" type="button" class="btn btn-outline-light">Detener</button>
+{#                                    <input type="hidden" name="{{nombre_form_ubicacion_post}}" value="{{forms.DETENER_ENTRENAMIENTO  }}">#}
+{#                                </form>#}
+
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+
+                </div><!-- /.modal -->
+
+
+{#    <div class="row ">#}
+{#        <div class="col">#}
+{#            <h3>Progreso Del Entrenamiento</h3>#}
+{##}
+{#        </div>#}
+{#    </div>#}
+{##}
+{#    <div class="row mt-3 align-items-center">#}
+{#        <div class="col-sm-6">#}
+{#            <div id="idDivProgreso" class="progress">#}
+{##}
+{#                <div class="progress-bar progress-bar-striped progress-bar-animated"#}
+{#                 role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 75%"#}
+{#                 id="idBarraDeProgreso"#}
+{#                 >#}
+{##}
+{#                </div>#}
+{#                <span id="idSpamProgresoPequeño" class="text-center" style="width: 25%"> 0% </span>#}
+{#              </div>#}
+{#        </div>#}
+{#        <div class="col-sm-4">#}
+{#            <span><b>Etapa: </b></span><span id="idSpamEtapasActuales">0/100 </span>#}
+{#            <span><b>Perdida: </b></span><span id="idSpamPerdidaActual">0.0 </span>#}
+{#            <span><b>Presicion: </b></span><span id="idSpamPresicionActual">0.0 </span>#}
+{#        </div>#}
+{#        <div class="col-sm-2 d-flex flex-row-reverse bd-highlight">#}
+{#            <form id="idFormTerminoElEntrenamiento"  method="post" action="/{{urls.URL_VISTA_ENTRENAMIENTO}}/">#}
+{#                {% csrf_token %}#}
+{#                <button id="idBDetenerEntrenamiento" type="button" class="btn btn-dark w-100">Detener</button>#}
+{#                <input type="hidden" name="{{nombre_form_ubicacion_post}}" value="{{nombre_termino_el_entrenamiento}}">#}
+{#            </form>#}
+{##}
+{#        </div>#}
+{#    </div>#}
+{##}
+{##}
+{##}
+{#      <div class="row mt-3 ">#}
+{#        <div class="col d-flex justify-content-center">#}
+{#            <div id="idGraficoProgreso"></div>#}
+{#        </div>#}
+{#    </div>#}
+{##}
+{##}
+    <form id="idFormLlamarVistaEntrenamiento"  method="get" action="/{{urls.URL_VISTA_ENTRENAMIENTO}}/">
+        {% csrf_token %}
+       <input type="hidden" name="{{nombre_form_ubicacion_post}}" value="{{forms.TERMINO_EL_ENTRENAMIENTO  }}">
+    </form>
+{##}
+{#    <div id="idDlgDeteniendo" data-backdrop="static" class="modal fade" tabindex="-1" role="dialog" style="display: none;" aria-hidden="true">#}
+{#        <div class="modal-dialog modal-sm">#}
+{#            <div class="modal-content">#}
+{#                <div class="modal-body p-4">#}
+{#                    <div class="text-center">#}
+{#                        <i class="dripicons-information h1 text-info"></i>#}
+{#                        <h4 class="mt-2">Deteniendo</h4>#}
+{#                        <p  class="mt-3">Estamos deteniendo el entrenamiento, por favor espere</p>#}
+{#                        <p id="idContenido" class="mt-3">Aplicando algoritmo GrayWord</p>#}
+{#                        <div class="progress">#}
+{#                          <div id="idBarraProgresoClasificacion" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>#}
+{#                        </div>#}
+{#                        <button type="button" class="btn btn-info my-2" data-dismiss="modal" disabled>#}
+{#                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>#}
+{#                            Espere </button>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div><!-- /.modal-content -->#}
+{#        </div><!-- /.modal-dialog -->#}
+{#    </div>#}
+
+{#  -----------------------------------------  #}
+{#<div class="row">#}
+{#    <form  method="post" action="/{{urls.URL_VISTA_ENTRENAMIENTO}}/">#}
+{#        {% csrf_token %}#}
+{#        <button type="submit" class="btn btn-primary">Entrenar</button>#}
+{#        <input type="hidden" name="{{nombre_form_ubicacion_post}}" value="{{nombre_comenzar_entrenamiento}}">#}
+{#    </form>#}
+{##}
+{#    <form  method="post" action="/{{urls.URL_VISTA_ENTRENAMIENTO}}/">#}
+{#        {% csrf_token %}#}
+{#        <button type="submit" class="btn btn-secondary">Detener</button>#}
+{#        <input type="hidden" name="{{nombre_form_ubicacion_post}}" value="{{nombre_detener_entrenamiento}}">#}
+{#    </form>#}
+{##}
+{#    <button type="button" class="btn btn-primary" onclick="apretoEnIniciarEntrenamiento();">Entrenar</button>#}
+{#    <button type="button" class="btn btn-secondary" onclick="apretoEnTerminarElEntrenamiento();">Detener</button>#}
+{#</div>#}
+{#<div class="row">#}
+{#    <p id="idTextoSalida"></p>#}
+{##}
+{#</div>#}
+{#<div class="row">#}
+{##}
+{#    <p id="idTextoEstado"></p>#}
+{#</div>#}
+{% endblock%}
+
+
+
+{% block scripts_extras %}
+    <script src="{% static 'js/Librerias/plotly.js' %}"></script>
+    <script src="{% static 'js/reneJavaScritp/reneJS_GraficosIA.js' %}"></script>
+
+    <script type="text/javascript">
+class MangerActualizadorDeProgreso{
+    constructor(){
+        //this.total=0;
+        this.dp=new DatosDeProgresoDeEntrenamiento();
+        this.idSpamIndicadorActual;
+        this.idSpamPerdidaActual;
+        this.idSpamPresicionActual;
+        this.idSpamProgresoPequeño;
+        this.idSpamPresicionActual;
+        this.idGraficoProgreso;
+
+        // this.tituloGrafico;
+        // this.tituloAxisX;
+    }
+    actualizarVisual(listaDePrecisiones,listaDePerdidas,total){
+        this.dp.listaDePrecisiones=listaDePrecisiones;//[0.2,0.4,0.5,0.6,0.7]
+        this.dp.listaDePerdidas=listaDePerdidas;//[50,40,30,20,10]
+        let epocaActual=this.dp.listaDePrecisiones.length;
+        let progreso=Math.trunc((epocaActual/total)*100);
+
+        {#let indice=this.dp.listaDePrecisiones.length-1;#}
+        {#let precisionActual=this.dp.listaDePrecisiones[indice];#}
+        {#let perdidaActual=this.dp.listaDePerdidas[indice];#}
+        {##}
+        {#setHTML(this.idSpamIndicadorActual,epocaActual+"/"+total);#}
+        {#setHTML(this.idSpamPerdidaActual,sprintf("%02.1f",perdidaActual));#}
+        {#setHTML(this.idSpamPresicionActual,sprintf("%.2f",precisionActual));#}
+
+        let textoEnPerdidaActual="...";
+        let textoEnPresicionActual="...";
+        if(this.dp.listaDePrecisiones.length>0){
+            let indice=this.dp.listaDePrecisiones.length-1;
+            let precisionActual=this.dp.listaDePrecisiones[indice];
+            let perdidaActual=this.dp.listaDePerdidas[indice];
+
+            textoEnPerdidaActual=sprintf("%02.1f",perdidaActual);
+            textoEnPresicionActual=sprintf("%.2f",precisionActual);
+        }
+
+
+        setHTML(this.idSpamIndicadorActual,epocaActual+"/"+total);
+        setHTML(this.idSpamPerdidaActual,textoEnPerdidaActual);
+        setHTML(this.idSpamPresicionActual,textoEnPresicionActual);
+
+
+        setProgressBoostrap(this.idBarraDeProgreso,this.idSpamProgresoPequeño,progreso);
+        const dv=new DatosVisualesDelGrafico();
+        dv.ancho=450;
+        dv.alto=400;
+        dv.colorDeFondo='#f9fbfd';
+        graficarProgresoDeEntrenamiento(this.idGraficoProgreso,this.dp,dv);
+
+    }
+}
+const mngEpocas=new MangerActualizadorDeProgreso();
+mngEpocas.idSpamIndicadorActual="idSpamEtapasActuales";
+mngEpocas.idSpamPerdidaActual="idSpamPerdidaActual";
+mngEpocas.idSpamPresicionActual="idSpamPresicionActual";
+mngEpocas.idSpamProgresoPequeño="idSpamProgresoPequeño";
+mngEpocas.idBarraDeProgreso="idBarraDeProgreso";
+mngEpocas.idGraficoProgreso="idGraficoProgreso";
+
+const mngLotes=new MangerActualizadorDeProgreso();
+mngLotes.idSpamIndicadorActual="idSpamLotesActuales";
+mngLotes.idSpamPerdidaActual="idSpamLotePerdidaActual";
+mngLotes.idSpamPresicionActual="idSpamLotePresicionActual";
+mngLotes.idSpamProgresoPequeño="idSpamLoteProgresoPequeño";
+mngLotes.idBarraDeProgreso="idLoteBarraDeProgreso";
+mngLotes.idGraficoProgreso="idGraficoProgresoLotes";
+
+mngLotes.dp.titulo="Progreso De Epoca";
+mngLotes.dp.tituloAxisX="Lotes";
+
+
+
+
+
+///-------------------------------------------------------------
+{#const dp=new DatosDeProgresoDeEntrenamiento();#}
+{#const dv=new DatosVisualesDelGrafico();#}
+{#dv.ancho=900;#}
+{#dv.alto=400;#}
+{#dv.colorDeFondo='#f9fbfd';#}
+{##}
+{##}
+{#function actualizarVisual(listaDePrecisiones,listaDePerdidas,cantidadDeEpocasTotales){#}
+{#    dp.listaDePrecisiones=listaDePrecisiones;//[0.2,0.4,0.5,0.6,0.7]#}
+{#    dp.listaDePerdidas=listaDePerdidas;//[50,40,30,20,10]#}
+{#    let epocaActual=dp.listaDePrecisiones.length;#}
+{#    let progreso=(epocaActual/cantidadDeEpocasTotales)*100;#}
+{##}
+{##}
+{##}
+{#    let textoEnPerdidaActual="...";#}
+{#    let textoEnPresicionActual="...";#}
+{#    if(dp.listaDePrecisiones.length>0){#}
+{#        let indice=dp.listaDePrecisiones.length-1;#}
+{#        let precisionActual=dp.listaDePrecisiones[indice];#}
+{#        let perdidaActual=dp.listaDePerdidas[indice];#}
+{##}
+{#        textoEnPerdidaActual=sprintf("%02.1f",perdidaActual);#}
+{#        textoEnPresicionActual=sprintf("%.2f",precisionActual);#}
+{#    }#}
+{##}
+{##}
+{#    setHTML("idSpamEtapasActuales",epocaActual+"/"+cantidadDeEpocasTotales);#}
+{#    setHTML("idSpamPerdidaActual",textoEnPerdidaActual);#}
+{#    setHTML("idSpamPresicionActual",textoEnPresicionActual);#}
+{##}
+{#    const idSpamProgresoPequeno="idSpamProgresoPequeño";#}
+{#    const idBarraDeProgreso="idBarraDeProgreso";#}
+{#    setProgressBoostrap(idBarraDeProgreso,idSpamProgresoPequeno,progreso);#}
+{#    graficarProgresoDeEntrenamiento("idGraficoProgreso",dp,dv);#}
+{##}
+
+
+    {#function getCantidadTotal(lista){#}
+    {#    return lista!==null&&lista!==undefined?lista.length:0;#}
+    class ManagerDlgCargandoTerminado{
+        constructor() {
+            this.idDlg="idDlgCargandoTerminando";
+            this.estaMostrandose=false;
+            this.idBarraDeProgreso="idBarraProgresoTerminando";
+            this.idSpamProgresoPequeno="idSpamProgresoTerminando";
+            this.idTextoEstadoActual="idTextoTerminando";
+            this.totalDePasos=8;
+        }
+        mostrarDlg(pasoActual){
+
+            {#console.log("pasoActual="+pasoActual)#}
+            {#console.log("ty pasoActual="+typeof(pasoActual))#}
+            {##}
+            console.log("va a mostrarse---------------------------------------");
+            let mensajeAMostrar="";
+            switch (pasoActual) {
+                case 1:
+                    mensajeAMostrar="Creando el modelo físico en el servidor ";
+                    break
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                    mensajeAMostrar="Calculando los datos de la matriz de confusión "
+                    break
+                case 6:
+                case 7:
+                    mensajeAMostrar="Calculando estadísticas del entrenamiento "
+                    break
+                default:
+                    mensajeAMostrar="Ultimando detalles finales  "
+                    break
+            }
+
+            {#console.log("pasoActual="+pasoActual);#}
+            {#console.log("this.totalDePasos="+this.totalDePasos);#}
+            {#console.log("(pasoActual/this.totalDePasos)="+(pasoActual/this.totalDePasos));#}
+            {#console.log("(pasoActual/this.totalDePasos)*100="+(pasoActual/this.totalDePasos)*100);#}
+            let progreso=Math.trunc((pasoActual/this.totalDePasos)*100);
+            {#console.log("mensajeAMostrar="+mensajeAMostrar);#}
+            {#console.log("progreso="+progreso);#}
+            {#console.log("this.idSpamProgresoPequeno="+this.idSpamProgresoPequeno);#}
+            {#console.log("getEl this.idSpamProgresoPequeno="+getEl(this.idSpamProgresoPequeno));#}
+            setProgressBoostrap(this.idBarraDeProgreso,this.idSpamProgresoPequeno,progreso);
+            setHTML(this.idTextoEstadoActual,mensajeAMostrar);
+            if(!this.estaMostrandose){
+                showDlgBostrap(this.idDlg);
+            }
+
+
+        }
+    }
+    const mngDlgCargandoTerminado=new ManagerDlgCargandoTerminado();
+
+
+
+
+    function mostrarProgreso(listaPrecisionEpocas
+                            ,listaPerdidaEpocas
+                             ,totalDeEpocas
+                             ,listaPrecisionLotes
+                            ,listaPerdidaLotes
+                            ,totalDeLotes
+                            ,estaEnFaseUltimosPasos
+                            ,pasoDelFinal){
+        let actualizarVisualUnaUltimaVez=true;
+        let idDlg="idDlgCargandoPrincipio";
+        if(listaPrecisionLotes.length===0&&listaPrecisionEpocas.length===0){
+            showDlgBostrap(idDlg);
+        }else{
+            if(estaEnFaseUltimosPasos){
+                mngDlgCargandoTerminado.mostrarDlg(pasoDelFinal);
+                if(actualizarVisualUnaUltimaVez){
+                    actualizarVisualUnaUltimaVez=false;
+                    mngEpocas.actualizarVisual(listaPrecisionEpocas,listaPerdidaEpocas,totalDeEpocas);
+                    mngLotes.actualizarVisual(listaPrecisionLotes,listaPerdidaLotes,totalDeLotes);
+                }
+            }else{
+                mngEpocas.actualizarVisual(listaPrecisionEpocas,listaPerdidaEpocas,totalDeEpocas);
+                mngLotes.actualizarVisual(listaPrecisionLotes,listaPerdidaLotes,totalDeLotes);
+            }
+            hideDlgBostrap(idDlg);
+        }
+
+    }
+
+    listaPerdida={{ datosDeProgresoDeEntrenamiento.listaDePerdidas }};
+    listaPrecision={{ datosDeProgresoDeEntrenamiento.listaDePrecisiones  }};
+
+    totalDeEpocas={{ datosDeProgresoDeEntrenamiento.cnf.cantidadDeEpocas|numeroConComa  }};
+    //console.log("cantidadDeEpocasTotales="+cantidadDeEpocasTotales);
+    {#mngEpocas.actualizarVisual(listaPrecision,listaPerdida,totalDeEpocas);#}
+
+    listaPerdidaLotes={{ datosDeProgresoDeEntrenamiento.listaDePerdidas }};
+    listaPrecisionLotes={{ datosDeProgresoDeEntrenamiento.listaDePrecisiones  }};
+    totalDeLotes={{ datosDeProgresoDeEntrenamiento.totalDeLotes|numeroConComa  }}+1;
+    {#mngLotes.actualizarVisual(listaPerdidaLotes,listaPrecisionLotes,totalDeLotes);#}
+mostrarProgreso(listaPrecision,listaPerdida,totalDeEpocas
+    ,listaPrecisionLotes,listaPerdidaLotes,totalDeLotes
+,{{ datosDeProgresoDeEntrenamiento.estaEnFasePasosDeTerminacion|lower }}
+,{{  datosDeProgresoDeEntrenamiento.pasoDeFinal }});
+//---------------------------------------------------
+    /*
+    function actualizarEstado(){
+        estado=""
+        for (let i = 0; i < listaPrecision.length; i++) {
+            estado+=(listaPerdida[i].toString())+" "+(listaPrecision[i].toString())+"\n";//.substr(4)//.substring(4)
+        }
+        setText("idTextoEstado",estado)//listaPerdida+"\n"+listaPrecision
+
+    }
+    */
+    function dioError(request){
+                hayError=request.content.dioError
+                //console.log(hayError)
+                //if (hayError){
+                //    hideDlgBostrap("idDlgCargando")
+                //    showDlgBostrap("idDlgError")
+                //}
+                return hayError
+            }
+
+    class ManagerDlgDeteniendoEntrenamiento{
+        constructor() {
+            this.idDlg="idDlgDeteniendo";
+            this.estaMostrandose=false;
+        }
+        mostrarDlg(){
+            if(!this.estaMostrandose){
+                showDlgBostrap(this.idDlg);
+            }
+
+        }
+    }
+    const mngDlgDeteniendoEntrenamiento=new ManagerDlgDeteniendoEntrenamiento();
+
+
+
+    function procesoDeActualizacionFrecuente(){
+        ejecutarAjax("/{{urls.URL_POST_GET_ESTADO_ENTRENAMIENTO}}/"
+                                            ,{},function (request) {
+                                                if(!dioError(request)){
+                                                    llamoADetener=request.content.llamoADetenerElEntrenamiento
+                                                    {#console.log("estaEnFasePasosDeTerminacion="+request.content.estaEnFasePasosDeTerminacion)#}
+                                                    {#console.log("ty estaEnFasePasosDeTerminacion="+typeof(request.content.estaEnFasePasosDeTerminacion))#}
+
+                                                    if(request.content.hayUnEntrenamientoEnCurso){
+                                                        mostrarProgreso(request.content.listaPrecision
+                                                            ,request.content.listaPerdida
+                                                            ,request.content.cantidadDeEpocas
+                                                            ,request.content.listaPrecisionLote
+                                                            ,request.content.listaPerdidaLote
+                                                            ,request.content.totalDeLotes+1
+                                                        ,request.content.estaEnFasePasosDeTerminacion
+                                                        ,request.content.pasoDeFinal);
+                                                        {#mngEpocas.actualizarVisual(#}
+                                                        {#    request.content.listaPrecision#}
+                                                        {##}
+                                                        {#,request.content.listaPerdida#}
+                                                        {#,request.content.cantidadDeEpocas);#}
+                                                        {##}
+                                                        {#mngLotes.actualizarVisual(#}
+                                                        {#    request.content.listaPrecisionLote#}
+                                                        {##}
+                                                        {#,request.content.listaPerdidaLote#}
+                                                        {#,request.content.totalDeLotes);#}
+
+                                                        if(llamoADetener){
+                                                            mngDlgDeteniendoEntrenamiento.mostrarDlg()
+                                                        }
+                                                    }else{
+                                                        if(!request.content.estaEnFaseEntrenamientoComenzando){
+                                                            //alert("entro aqui!!!!!!!!!!!!111")
+                                                            if(request.content.estaEnFaseEntrenamientoTerminado){
+                                                                submit("idFormLlamarVistaEntrenamiento")
+                                                            }else{//por el momemento son iguales pero puden llegar a ser diferentes
+                                                                submit("idFormLlamarVistaEntrenamiento")
+                                                            }
+                                                        }
+
+                                                    }
+
+                                                    /*
+                                                    listaP=request.content.listaPerdida
+                                                    if(listaP.length>listaPerdida.length){
+                                                        for (let i = 0; i < listaP.length; i++) {
+                                                            if(listaPerdida.length<=i){
+                                                                listaPerdida[listaPerdida.length]=listaP[i]
+                                                            }
+                                                        }
+                                                    }
+                                                    listaPr=request.content.listaPrecision
+                                                    if(listaPr.length>listaPrecision.length){
+                                                        for (let i = 0; i < listaPr.length; i++) {
+                                                            if(listaPrecision.length<=i){
+                                                                listaPrecision[listaPrecision.length]=listaPr[i]
+                                                            }
+                                                        }
+                                                    }
+                                                    actualizarEstado() */
+
+                                                }
+
+                                            })
+
+    }
+    var idInterval=null;
+    function inciarActualizacionFrecuente(){
+        idInterval=setInterval(procesoDeActualizacionFrecuente,2000)
+    }
+    function detenerActualizacionFrecuente() {
+        clearInterval(idInterval)
+    }
+
+    function apretoEnIniciarEntrenamiento() {
+        //setText("idTextoSalida","comenzo el entrenamiento")
+        ejecutarAjax("/{{urls.URL_POST_METODO_COMENZAR_ENTRENAMIENTO}}/"
+                                            ,{},function (request) {
+                                                if(!dioError(request)){
+
+                                                    //setText("idTextoSalida","confirmado termino el entrenamiento")
+                                                    //console.log("parece que termino el entrenamiento")
+
+                                                }
+
+                                            })
+        inciarActualizacionFrecuente()
+
+    }
+
+    function apretoEnTerminarElEntrenamiento() {
+        //setText("idTextoSalida","termino el entrenamiento")
+        //detenerActualizacionFrecuente()
+        hideDlgBostrap("idDlgDetenerEntrenamiento");
+        mngDlgDeteniendoEntrenamiento.mostrarDlg()
+        ejecutarAjax("/{{urls.URL_POST_METODO_DETENER_ENTRENAMIENTO}}/"
+                                            ,{},function (request) {
+                                                if(!dioError(request)){
+
+                                                    //setText("idTextoSalida","confirmado termino el entrenamiento")
+                                                    console.log("retorno de mandar a terminar");
+                                                    submit("idFormLlamarVistaEntrenamiento");
+                                                }
+
+                                            })
+        mngDlgDeteniendoEntrenamiento.mostrarDlg();
+    }
+{% if fueComenzarEntrenamiento %}
+    apretoEnIniciarEntrenamiento()
+    procesoDeActualizacionFrecuente()
+{% else %}
+    inciarActualizacionFrecuente()
+{% endif %}
+
+    addOnClick("idBDetenerEntrenamiento",apretoEnTerminarElEntrenamiento)
+
+    //alert("cargo la pw");
+
+
+
+    </script>
+
+{% endblock%}

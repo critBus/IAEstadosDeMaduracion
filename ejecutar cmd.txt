@@ -1,0 +1,8 @@
+set "MOD_WSGI_APACHE_ROOTDIR=G:\Instalado\wampserver\wamp\bin\apache\apache2.4.39"
+
+pip install django-ipware
+
+cd /D "D:\No Instalados\Python\entorno_virtual\env36\Scripts"
+activate.bat 
+cd /D "D:\_Cosas\Programacion\Proyectos\Python\Django 3.1\ProyectoPCChar" 
+python manage.py runserver

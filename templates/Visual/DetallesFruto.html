@@ -1,0 +1,356 @@
+{% extends "Visual/plantillaPadre.html" %}
+{% load static %}
+{% load poll_extras_rene_app %}
+
+{% block titulo %}
+Detalles Del Fruto
+{% endblock %}
+
+{% block contenido %}
+
+
+
+
+                <div class="row  d-flex justify-content-center    rounded align-items-center" >
+                <div class="col col-lg-7">
+                    <div id="idCargandoImagenDlg"
+                                 class=" row  d-flex justify-content-center">
+                                            <div class="spinner-border text-primary" style="width: 20rem; height: 20rem; display: none;" role="status">
+                                                <span class="sr-only">Loading...</span>
+                                              </div>
+                                        </div>
+                    <img id="idImagen" src="C:\Users\Rene\Pictures\Sin título.png" class=" w-100"  />
+                </div>
+
+                </div>
+
+
+    <div class="row mb-lg-3">
+                    <div class="col">
+                        <h6 id="idNombreFruto" class="display-4 text-center">Nombre Fruto</h6>
+                    </div>
+                </div>
+
+                <div class="row mb-lg-3">
+                    <div class="col-12 col-lg-6">
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon2">Variedad</span>
+                            </div>
+                            <input disabled style="background-color: #fff;" value="variedad"
+                            id="idTextoTipoDeFruto" type="text" class="form-control "
+                                placeholder="Variedad" aria-label="Variedad"
+                                aria-describedby="basic-addon2">
+                            <div id="idTextoTipoDeFruto_MensajeInvalidoBoostrap"
+                                class="invalid-feedback">
+                                otro mal.
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-12 col-lg-6">
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon2">Nombre Científico  </span>
+                            </div>
+                            <input disabled style="background-color: #fff;" value="nombre cientifico"
+                            id="idTextoNombreCientifico" type="text" class="form-control "
+                                placeholder="Nombre Científico" aria-label="Nombre Científico"
+                                aria-describedby="basic-addon2">
+                            <div id="idTextoNombreCientifico_MensajeInvalidoBoostrap"
+                                class="invalid-feedback">
+                                otro mal.
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="row mt-3  border border-primary  rounded">
+                    <div class="col" >
+
+                        <div class="container">
+                            <div class="row mt-3">
+                                <div class="col d-flex justify-content-center">
+                                    <h1>Descripción</h1>
+                                </div>
+                            </div>
+
+                            <div class="row mt-2 mb-3">
+                                <div class="col" id="idContenedorDeDescripcion">
+                                    {{ datosFruto.descripcion|conHTML }}
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- <textarea name="Descripcion" class=" ckeditor" id="id_Descripcion" rows="3" ></textarea> -->
+
+
+
+                    </div>
+
+                </div>
+
+
+                <div id="idDlgHayCamposInvalidos" data-backdrop="static" class="modal fade" tabindex="-1" role="dialog"
+                    style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-body p-4">
+                                <div class="text-center">
+                                    <i class="dripicons-information h1 text-dark"></i>
+                                    <h4 class="mt-2 text-dark">Aviso</h4>
+                                    <p class="mt-3 text-dark">Existen campos con informaciones erróneas!, por favor
+                                        rectifique sus datos y vuelva a intentarlo </p>
+                                    <p id="idSpamContenidoDlgHayCamposInvalidos" style="display: none;"
+                                        class="mt-3 text-dark"></p>
+
+                                    <button type="button" class="btn btn-info my-2" data-dismiss="modal">
+                                        <!-- <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> -->
+                                        Aceptar
+                                    </button>
+                                </div>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div>
+
+                <div id="idDlgProgresoCancelar" data-backdrop="static" class="modal fade" tabindex="-1" role="dialog"
+                    style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-body p-4">
+                                <div class="text-center">
+                                    <i class="dripicons-information h1 text-info"></i>
+                                    <h4 id="idTitulo_DlgProgresoCancelar"  class="mt-2">Subiendo Dataset </h4>
+                                    <p id="idContenido_DlgProgresoCancelar" class="mt-3">Espere mientras se envía hacia nuestros servidores el Dataset
+                                        seleccionado por usted previamente </p>
+
+                                    <div id="idDivProgres_DlgProgresoCancelar" class="progress">
+
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated"
+                                            role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"
+                                            style="width: 75%" id="idBarraProgres_DlgProgresoCancelar">
+
+                                        </div>
+                                        <span id="idSpamProgres_DlgProgresoCancelar" class="text-center" style="width: 25%"> 0%
+                                        </span>
+                                    </div>
+                                    <button id="idBoton_DlgProgresoCancelar" type="button"
+                                        class="btn btn-info my-2" data-dismiss="modal">
+
+                                        Detener </button>
+                                </div>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div>
+
+
+                <div id="idDlgEsperando" data-backdrop="static" class="modal fade" tabindex="-1" role="dialog"
+                    style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-body p-4">
+                                <div class="text-center">
+                                    <i class="dripicons-information h1 text-dark"></i>
+                                    <h4 id="idTitulo_DlgEsperando" class="mt-2 text-dark">Aviso</h4>
+                                    <p id="idContenido_DlgEsperando" class="mt-3 text-dark">Espere mientras ultimamos los detalles de la detención
+                                        solicitada </p>
+
+
+                                    <button type="button" class="btn btn-info my-2" data-dismiss="modal" disabled>
+                                        <span class="spinner-border spinner-border-sm" role="status"
+                                            aria-hidden="true"></span>
+                                            <span id="idSpamEsperando_DlgEsperando">Deteniendo</span>
+
+                                    </button>
+                                </div>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div>
+
+
+
+                <div id="idDlgError" data-backdrop="static" class="modal fade" tabindex="-1" role="dialog"
+                    style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-body p-4">
+                                <div class="text-center">
+                                    <i class="dripicons-information h1 text-dark"></i>
+                                    <h4 id="idTitulo_idDlgError" class="mt-2 text-dark">Aviso</h4>
+                                    <p id="idContenido_DlgError" class="mt-3 text-dark">Le informamos de la existencia
+                                        de un error interno del servidor </p>
+
+
+                                    <button id="idBotonAceptar_DlgError"
+                                            type="button" class="btn btn-info my-2" data-dismiss="modal">
+                                        <!-- <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> -->
+                                        Aceptar
+                                    </button>
+                                </div>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div>
+
+                <div id="idDlgAceptarCancelarAdvertencia" class="modal fade" tabindex="-1" role="dialog"
+                    aria-labelledby="fill-dark-modalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content modal-filled bg-dark">
+                            <div class="modal-header">
+                                <h4  id="idTitulo_DlgAceptarCancelarAdvertencia" class="modal-title">Detener el Entrenamiento</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            </div>
+                            <div id="idContenido_DlgAceptarCancelarAdvertencia" class="modal-body">
+                                <p>¿Estás seguro de detener el entrenamiento? Se perderá el progreso actual   </p>
+                            </div>
+                            <div class="modal-footer">
+                                <button id="idBotonCancelar_DlgAceptarCancelarAdvertencia" type="button" class="btn btn-light" data-dismiss="modal">Cancelar </button>
+                                <button id="idBotonAceptar_DlgAceptarCancelarAdvertencia" type="button" class="btn btn-outline-light" data-dismiss="modal">Detener</button>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+
+                </div>
+
+
+    <form id="idFormRecargarPagina"  method="post" action="/{{urls.URL_VISTA_LISTAR_FRUTO}}/">
+        {% csrf_token %}
+{#        <button type="submit" class="btn btn-primary btn-lg ml-4">Guardar</button>#}
+{#        <input type="hidden" name="{{nombre_form_ubicacion_post}}" value="{{forms.GUARDAR_MODELO  }}">#}
+    </form>
+    <form id="idFormIrAListar"  method="get" action="/{{urls.URL_VISTA_LISTAR_FRUTO}}/">
+        {% csrf_token %}
+{#        <button type="submit" class="btn btn-primary btn-lg ml-4">Guardar</button>#}
+{#        <input type="hidden" name="{{nombre_form_ubicacion_post}}" value="{{forms.GUARDAR_MODELO  }}">#}
+    </form>
+
+    {#                                        <form   method="post" action="/{{urls.URL_POST_SUBIR_ARCHIVO}}/">#}
+{#                                        {% csrf_token %}#}
+                                        {#        <button type="submit" class="btn btn-primary btn-lg ml-4">Guardar</button>#}
+                                        {#        <input type="hidden" name="{{nombre_form_ubicacion_post}}" value="{{forms.GUARDAR_MODELO  }}">#}
+{#                                            </form>#}
+{% endblock%}
+
+
+
+{% block scripts_extras %}
+
+    <script src="{% static 'js/Librerias/date.format.js' %}"></script>
+    <script src="{% static 'js/Librerias/ckeditor/ckeditor.js' %}"></script>
+
+    <script src="{% static 'js/reneJavaScritp/reneJS_UtilesDeLibrerias.js' %}"></script>
+{#    <script src="{% static 'js/reneJavaScritp/reneJS_Componentes/reneJS_ListaSeleccionableMultiple.js' %}"></script>#}
+
+    <script src="{% static 'js/reneJavaScritp/reneJS_Upload.js' %}"></script>
+<div id="idReceptorDeHtml" style="display: none">
+
+    </div>
+
+<script>
+
+
+const mngDlgError=new ManagerDlg_AceptarCancelar_Bootstrap("idDlgError");
+mngDlgError.idContenido="idContenido_DlgError";
+mngDlgError.idTitulo="idTitulo_idDlgError";
+mngDlgError.setIdBotonAceptar("idBotonAceptar_DlgError");
+
+const mngDlgEsperando=new ManagerDlg_Espera_ContenidoText_Bootstrap("idDlgEsperando");
+mngDlgEsperando.idContenido="idContenido_DlgEsperando";
+mngDlgEsperando.idTitulo="idTitulo_DlgEsperando";
+mngDlgEsperando.idMensajeCargando="idSpamEsperando_DlgEsperando";
+
+
+function showDlgError(){
+    mngDlgError.showDlg("Advertencia "
+    ,"Le informamos de la perdida de conexión con el servidor"
+    ,"Aceptar",()=>{
+        submit("idFormRecargarPagina");
+        });
+}
+
+function showDlgFalloEnLaValidacion(mensaje){
+    //estado.mostrandoMensajeDeErrorAceptar=true
+    mngDlgError.showDlg("Datos Inválidos "
+    ,mensaje
+    ,"Aceptar",()=>{
+        //estado.mostrandoMensajeDeErrorAceptar=false
+
+        });
+}
+function showDlgFalloEnLaValidacionYVolverAListar(mensaje){
+    //estado.mostrandoMensajeDeErrorAceptar=true
+    mngDlgError.showDlg("Datos Inválidos "
+    ,mensaje
+    ,"Aceptar",()=>{
+        //estado.mostrandoMensajeDeErrorAceptar=false
+            showDlgEsperarRedirigir();
+            submit("idFormIrAListar");
+        });
+}
+function showDlgComprobandoObjeto(){
+    mngDlgEsperando.setMensajeCargando("Espere");
+    mngDlgEsperando.showDlg("Comprobando "
+    ,"Espere mientras se comprueban los datos del fruto solicitado ");
+}
+
+function showDlgEsperarRedirigir(){
+    mngDlgEsperando.setMensajeCargando("Espere");
+    mngDlgEsperando.showDlg("Preparando "
+    ,"Espere mientras se prepara la ventana siguiente ");
+}
+
+if(!{{ fueValido|lower }}){
+    showDlgFalloEnLaValidacionYVolverAListar("{{ mensaje }}");
+}else {
+
+//idNombreFruto
+const ID_INPUT_NOMBRE = "idNombreFruto";
+    const ID_INPUT_VARIEDAD = "idTextoTipoDeFruto";
+    const ID_INPUT_NOMBRE_CIENTIFICO = "idTextoNombreCientifico";
+
+    setHTML(ID_INPUT_NOMBRE,"{{ datosFruto.nombre }}");
+    setValue(ID_INPUT_VARIEDAD,"{{ datosFruto.variedad  }}");
+    setValue(ID_INPUT_NOMBRE_CIENTIFICO,"{{  datosFruto.nombreCientifico}}");
+
+//idCargandoImagenDlg
+    const ID_IMAGEN="idImagen";
+    const ID_SUSTITUTO_IMAGEN="idCargandoImagenDlg";
+    const mgb=new ManagerCargaLentaImgBase64();
+    mgb.setIdElementoQueSustituyeLaImagen(ID_SUSTITUTO_IMAGEN);
+    mgb.setIdImagen(ID_IMAGEN);
+
+    function noMostrarImg() {
+        displayNone(ID_IMAGEN,true);
+        displayNone(ID_SUSTITUTO_IMAGEN,true);
+    }
+
+
+     ejecutarAjax("/{{ urls.URL_POST_METODO_GET_IMG_DE_FRUTO }}/",{
+            "idDelFruto":"{{ datosFruto.id }}"
+
+         },r=>{
+        if(r.existeFruto){
+            mgb.cargarImgBase64(r.imgBase64);
+
+        }else{ noMostrarImg()}
+
+    }
+    ,r=>{
+         noMostrarImg()
+        });
+
+    }
+        </script>
+
+{% endblock%}

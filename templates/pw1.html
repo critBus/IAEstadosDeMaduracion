@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Hola</title>
+</head>
+<body>
+{% load poll_extras %}
+Si abrio {{v|cuta:"o"}}
+{% etiquetaA asder3 %}
+<p>The time is {% current_time2 "%Y-%m-%d %I:%M %p" %}.</p>
+<p>otro {% etiquetaA asder %}.</p>
+{% etiquetaA asder2 %}
+<form action="/pwVista4/" method="get">
+	<label for="entrada1"    >Este label</label>
+	<input id="entrada1" type="text" name="v1" value="Este texto"/>
+	<input type="submit" value="Enviar"/>
+</form>
+
+<form action="/pwVista5/" method="post">
+	{% csrf_token %}
+	<label for="entrada2"    >Este label</label>
+	<input id="entrada2" type="text" name="v2" value="Este 2texto para v2"/>
+	<input type="submit" value="Enviar"/>
+</form>
+</body>
+</html>

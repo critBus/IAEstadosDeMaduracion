@@ -1,0 +1,927 @@
+{% extends "Visual/plantillaPadre.html" %}
+
+{% load static %}
+{% load poll_extras_rene_app %}
+
+{% block titulo %}
+Clasificar Imagen
+{% endblock %}
+
+{% block contenido %}
+
+{% if mostrarResultado %}
+<form  method="post" action="/{{urls.URL_VISTA_DETALLES_CLASIFICACION}}/">
+    {% csrf_token %}
+<div class="row">
+                    <div class="alert alert-success btn-block text-center" role="alert">
+                        <h4 class="alert-heading display-4">{{resultado.clasificacion}}</h4>
+                        <p>Fue seleccionado este resultado entre los estados de maduración disponibles:</p>
+                        <p>{% for clase in resultado.clases %}
+                                {% if clase.seleccionada %} <b>{% endif %}
+                                    "{{clase.nombre}}"
+                                {% if clase.seleccionada %} </b>{% endif %}
+
+                            {% endfor %}</p>
+
+                        <p class="mb-0">Para consultar más detalles sobre el procedimiento que se llevó a cabo para llegar  a este resultado, así como ver los estados de su imagen en cado paso, presioné en el botón de <b>Detalles</b></p>
+                        <hr>
+<!--                        <input class="btn btn-outline-success btn-rounded btn-block text_large" type="submit" value="Detalles"/>-->
+                        <button type="submit" class="btn btn-outline-success btn-rounded btn-block text_large"
+                                        id="idBotonDetalles">Detalles</button>
+                      </div>
+                </div>
+    <input type="hidden" name="{{nombre_form_ubicacion_post}}" value="{{forms.DETALLES_AL_CLASIFICAR  }}">
+</form>
+{% endif %}
+
+<form enctype="multipart/form-data" method="post" action="/{{urls.URL_VISTA_CLASIFICAR_IMAGEN}}/">
+    {% csrf_token %}
+
+    {% if form.errors %}
+    <div class="row" id="idRowErresForm"></div>
+    <script type="text/javascript">setHTML_Error("idRowErresForm","{{ form.errors }}")</script>
+    {% endif %}
+
+    {% if form.imagen.errors %}
+    <div class="row" id="idRowErresImagen"></div>
+    <script type="text/javascript">setHTML_Error("idRowErresImagen","{{ form.imagen.errors }}")</script>
+    {% endif %}
+
+
+<div class="row">
+    <div class="col-sm-12 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Seleccione una imagen</h4>
+                                <h6 class="card-subtitle">
+Una vez seleccionada presioné en clasificar
+
+                                </h6>
+
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Imagen</span>
+<!--                                            <input class="input-group-text" type="submit" value="Clasificar"/>-->
+                                        </div>
+                                        <div class="custom-file">
+<!--                                            <input  type="file" class="custom-file-input" id="inputGroupFile01"  aria-describedby="inputGroupFileAddon01">-->
+                                            {{form.imagen|ediTag:'class="custom-file-input inputfile" aria-describedby="inputGroupFileAddon01" aria-label="Archivo" caption="Buscar"'}}
+                                            <label class="custom-file-label" for="id_imagen">Imagen seleccionada</label>
+                                        </div>
+                                    </div>
+{#                                <style>#}
+{#                                    #id_imagen::before {#}
+{#                                      content: 'Seleccionar Archivo 1';#}
+{#                                    }#}
+{#                                    #id_imagen::after {#}
+{#                                      content: 'Seleccionar Archivo 2';#}
+{#                                    }#}
+{#                                </style>#}
+
+                            </div>
+                        </div>
+                    </div>
+
+    <div class="col-sm-12 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Seleccione el tipo de fruto </h4>
+                                <h6 class="card-subtitle">Una vez seleccionado elija el tipo de clasificador
+                                </h6>
+
+                                    <div class="input-group mb-3" id="idContenFrutos">
+                                        <div class="input-group-prepend">
+                                            <label class="input-group-text" for="idSelectFrutos">Fruto</label>
+                                        </div>
+                                        <select name="{{inputs.SELECT_FRUTO  }}" class="custom-select" id="idSelectFrutos">
+<!--                                            <option selected>Choose...</option>-->
+                                            <option value="1">One</option>
+                                            <option value="2">Two</option>
+                                            <option value="3">Three</option>
+                                        </select>
+                                        <div class="input-group-append">
+                                        <button id="idBuscarFruto" type="button" for="idSelectFrutos"
+                                        class="input-group-text btn btn-success">
+                                            <i class="fas fa-fas fa-search"></i>
+                                        </button>
+                                        <button id="idDetallesFruto" type="button" for="idSelectFrutos"
+                                        class="input-group-text btn btn-success">
+                                            <i class="fas fa-question"></i>
+                                        </button>
+
+                                      </div>
+                                    </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+</div>
+
+
+  <div class="row">
+
+{#    <div class="col-sm-12 col-md-6">#}
+{#                        <div class="card">#}
+{#                            <div class="card-body">#}
+{#                                <h4 class="card-title">Seleccione el tipo de Modelo Neuronal  </h4>#}
+{#                                <h6 class="card-subtitle">Una vez seleccionado presione en clasificar para obtener un resultado#}
+{#                                </h6>#}
+{##}
+{#                                    <div class="input-group mb-3" id="idContenModeloNeuronal">#}
+{#                                        <div class="input-group-prepend">#}
+{#                                            <label class="input-group-text" for="idSelectModeloNeuronal">Modelo Neuronal</label>#}
+{#                                        </div>#}
+{#                                        <select name="{{inputs.SELECT_MODELO  }}" class="custom-select" id="idSelectModeloNeuronal">#}
+{##}
+{#                                            <option value="1">One</option>#}
+{#                                            <option value="2">Two</option>#}
+{#                                            <option value="3">Three</option>#}
+{#                                        </select>#}
+{#                                    </div>#}
+{##}
+{#                            </div>#}
+{#                        </div>#}
+{#</div>#}
+
+<div id="idCuadroDeInformacion" class="col-sm-12 col-md-6">
+                        <div class="card">
+                            <div class="card-body px-0-a-lg  text-center">
+                                <h4 class="card-title">Modelo Neuronal Utilizado</h4>
+                                <h6 id="idNombreModeloNeuronalUtilizado" class="card-subtitle">Nombre del modelo neuronal</h6>
+                                <div class="d-flex justify-content-between align-items-center"
+
+                                >
+                                    <div  class=" mt-md-3 mt-lg-0">
+                                        <div id="idSpinerImagenFruto"  style="width: 80%; " class="card-img-top div_i">
+                                            <div  class="spinner-border spinner-border-sm text-primary"  role="status">
+                                                <span class="sr-only">Loading...</span>
+                                              </div>
+                                        </div>
+                                        <img id="idImagenFruto" src="img/temp/50.jpg" style="width: 100%; display: none;"   alt="...">
+                                    </div>
+                                    <div >
+                                        <div id="idNombreFruto" class="row">Fruta Bomba</div>
+                                        <div id="idVariedadFruto" class="row">Maradol Roja</div>
+
+                                    </div>
+                                    <div>
+
+                                        <div class="d-inline-flex align-items-center">
+                                            <h2 id="idPrecision" class="text-dark mb-1 font-weight-medium">97%</h2>
+
+                                        </div>
+                                        <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Precisión</h6>
+                                    </div>
+                                    <div class=" mt-md-3 mt-lg-0">
+                                        <button type="button" class="btn btn-outline-dark btn-lg btn-block "
+                                        id="idBotonDetallesModelo"><i class="fas fa-chart-pie"></i> </button>
+                                    </div>
+
+                                </div>
+
+                                <!-- <div class="d-flex d-lg-flex d-md-block align-items-center">
+                                    <div class="mr-auto mt-md-3 mt-lg-0">
+                                        <img id="{idImg1_}" src="img/temp/50.jpg" style="width: 100%; "   alt="...">
+                                    </div>
+                                    <div>
+
+                                        <div class="d-inline-flex align-items-center">
+                                            <h2 class="text-dark mb-1 font-weight-medium">97%</h2>
+
+                                        </div>
+                                        <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Precisión</h6>
+                                    </div>
+                                    <div class="ml-auto mt-md-3 mt-lg-0">
+                                        <button type="button" class="btn btn-outline-dark btn-rounded btn-block"
+                                        id="idBotonDesactivar"><i class="fas fa-check"></i> Clasificar</button>
+                                    </div>
+                                </div> -->
+
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
+      <div class="col-sm-12 col-md-6">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h4 class="card-title">Obtener Clasificación  </h4>
+                                <h6 class="card-subtitle">Una vez seleccionado todos los parámetros presione para obtener su clasificación
+                                </h6>
+
+                                    <div class="">
+<!--                                        <input class="btn btn-outline-dark btn-rounded  btn-block" type="submit" value="Clasificar"/>-->
+
+                                        <button type="submit" class="btn btn-outline-dark btn-rounded  btn-block" id="idBotonClasificar">
+                                            <i class="fas fa-check"></i> Clasificar</button>
+                                    </div>
+
+                            </div>
+                        </div>
+            </div>
+
+
+
+      </div>
+
+
+
+
+
+
+
+    <input type="hidden" name="{{nombre_form_ubicacion_post}}" value="{{forms.CLASIFICAR_IMAGEN  }}">
+</form>
+
+
+<div id="idDlgCargando" data-backdrop="static" class="modal fade" tabindex="-1" role="dialog" style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-body p-4">
+                                <div class="text-center">
+                                    <i class="dripicons-information h1 text-info"></i>
+                                    <h4 class="mt-2">Calificando</h4>
+                                    <p  class="mt-3">Estas procesando su imagen, por favor espere</p>
+                                    <p id="idContenido" class="mt-3">Aplicando algoritmo GrayWord</p>
+                                    <div class="progress">
+                                      <div id="idBarraProgresoClasificacion" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+                                    </div>
+                                    <button type="button" class="btn btn-info my-2" data-dismiss="modal" disabled>
+                                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                        Procesando </button>
+                                </div>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div>
+
+    <div id="idDlgError" class="modal fade" tabindex="-1" role="dialog" style="display: none;" aria-hidden="true">
+                                    <div class="modal-dialog modal-sm">
+                                        <div class="modal-content modal-filled bg-danger">
+                                            <div class="modal-body p-4">
+                                                <div class="text-center">
+                                                    <i class="dripicons-wrong h1"></i>
+                                                    <h4 class="mt-2">Alerta</h4>
+                                                    <p class="mt-3">Por favor seleccione una imagen correcta </p>
+                                                    <button type="button" class="btn btn-light my-2" data-dismiss="modal">Aceptar</button>
+                                                </div>
+                                            </div>
+                                        </div><!-- /.modal-content -->
+                                    </div><!-- /.modal-dialog -->
+                                </div>
+
+
+
+
+     <div class="modal fade" id="idDlgSeleccionarFruto" tabindex="-1" role="dialog" aria-labelledby="scrollableModalTitle" aria-hidden="true" style="display: none;">
+                    <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="scrollableModalTitle">Seleccione el Fruto</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body" style="min-height: 300px;">
+                                <div class="row justify-content-between">
+                                    <div class="col-10">
+                                        <form  >
+                                            <!-- method="post" action="/{{urls.URL_VISTA_LISTA_CLASIFICACIONES_USUARIO}}/"
+                                                    {% csrf_token %} -->
+                                            <div class="input-group">
+                                                <input name="{{nombre_text_filtro}}" id="idTextoFiltro" type="text" class="form-control"
+                                                    aria-label="Text input with segmented dropdown button">
+                                                <div class="input-group-append">
+                                                    <button type="submit" class="btn btn-secondary "><i class="fas fa-search"></i></button>
+                                                    <button type="button" class="btn btn-secondary  dropdown-toggle dropdown-toggle-split"
+                                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="fas fa-angle-down"></i>
+                                                        <span class="sr-only">Toggle Dropdown</span>
+                                                    </button>
+                                                    <div class="dropdown-menu ">
+                                                        <label class="btn btn-outline btn-info dropdown-item">
+                                                            <div class="custom-control custom-radio">
+                                                                <input type="checkbox" id="idCBFiltroNombre" name="tipoDeFiltro" value="idCBFiltroNombre"
+                                                                    class="custom-control-input">
+                                                                <label class="custom-control-label" for="idCBFiltroNombre">
+                                                                    Nombre</label>
+                                                            </div>
+                                                        </label>
+
+                                                        <label class="btn btn-outline btn-info dropdown-item">
+                                                            <div class="custom-control custom-radio">
+                                                                <input type="checkbox" id="idCBFiltroVariedad" name="tipoDeFiltro" value="idCBFiltroVariedad"
+                                                                    class="custom-control-input">
+                                                                <label class="custom-control-label" for="idCBFiltroVariedad">
+                                                                    Variedad</label>
+                                                            </div>
+                                                        </label>
+                                                        <label class="btn btn-outline btn-info dropdown-item">
+                                                            <div class="custom-control custom-radio">
+                                                                <input type="checkbox" id="idCBFiltroCientifico" name="tipoDeFiltro" value="idCBFiltroCientifico"
+                                                                    class="custom-control-input">
+                                                                <label class="custom-control-label" for="idCBFiltroCientifico">
+                                                                    Nombre Científico</label>
+                                                            </div>
+                                                        </label>
+
+
+
+
+
+                                                        <div role="separator" class="dropdown-divider"></div>
+                                                        <label class="btn btn-outline btn-info dropdown-item">
+                                                            <div class="custom-control custom-radio">
+                                                                <input type="radio" id="idCBFiltroTodos" name="tipoDeFiltro" value="idCBFiltroTodos"
+                                                                    class="custom-control-input" checked>
+                                                                <label class="custom-control-label" for="idCBFiltroTodos">
+                                                                    Todos</label>
+                                                            </div>
+                                                        </label>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <input type="hidden" name="{{nombre_form_ubicacion_post}}" value="{{nombre_formulario_filtro}}">
+                                        </form>
+                                    </div>
+
+                                    <div class="col-1 ">
+
+                                        <div class="input-group d-flex justify-content-end">
+                                            <div class="input-group-append ">
+                                                <button id="idBDireccionDeOrden" type="button" class="btn btn-secondary ">
+
+                                                    <i id="idIconoDireccionDeOrden" class="fas fa-search"></i></button>
+                                                <!-- <button  type="button" class="btn btn-secondary "><i class="fas fa-search"></i></button> -->
+                                                <button type="button" class="btn btn-secondary  dropdown-toggle dropdown-toggle-split"
+                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i id="idIconoOrdenSeleccionado" class="fas fa-angle-down"></i>
+                                                    <span class="sr-only">Toggle Dropdown</span>
+                                                </button>
+                                                <div class="dropdown-menu ">
+                                                    <label class="btn btn-outline btn-info dropdown-item">
+                                                        <div class="custom-control custom-radio">
+                                                            <input type="radio" id="idCBOrdenarNombre" name="tipoDeOrden" value="idCBOrdenarNombre"
+                                                                class="custom-control-input">
+                                                            <label class="custom-control-label" for="idCBOrdenarNombre">
+                                                                Nombre</label>
+                                                        </div>
+                                                    </label>
+
+                                                    <label class="btn btn-outline btn-info dropdown-item">
+                                                        <div class="custom-control custom-radio">
+                                                            <input type="radio" id="idCBOrdenarVariedad" name="tipoDeOrden" value="idCBOrdenarVariedad"
+                                                                class="custom-control-input">
+                                                            <label class="custom-control-label" for="idCBOrdenarVariedad">
+                                                                Variedad</label>
+                                                        </div>
+                                                    </label>
+                                                    <label class="btn btn-outline btn-info dropdown-item">
+                                                        <div class="custom-control custom-radio">
+                                                            <input type="radio" id="idCBOrdenarCientifico" name="tipoDeOrden" value="idCBOrdenarCientifico"
+                                                                class="custom-control-input">
+                                                            <label class="custom-control-label" for="idCBOrdenarCientifico">
+                                                                Nombre Científico</label>
+                                                        </div>
+                                                    </label>
+
+
+
+
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- active onclick="setValueEnHiddenDataset('{id}')" -->
+                                <ul id="idListaDeDataset" class="list-group  mt-3">
+                                    <li  id="{idItem}" class="list-group-item   iten_navegacion_carpeta">
+                                      <div class="row align-items-center">
+
+                                          <div class="col-3 text-truncate">
+                                            {NOMBRE_FRUTO}
+                                          </div>
+                                          <div class="col-3 text-truncate">
+                                            {VARIEDAD_FRUTO}
+                                          </div>
+                                          <div class="col-3 text-truncate">
+                                            {NOMBRE_CIENTIFICO_FRUTO}
+                                        </div>
+                                          <!-- <div class="col-5 text-truncate">
+                                            <div class="row text-truncate font-weight-lighter text-muted subtexto_iten_navegacion">{VARIEDAD_FRUTO}</div>
+                                             <div class="row text-truncate font-weight-lighter text-muted subtexto_iten_navegacion">{NOMBRE_CIENTIFICO_FRUTO}</div>
+
+                                          </div> -->
+
+                                          <div class="col-2 text-truncate">
+                                            <div id="{idSpinner1_}" style="width: 80%; " class="card-img-top div_i">
+                                                <div  class="spinner-border spinner-border-sm text-primary"  role="status">
+                                                    <span class="sr-only">Loading...</span>
+                                                  </div>
+                                            </div>
+                                            <img id="{idImg1_}" src="img/temp/50.jpg" style="width: 80%; display: none;"   alt="...">
+                                            <!-- {NOMBRE_CIENTIFICO_FRUTO}
+                                             <button type="button" class="btn  btn-dark boton_en_navegacion"
+                                            data-toggle="tooltip" data-placement="top" title="Detalles"
+                                            >
+                                                <i class="far fa-question-circle"></i>
+                                            </button>  -->
+                                          </div>
+
+                                      </div>
+
+
+
+
+                                    </li>
+
+                                  </ul>
+
+                            </div>
+                            <div class="modal-footer justify-content-between">
+                                <button type="button" class="btn btn-primary"  data-dismiss="modal">Cancelar</button>
+                                <button id="idBotonSeleccionarDlgDataset" type="button" class="btn btn-dark" data-dismiss="modal">Seleccionar</button>
+
+
+                            </div>
+                            <!-- <input id="idHiddenDataset" type="hidden" name="{{nombre_form_ubicacion_post}}" value="{{form_loguin.nombre_form_loguin}}"/> -->
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div>
+
+
+    <div id="idDlgEsperando" data-backdrop="static" class="modal fade" tabindex="-1" role="dialog"
+                    style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-body p-4">
+                                <div class="text-center">
+                                    <i class="dripicons-information h1 text-dark"></i>
+                                    <h4 id="idTitulo_DlgEsperando" class="mt-2 text-dark">Aviso</h4>
+                                    <p id="idContenido_DlgEsperando" class="mt-3 text-dark">Espere mientras ultimamos los detalles de la detención
+                                        solicitada </p>
+
+
+                                    <button type="button" class="btn btn-info my-2" data-dismiss="modal" disabled>
+                                        <span class="spinner-border spinner-border-sm" role="status"
+                                            aria-hidden="true"></span>
+                                            <span id="idSpamEsperando_DlgEsperando">Deteniendo</span>
+
+                                    </button>
+                                </div>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div>
+
+
+<form id="idFormTerminoDeClasificar"  method="post" action="/{{urls.URL_VISTA_CLASIFICAR_IMAGEN}}/">
+    {% csrf_token %}
+    <input type="hidden" name="{{nombre_form_ubicacion_post}}" value="{{forms.TERMINO_DE_CLASIFICAR  }}">
+</form>
+{% endblock%}
+
+
+
+{% block scripts_extras %}
+    <script src="{% static 'js/Librerias/date.format.js' %}"></script>
+
+
+    <script src="{% static 'js/reneJavaScritp/reneJS_UtilesDeLibrerias.js' %}"></script>
+    <script src="{% static 'js/reneJavaScritp/reneJS_Componentes/reneJS_ListaSeleccionable.js' %}"></script>
+<script type="text/javascript">
+
+function getHTML_AlertaSimple(mensaje) {
+    return '<div class="alert alert-danger btn-block" role="alert">' + mensaje + '</div>'
+}
+
+
+const ID_FRUTO="ID_FRUTO";
+const ID_MODELO="ID_MODELO";
+const NOMBRE_FRUTO="NOMBRE_FRUTO";
+const NOMBRE_CIENTIFICO_FRUTO="NOMBRE_CIENTIFICO_FRUTO";
+const VARIEDAD_FRUTO="VARIEDAD_FRUTO";
+const NOMBRE_MODELO="NOMBRE_MODELO";
+const PRECISION="PRECISION";
+
+const ID_ITEM="idItem";
+
+function adaptarNumero(numeroConComaPorciento){
+        //return sprintf("%02.2f ",Number.parseFloat(numeroConComaPorciento)*100)+" %";
+    return inT(Number.parseFloat(numeroConComaPorciento)*100)+"%";
+    }
+
+const bd=new BD_RowElement();
+bd.llaves=[ID_MODELO,NOMBRE_MODELO,PRECISION,ID_FRUTO,NOMBRE_FRUTO,VARIEDAD_FRUTO,NOMBRE_CIENTIFICO_FRUTO];
+bd.listaDeNombresIds=[ID_ITEM];
+{% for dato in datosModelos %}
+     bd.addRow([
+         "{{ dato.id }}"
+         ,"{{ dato.nombre }}"
+         ,adaptarNumero({{ dato.precision|numeroConComa }})
+         ,"{{ dato.idFruto }}"
+         ,"{{ dato.fruto }}"
+         ,"{{ dato.variedadFruto }}"
+         ,"{{ dato.nombreCientificoFruto }}"
+         ]);
+{% endfor %}
+
+function ocultarCuadroDeInformacion(ocultar){
+    displayNone("idCuadroDeInformacion",ocultar);
+}
+
+function actualizarImagen(idImg,idDelSpiner,idFruto) {
+            {#const idImg="idImagenFruto";#}
+            {#const idDelSpiner="idSpinerImagenFruto";#}
+
+            const mgb=new ManagerCargaLentaImgBase64();
+            mgb.setIdElementoQueSustituyeLaImagen(idDelSpiner);
+            mgb.setIdImagen(idImg);
+
+            function noMostrarImg() {
+                displayNone(idImg,true);
+                displayNone(idDelSpiner,true);
+            }
+
+
+             ejecutarAjax("/{{ urls.URL_POST_METODO_GET_IMG_DE_EJEMPLO_50_PX_FRUTO }}/",{
+                    "idDelFruto":idFruto
+
+                 },r=>{
+                if(r.existeFruto){
+                    mgb.cargarImgBase64(r.imgBase64);
+
+                }else{ noMostrarImg()}
+
+            }
+            ,r=>{
+                 noMostrarImg()
+                });
+}
+
+function actualizarDescripcion(map){
+    setHTML("idNombreModeloNeuronalUtilizado",map.get(NOMBRE_MODELO));
+    setHTML("idVariedadFruto",map.get(VARIEDAD_FRUTO));
+    setHTML("idNombreFruto",map.get(NOMBRE_FRUTO));
+    setHTML("idPrecision",map.get(PRECISION));
+    actualizarImagen("idImagenFruto","idSpinerImagenFruto",map.get(ID_FRUTO));
+
+}
+const ID_SELECT_FRUTO="idSelectFrutos"
+
+const mng=new ManagerContenidoSelecSimple();
+mng.idSelect=ID_SELECT_FRUTO;
+{% comment %}mng.listaParLabelValue=[
+    {% for fm in listaDeFrutosYModelos %}
+        ["{{ fm|getEn:0 }}",{{ fm|getEn:1 }}],
+    {% endfor %}
+];{% endcomment %}
+
+mng.listaParLabelValue=[];
+for (let index = 0; index < bd.size(); index++) {
+    let fila=bd.getFila(index);
+    let map=fila.map;
+
+    mng.listaParLabelValue.push([map.get(NOMBRE_CIENTIFICO_FRUTO),map.get(ID_MODELO)]);
+
+}
+
+mng.idPadreSelect="idContenFrutos";
+mng.contenidoHtmlSiEstaVacio=getHTML_AlertaSimple("No hay tipos de frutos disponibles ");
+mng.listaIdADesactivarSiEstaVacio=["idBotonClasificar"];
+
+mng.addAlActivar(()=>{
+
+    ocultarCuadroDeInformacion(false);
+});
+mng.addAlDesactivar(()=>ocultarCuadroDeInformacion(true));
+
+const fueAlPrincipio=[true];
+const KEY_ID_ULTIMO_SELECCIONADO="KEY_ID_ULTIMO_SELECCIONADO";
+
+mng.addAlSeleccionar(v=>{
+    let map=bd.getFilaFor(ID_MODELO,v).map;
+
+    let ponerImagen=true;
+    if(fueAlPrincipio[0]){
+        fueAlPrincipio[0]=false;
+        let ultimoIdSelccionado=get(KEY_ID_ULTIMO_SELECCIONADO);
+        if(ultimoIdSelccionado!=null&&ultimoIdSelccionado!=undefined){
+            if(bd.contieneValorDeKey(ID_MODELO,ultimoIdSelccionado)){
+                setValue(ID_SELECT_FRUTO,ultimoIdSelccionado);
+                actualizarDescripcion(bd.getFilaFor(ID_MODELO,ultimoIdSelccionado).map);
+                ponerImagen=false;
+            }
+        }
+    }
+    if(ponerImagen){
+        actualizarDescripcion(map);
+    }
+
+});
+
+mng.aplicarConfiguracionVisual();
+
+
+
+
+class MangerBuscarFruto{
+    constructor(bd){
+        this.bd=bd;
+
+        this.dt=new FiltroText_CByTodos_v2(this.bd);
+
+        this.listaKeysParafiltro=[];
+        this.IdBaseElemtosAOcultar="idItem";
+        this.IdCB_Todo="idCBFiltroTodos";
+        this.IdsCb=[
+            "idCBFiltroNombre"
+            ,"idCBFiltroVariedad"
+            ,"idCBFiltroCientifico"
+
+        ];
+        this.idText="idTextoFiltro";
+
+
+        this.mngRep=new ManagerRepetidor("idListaDeDataset",this.bd);
+
+        this.or=new OrdenadorRB_Visual_BD(this.bd);
+        this.idBToggleOrdenamiento="idBDireccionDeOrden";
+        this.matriz_IdsRByIcono=[
+            ["idCBOrdenarNombre","fas fa-code-branch"]
+            ,["idCBOrdenarVariedad","fas fa-bowling-ball"]
+            ,["idCBOrdenarCientifico","fas fa-calendar-alt"]
+            ];
+        this.idIconoOrdenSeleccionado="idIconoOrdenSeleccionado";
+        this.idIconoDireccionDeOrden="idIconoDireccionDeOrden";
+        this.iconoOrdenAscendente="fas fa-angle-double-down";
+        this.iconoOrdenDescendente="fas fa-angle-double-up";
+
+
+        this.L=new ListaSeleccionable();
+        this.idLista="idListaDeDataset";
+
+        this.idBotonSeleccionarDlgFruto="idBotonSeleccionarDlgDataset";
+
+        this.__metodoAlAceptarFruto=new ConjuntoDeEventos();
+
+        this.KEY_ID_FRUTO="";
+        this.KEY_ID_IMG_1="idImg1_";
+
+
+        this.KEY_ID_SPINNER_1="idSpinner1_";
+
+        this.bd.listaDeNombresIds.push(this.KEY_ID_IMG_1);
+        this.bd.listaDeNombresIds.push(this.KEY_ID_SPINNER_1);
+
+        this.__metodoActualizarImagenFruto=new ConjuntoDeEventos();
+
+    }
+    addActualizarImagenFruto(metodo){
+        //metodo (idImg,idDelSpiner,idFruto)=>{}
+        this.__metodoActualizarImagenFruto.add(metodo);
+    }
+    addAlAceptarFruto(metodo){
+        //idFruto=>{}
+        this.__metodoAlAceptarFruto.add(metodo);
+    }
+    aplicarConfiguracion(){
+        const self=this;
+
+        function actualizarImagenes() {
+            for (let index = 0; index < self.bd.size(); index++) {
+                let fila = self.bd.getFila(index);
+                let mapActual = fila.map;
+                let mIds=[
+                    [self.KEY_ID_IMG_1,self.KEY_ID_SPINNER_1]
+
+                ];
+                let cantidaDeImagenes=1;//inT(mapActual.get(KEY_CANTIDAD_DE_CLASIFICACIONES));
+               // console.log("cantidaDeImagenes="+cantidaDeImagenes);
+                for (let j = 0; j < mIds.length; j++) {
+                    const ids = mIds[j];
+                    //console.log("j="+j+" "+ids);
+                    const idImg=ids[0];
+                    //console.log("idImg="+idImg);
+                    const idDelSpiner=ids[1];
+
+                    if(!(j<cantidaDeImagenes)){
+                        displayNone(mapActual.get(idImg),true);
+                        //displayNone(mapActual.get(idDelSpiner),true);
+                        continue;
+                    }
+                    self.__metodoActualizarImagenFruto.ejecutar(mapActual.get(idImg),mapActual.get(idDelSpiner),mapActual.get(self.KEY_ID_FRUTO));
+
+                }
+
+
+
+
+
+            }
+        }
+
+
+        this.dt.llaves=this.listaKeysParafiltro;
+        this.dt.setIdBaseElemtosAOcultar(this.IdBaseElemtosAOcultar);
+        this.dt.IdCB_Todo=this.IdCB_Todo;
+        this.dt.setIdsCb(this.IdsCb);
+        this.dt.idText=this.idText;
+
+        this.dt.addAlTerminarDeFiltrar(()=>{
+            self.L.deseleccionarTodo();
+
+        });
+        this.dt.aplicarConfiguracionToggle();
+        this.dt.setFiltroText();
+
+        this.or.llaves=this.listaKeysParafiltro;
+        this.or.accionDespuesDeOrdenar=()=>{
+            self.L.actualizarVisual_APartirDeBD();
+            self.dt.filtrar();
+            actualizarImagenes();
+        }
+        this.or.idBToggleOrdenamiento=this.idBToggleOrdenamiento;
+        this.or.setMapIdsRByIcono(new Map(this.matriz_IdsRByIcono));
+        this.or.idIconoOrdenSeleccionado=this.idIconoOrdenSeleccionado;
+        this.or.idIconoDireccionDeOrden=this.idIconoDireccionDeOrden;
+        this.or.iconoOrdenAscendente=this.iconoOrdenAscendente;
+        this.or.iconoOrdenDescendente=this.iconoOrdenDescendente;
+        this.or.aplicarConfiguracionToggle();
+
+
+        function desactivarBSeleccionarFruto(desactivar){
+            setDisabled(desactivar,[self.idBotonSeleccionarDlgFruto]);
+        }
+
+        this.L.KEY_ID_ITEM_LISTA=this.IdBaseElemtosAOcultar;
+        this.L.idLista=this.idLista;
+        this.L.addAlSeleccionar(v=>{
+            desactivarBSeleccionarFruto(false);
+        });
+        this.L.addAlDeseleccionar(v=>{
+            desactivarBSeleccionarFruto(true);
+        });
+        this.L.mngRpLista=this.mngRep;
+        this.L.bd=self.bd;
+        this.L.aplicarConfiguracion();
+
+        desactivarBSeleccionarFruto(true);
+        addOnClick(this.idBotonSeleccionarDlgFruto,v=>{
+            this.__metodoAlAceptarFruto.ejecutar(self.L.bd.getFila(self.L.indiceSeleccionado).map.get(self.KEY_ID_FRUTO));
+        });
+
+        this.or.aplicarConfiguracionVisual(0);
+
+    }
+}
+const mngBFr=new MangerBuscarFruto(bd);
+mngBFr.listaKeysParafiltro=[NOMBRE_FRUTO,VARIEDAD_FRUTO,NOMBRE_CIENTIFICO_FRUTO];
+mngBFr.KEY_ID_FRUTO=ID_FRUTO;
+mngBFr.addAlAceptarFruto(id=>{
+    let map=bd.getFilaFor(ID_FRUTO,id).map;
+    setValue(ID_SELECT_FRUTO,map.get(ID_MODELO));
+    actualizarDescripcion(map);
+})
+mngBFr.addActualizarImagenFruto(actualizarImagen);
+mngBFr.aplicarConfiguracion();
+
+if(!bd.isEmpty()){
+
+    addOnClick("idBuscarFruto",v=>showDlgBostrap('idDlgSeleccionarFruto'));
+
+    addOnChange(ID_SELECT_FRUTO,v=>{
+        put(KEY_ID_ULTIMO_SELECCIONADO,getValue(ID_SELECT_FRUTO));
+    });
+
+}
+
+
+
+
+
+        function alComenzarAClasificar() {
+            showDlgBostrap("idDlgCargando");
+            function actualizar(a,explicacion){
+                setStyleWidth("idBarraProgresoClasificacion",a+"%")
+                setAtr("idBarraProgresoClasificacion","aria-valuenow",a)
+                setHTML("idContenido",explicacion);
+            }
+            function dioError(request){
+                hayError=request.content.dioError
+                //console.log(hayError)
+                if (hayError){
+                    hideDlgBostrap("idDlgCargando")
+                    showDlgBostrap("idDlgError")
+                }
+                return hayError
+            }
+
+            ejecutarAjax("/{{urls.URL_POST_METODO_PASO_GRAY_WORD}}/"
+            ,{},function (request) {
+                if(!dioError(request)){
+                    actualizar("20","Aplicando algoritmo BoundingBox")
+                    ejecutarAjax("/{{urls.URL_POST_METODO_PASO_BOUNDING_BOX}}/"
+                    ,{},function (request) {
+                        if(!dioError(request)){
+                            actualizar("40","Aplicando algoritmo Resize")
+                            ejecutarAjax("/{{urls.URL_POST_METODO_PASO_MRESIZE}}/"
+                            ,{},function (request) {
+                                if(!dioError(request)){
+                                    actualizar("60","Transformación entre el espacio de color RGB al CIEL a* b*")
+                                    ejecutarAjax("/{{urls.URL_POST_METODO_PASO_CIELAB}}/"
+                                    ,{},function (request) {
+                                        if(!dioError(request)){
+                                            actualizar("80","Obteniendo clasificación de la imagen ")
+                                            ejecutarAjax("/{{urls.URL_POST_METODO_PASO_PREDICCION}}/"
+                                            ,{},function (request) {
+                                                if(!dioError(request)){
+                                                    actualizar("100","Completando últimos detalles ")
+                                                    submit("idFormTerminoDeClasificar");
+                                                }
+
+                                            })
+                                        }
+
+                                    })
+                                }
+
+                            })
+                        }
+
+                    })
+                }
+
+            })
+
+
+            /*ejecutarAjax("/{ {urls.URL_POST_METODO_CLASIFICAR}}/"
+            ,{},function (request) {
+
+                submit("idFormTerminoDeClasificar");
+            })*/
+        }
+
+        {% if lanzarMetodoPostClasificar %}
+            alComenzarAClasificar();
+        {% endif %}
+
+const mngDlgEsperando=new ManagerDlg_ContenidoText_Bootstrap("idDlgEsperando");
+mngDlgEsperando.idContenido="idContenido_DlgEsperando";
+mngDlgEsperando.idTitulo="idTitulo_DlgEsperando";
+mngDlgEsperando.idMensajeCargando="idSpamEsperando_DlgEsperando";
+
+function showDlgEsperarVentana(){
+    mngDlgEsperando.setMensajeCargando("Espere");
+    mngDlgEsperando.showDlg("Preparando "
+    ,"Espere mientras se prepara la ventana siguiente ");
+}
+        addOnClick("idDetallesFruto",v=>{
+            showDlgEsperarVentana();
+            let idModeloSeleccionado=getValue(ID_SELECT_FRUTO);
+            //console.log("idModeloSeleccionado="+idModeloSeleccionado);
+            let mapObtenido=bd.getFilaFor(ID_MODELO,idModeloSeleccionado).map;
+            //console.log("mapObtenido="+mapObtenido);
+            let idFruto=mapObtenido.get(ID_FRUTO);
+            //console.log("idFruto="+idFruto);
+           setValue("idHidenFrutoAVerDetalles",idFruto);
+            submit("idFormDetallesFruto");
+        });
+
+
+        addOnClick("idBotonDetallesModelo",v=>{
+            showDlgEsperarVentana();
+            let idModeloSeleccionado=getValue(ID_SELECT_FRUTO);
+
+           setValue("idHiden_FormDetallesDelModelo",idModeloSeleccionado);
+            submit("idFormDetallesDelModelo");
+        });
+
+        //idBotonDetallesModelo
+
+    </script>
+<form id="idFormDetallesDelModelo"  method="post" action="/{{urls.URL_VISTA_DETALLES_DEL_MODELO_NEURONAL}}/">
+        {% csrf_token %}
+{#        <button type="submit" class="btn btn-primary btn-lg ml-4">Guardar</button>#}
+        <input id="idHiden_FormDetallesDelModelo" type="hidden" name="idDelModelo" >
+    </form>
+     <form id="idFormEditarFruto"  method="post" action="/{{urls.URL_VISTA_EDITAR_FRUTO_DESDE_EXTERNO}}/">
+        {% csrf_token %}
+{#        <button type="submit" class="btn btn-primary btn-lg ml-4">Guardar</button>#}
+        <input id="idHidenFrutoAEditar" type="hidden" name="idDelFruto" value="-1">
+        <input type="hidden" name="urlSalida" value="{{urls.URL_VISTA_EDITAR_DATASET}}">
+    </form>
+    <form id="idFormDetallesFruto"  method="post" action="/{{urls.URL_VISTA_DETALLES_FRUTO}}/">
+        {% csrf_token %}
+{#        <button type="submit" class="btn btn-primary btn-lg ml-4">Guardar</button>#}
+        <input id="idHidenFrutoAVerDetalles" type="hidden" name="idDelFruto" value="-1">
+
+    </form>
+
+{% endblock%}

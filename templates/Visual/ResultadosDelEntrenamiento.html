@@ -1,0 +1,319 @@
+{% extends "Visual/plantillaPadre.html" %}
+{% load static %}
+{% load poll_extras_rene_app %}
+
+{% block titulo %}
+Resultados del Entrenamiento
+{% endblock %}
+
+{% block contenido %}
+<div class="row d-flex justify-content-center">
+
+                        <h3>Resultado Del Entrenamiento</h3>
+
+
+
+</div>
+<div class="row d-flex justify-content-center">
+
+    <span class="mr-1" ><b>Nombre: </b></span><span class="mr-3">{{ cnf.nombreDelModelo }}</span>
+    <span class="ml-1 mr-1"><b>Fruto: </b></span><span >{{ datosDataset.nombreCientificoFruto }}</span>
+</div>
+
+<div class="row">
+    <div class="col-12 col-lg-6 d-flex justify-content-center" >
+        <div id="idGraficoMatrisDeConfusion" ></div>
+    </div>
+
+    <div class="col-12 col-lg-6 d-flex justify-content-center" >
+                        <div class="container">
+                            <div class="row">
+                                <div class="col">
+
+                                    <nav>
+                                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                          <a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Estadísticas </a>
+                                          <a class="nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Épocas</a>
+                                          <a class="nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Lotes </a>
+                                        </div>
+                                      </nav>
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col ">
+
+                                    <div class="tab-content" id="nav-tabContent">
+                                        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                                        <div class="row mt-2  ">
+                                            <div class="col-12 col-lg-6">
+                                                <div class="input-group mb-3">
+                                                    <div class="input-group-prepend">
+                                                      <span class="input-group-text" id="basic-addon1">Precisión</span>
+                                                    </div>
+                                                    <input disabled value="3.0" type="text" id="idSpamLotePresicionActual"
+                                                    class="form-control" placeholder="Precisión" aria-label="Precisión"
+                                                    aria-describedby="basic-addon1"
+                                                        style="    background-color: #fff;     text-align: center;"
+                                                    >
+                                                  </div>
+                                            </div>
+                                            <div class="col-12 col-lg-6">
+                                                <div class="input-group mb-3">
+                                                    <div class="input-group-prepend">
+                                                      <span class="input-group-text" id="basic-addon2">Pérdida </span>
+                                                    </div>
+                                                    <input disabled  value="0.89" type="text" id="idSpamLotePerdidaActual"
+                                                    class="form-control"
+                                                    placeholder="Pérdida " aria-label="Pérdida " aria-describedby="basic-addon2"
+                                                    style="    background-color: #fff;     text-align: center;"
+                                                    >
+                                                  </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div id="idDondeVaLaTabla" class="col overflow-auto d-flex justify-content-center"
+                                            style="max-height: 300px;"
+                                            >
+
+                                            </div>
+                                        </div>
+
+
+                                        </div>
+                                        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                            <div class="row mt-3 d-flex justify-content-center">
+                                                <div id="idGraficoProgreso" ></div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                                            <div class="row mt-3 d-flex justify-content-center">
+                                                <nav id="idPaginacionImg" aria-label="Page navigation example">
+                                                    <ul id="idListaPaginacion" class="pagination ">
+                                                        <li id="idPaginacionAnterior" class="page-item">
+                                                            <a class="page-link" href="#" aria-label="Previous">
+                                                                <span aria-hidden="true">&laquo;</span>
+                                                            </a>
+                                                        </li>
+                                                        <li id="idPaginacionNoSeleccionado" class="page-item"><a class="page-link" href="#">{KEY_INDICE}</a></li>
+                                                        <li id="idPaginacionSeleccionado" class="page-item active mouse_normal">
+                                                            <a class="page-link mouse_normal" href="#">{KEY_INDICE}</a></li>
+                                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                                        <li id="idPaginacionSiguiente" class="page-item">
+                                                            <a class="page-link" href="#" aria-label="Next">
+                                                                <span aria-hidden="true">&raquo;</span>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </nav>
+                                            </div>
+                                            <div class="row d-flex justify-content-center">
+                                                <div id="idGraficoProgreso2" ></div>
+                                            </div>
+                                        </div>
+                                      </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+
+
+    </div>
+
+
+</div>
+
+<div class="row d-flex justify-content-center mt-2">
+    <form   method="post" action="/{{urls.URL_VISTA_ENTRENAMIENTO}}/">
+        {% csrf_token %}
+        <button onclick="showDlgEliminandoModelo()" type="submit" class="btn btn-secondary btn-lg">Cancelar</button>
+        <input type="hidden" name="{{nombre_form_ubicacion_post}}" value="{{forms.CANCELAR_MODELO  }}">
+    </form>
+    <form   method="post" action="/{{urls.URL_VISTA_ENTRENAMIENTO}}/">
+        {% csrf_token %}
+        <button onclick="showDlgGuardandoModelo()" type="submit" class="btn btn-primary btn-lg ml-4">Guardar</button>
+        <input type="hidden" name="{{nombre_form_ubicacion_post}}" value="{{forms.GUARDAR_MODELO  }}">
+    </form>
+
+
+</div>
+
+
+    <div id="idDlgEsperando" data-backdrop="static" class="modal fade" tabindex="-1" role="dialog"
+                    style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-body p-4">
+                                <div class="text-center">
+                                    <i class="dripicons-information h1 text-dark"></i>
+                                    <h4 id="idTitulo_DlgEsperando" class="mt-2 text-dark">Aviso</h4>
+                                    <p id="idContenido_DlgEsperando" class="mt-3 text-dark">Espere mientras ultimamos los detalles de la detención
+                                        solicitada </p>
+
+
+                                    <button type="button" class="btn btn-info my-2" data-dismiss="modal" disabled>
+                                        <span class="spinner-border spinner-border-sm" role="status"
+                                            aria-hidden="true"></span>
+                                            <span id="idSpamEsperando_DlgEsperando">Deteniendo</span>
+
+                                    </button>
+                                </div>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div>
+
+{% endblock%}
+
+
+
+{% block scripts_extras %}
+    <script src="{% static 'js/Librerias/plotly.js' %}"></script>
+    <script src="{% static 'js/reneJavaScritp/reneJS_GraficosIA.js' %}"></script>
+
+    <script type="text/javascript">
+
+    const mngDlgEsperando=new ManagerDlg_ContenidoText_Bootstrap("idDlgEsperando");
+mngDlgEsperando.idContenido="idContenido_DlgEsperando";
+mngDlgEsperando.idTitulo="idTitulo_DlgEsperando";
+mngDlgEsperando.idMensajeCargando="idSpamEsperando_DlgEsperando";
+
+function showDlgGuardandoModelo(){
+    mngDlgEsperando.setMensajeCargando("Espere");
+    mngDlgEsperando.showDlg("Guardando "
+    ,"Espere mientras se está guardando los datos del modelo solicitado ");
+}
+
+function showDlgEliminandoModelo(){
+    mngDlgEsperando.setMensajeCargando("Espere");
+    mngDlgEsperando.showDlg("Eliminando "
+    ,"Espere mientras se está eliminando los datos del modelo solicitado ");
+}
+
+    const dm=new DatosParaMatrisDeConfusion();
+    dm.titulo="Matris de Confusion";
+    dm.listaDeEtiquetas=[{% for etiqueta in datosResultadoDelEntrenamiento.clases %}"{{ etiqueta }}",{% endfor %}];//['A', 'B', 'C', 'D', 'E'];
+    dm.matrizDeResultados=[
+        {% for fila in datosResultadoDelEntrenamiento.matrizDeConfusion %}
+            [{% for numero in fila %}{{ numero }},{% endfor %}],
+        {% endfor %}
+
+
+    ];
+    {#[1,2,3,4,5]#}
+        {#,[1,2,3,4,5]#}
+        {#,[1,2,3,4,5]#}
+        {#,[1,2,3,4,5]#}
+        {#,[1,2,3,4,5]#}
+    const dv=new DatosVisualesDelGrafico();
+    dv.ancho=450;
+    dv.alto=400;
+    dv.colorDeFondo='#f9fbfd';//'blue';//'#f9fbfd';
+    graficarMatrisDeConfusion("idGraficoMatrisDeConfusion",dm,dv);
+
+    //dv.colorDeFondo='red';
+    dv.ancho=500;
+    dv.alto=374;
+    const dp=new DatosDeProgresoDeEntrenamiento();
+    cantidadDeEpocasTotales={{ datosDeProgresoDeEntrenamiento.cnf.cantidadDeEpocas }};
+    dp.listaDePrecisiones=[{% for numero in datosDeProgresoDeEntrenamiento.listaDePrecisiones %}{{ numero|numeroConComa }},{% endfor %}];//[0.2,0.4,0.5,0.6,0.7]
+    dp.listaDePerdidas=[{% for numero in datosDeProgresoDeEntrenamiento.listaDePerdidas %}{{ numero|numeroConComa }},{% endfor %}];//[50,40,30,20,10]
+    graficarProgresoDeEntrenamiento("idGraficoProgreso",dp,dv);
+
+
+    dv.alto=320;
+    const dpL=[];
+    function addDP_Lotes(listaDePrecisiones,listaDePerdidas) {
+        let dp2=new DatosDeProgresoDeEntrenamiento();
+        dp2.listaDePrecisiones=listaDePrecisiones;
+        dp2.listaDePerdidas=listaDePerdidas;
+        dp2.tituloAxisX="Lotes";
+        dpL.push(dp2);
+    }
+    {% for lotesEnEpoca in datosResultadoDelEntrenamiento.matriz_DM_DatoEnHistorialDeEntrenamiento %}
+        addDP_Lotes(
+            [{% for lote in lotesEnEpoca %} {{ lote.precision|numeroConComa }},{% endfor %}],
+            [{% for lote in lotesEnEpoca %} {{ lote.perdida|numeroConComa }},{% endfor %}]
+        );
+    {% endfor %}
+    function graficarLotes(indice){//indice comienza en 1
+        graficarProgresoDeEntrenamiento("idGraficoProgreso2",dpL[indice-1],dv);
+    }
+    graficarLotes(1);
+
+    listaDeHeader=["Clases","Exactitud","Sensibilidad"];
+
+    listaParesDeParametros=[
+        {% for metrica in datosResultadoDelEntrenamiento.metricas %}
+            [{{ metrica.exactitud|numeroConComa }},{{ metrica.sensibilidad|numeroConComa }}],
+        {% endfor %}
+    ];//sprintf("%02.2f",
+    function adaptarNumero(numeroConComaPorciento){
+        return sprintf("%02.2f ",Number.parseFloat(numeroConComaPorciento)*100);
+    }
+    for (let i = 0; i <listaParesDeParametros.length ; i++) {
+        let fila=listaParesDeParametros[i];
+        for (let j = 0; j < fila.length; j++) {
+            fila[j]=adaptarNumero(fila[j]);
+        }
+        fila.unshift(dm.listaDeEtiquetas[i]);
+    }
+
+
+        tablaStr='<table class="table ">';//table-dark
+        tablaStr+='<thead>';//colspan="2"
+        for (const titulo of listaDeHeader) {
+            tablaStr+='<th class="text-center text-dark" scope="col" ><b>'+titulo+'</b></th>';
+        }
+
+        tablaStr+='</thead>';//class="overflow-auto" style="max-height: 300px;"
+        tablaStr+='<tbody  >';
+            for (let i = 0; i < listaParesDeParametros.length; i++) {
+                const p = listaParesDeParametros[i];
+
+                tablaStr+='<tr class="text-center" >';
+                tablaStr+='<th scope="row" class="text-dark"><b>'+p[0]+'</b></th>';
+                tablaStr+='<td>'+p[1]+'%</td>';
+                tablaStr+='<td>'+p[2]+'%</td>';
+                tablaStr+='</tr>';
+
+            }
+        tablaStr+='</tbody>';
+        tablaStr+='</table>';
+
+        setHTML("idDondeVaLaTabla",tablaStr)
+
+class ManagerHistorialLotes{
+    constructor(){
+        this.pagV=new PaginacionVisualIndependiente_Bootstrap();
+        this.pagV.idListaPaginacion="idListaPaginacion";
+        this.pagV.idNodoSeleccionadoPlantilla="idPaginacionSeleccionado";
+        this.pagV.idNodoNoSeleccionadoPlantilla="idPaginacionNoSeleccionado";
+
+        //this.matris_Epoca_CoordenadasLotes=[];//[ 1-[90,85,75,...] , 2-[60,54,34,...] ... ]
+    }
+    actualizar(paginacion){
+        this.pagV.actualizar(paginacion);
+    }
+    aplicarConfiguracion(){
+        this.pagV.addOnClickNoSeleccionado(
+                (id,indice)=>{
+                    //alert("indice="+indice);
+                    graficarLotes(indice);
+                }
+            );
+        this.pagV.aplicarConfiguracion();
+    }
+}
+
+const mngLotes=new ManagerHistorialLotes();
+mngLotes.pagV.gestorDePaginacion=new GestorDePaginacionSimple(1,len(dpL),1,7);
+mngLotes.aplicarConfiguracion();
+mngLotes.actualizar(mngLotes.pagV.gestorDePaginacion.getPaginacion());
+
+    setValue("idSpamLotePresicionActual",sprintf("%02.2f",{{ datosResultadoDelEntrenamiento.presicion|numeroConComa }}))
+    setValue("idSpamLotePerdidaActual",sprintf("%02.2f",{{ datosResultadoDelEntrenamiento.perdida|numeroConComa }}))
+    </script>
+
+{% endblock%}

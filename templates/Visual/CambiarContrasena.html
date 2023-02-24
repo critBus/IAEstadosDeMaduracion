@@ -1,0 +1,219 @@
+{% extends "Visual/plantillaPadre.html" %}
+{% load static %}
+{% load poll_extras_rene_app %}
+
+{% block titulo %}
+Cambiar Contraseña
+{% endblock %}
+
+{% block contenido %}
+<div class="row  mb-4">
+                    <div class="col d-flex justify-content-center">
+                        <h6 class="display-4 text-center">Cambiar Contraseña</h6>
+
+                    </div>
+
+                </div>
+
+                <div class="row ">
+                    <div class="col mb-4">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Contraseña</span>
+                            </div>
+                            <input id="idInputContraseña" maxlength="50"  type="password" aria-label="First name" class="form-control">
+                            <div id="idInputContraseña_MensajeInvalidoBoostrap" class="invalid-feedback">
+                                otro mal.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row ">
+                    <div class="col mb-4">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Confirmar</span>
+                            </div>
+                            <input id="idInputConfirmarContraseña" maxlength="50"  type="password" aria-label="First name" class="form-control">
+                            <div id="idInputConfirmarContraseña_MensajeInvalidoBoostrap" class="invalid-feedback">
+                                otro mal.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+                <div class="row m-4 justify-content-center">
+                    <!-- <div class="col d-flex justify-content-center">
+                        <button type="button" class="btn btn-dark  btn-lg">Cancelar</button>
+
+                    </div> -->
+                    <div class="col-6 col-sm-3 d-flex justify-content-center ">
+                        <button id="idBotonAceptar" type="button" class="btn btn-dark   btn-lg w-100">Aceptar</button>
+                    </div>
+
+
+                </div>
+
+
+<div id="idDlgHayCamposInvalidos" data-backdrop="static" class="modal fade" tabindex="-1" role="dialog"
+                    style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-body p-4">
+                                <div class="text-center">
+                                    <i class="dripicons-information h1 text-dark"></i>
+                                    <h4 class="mt-2 text-dark">Aviso</h4>
+                                    <p class="mt-3 text-dark">Existen campos con informaciones erróneas!, por favor
+                                        rectifique sus datos y vuelva a intentarlo </p>
+                                    <p id="idSpamContenidoDlgHayCamposInvalidos" style="display: none;"
+                                        class="mt-3 text-dark"></p>
+
+                                    <button type="button" class="btn btn-info my-2" data-dismiss="modal">
+                                        <!-- <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> -->
+                                        Aceptar
+                                    </button>
+                                </div>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div>
+
+    <div id="idDlgEsperando" data-backdrop="static" class="modal fade" tabindex="-1" role="dialog"
+                    style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-body p-4">
+                                <div class="text-center">
+                                    <i class="dripicons-information h1 text-dark"></i>
+                                    <h4 id="idTitulo_DlgEsperando" class="mt-2 text-dark">Aviso</h4>
+                                    <p id="idContenido_DlgEsperando" class="mt-3 text-dark">Espere mientras ultimamos los detalles de la detención
+                                        solicitada </p>
+
+
+                                    <button type="button" class="btn btn-info my-2" data-dismiss="modal" disabled>
+                                        <span class="spinner-border spinner-border-sm" role="status"
+                                            aria-hidden="true"></span>
+                                            <span id="idSpamEsperando_DlgEsperando">Deteniendo</span>
+
+                                    </button>
+                                </div>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div>
+
+                <div id="idDlgError" data-backdrop="static" class="modal fade" tabindex="-1" role="dialog"
+                    style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog modal-sm" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body p-4">
+                                <div class="text-center">
+                                    <i class="dripicons-information h1 text-dark"></i>
+                                    <h4 id="idTitulo_idDlgError" class="mt-2 text-dark">Aviso</h4>
+                                    <p id="idContenido_DlgError" class="mt-3 text-dark">Le informamos de la existencia
+                                        de un error interno del servidor </p>
+
+
+                                    <button id="idBotonAceptar_DlgError"
+                                            type="button" class="btn btn-info my-2" data-dismiss="modal">
+                                        <!-- <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> -->
+                                        Aceptar
+                                    </button>
+                                </div>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div>
+
+    <form id="idFormRecargarPagina"  method="post" action="/{{urls.URL_VISTA_CLASIFICAR_IMAGEN}}/">
+        {% csrf_token %}
+{#        <button type="submit" class="btn btn-primary btn-lg ml-4">Guardar</button>#}
+{#        <input type="hidden" name="{{nombre_form_ubicacion_post}}" value="{{forms.GUARDAR_MODELO  }}">#}
+    </form>
+    <form id="idFormIrASalida"  method="get" action="/{{urlSalida}}/">
+        {% csrf_token %}
+{#        <button type="submit" class="btn btn-primary btn-lg ml-4">Guardar</button>#}
+{#        <input type="hidden" name="{{nombre_form_ubicacion_post}}" value="{{forms.GUARDAR_MODELO  }}">#}
+    </form>
+{% endblock%}
+
+{% block scripts_extras %}
+   <script>
+
+const ID_B_ACEPTAR_USUARIO="idBotonAceptar";
+
+const ID_INPUT_CONTRASEÑA="idInputContraseña";
+const ID_INPUT_CONFIRMAR_CONTRASEÑA="idInputConfirmarContraseña";
+
+
+const MIN_CARACTERES=5;
+const MAX_CARACTERES=50;
+const V = new ValidacionConEventos_Boostrap();
+
+V.addTexts_Contraseña(ID_INPUT_CONTRASEÑA,ID_INPUT_CONFIRMAR_CONTRASEÑA).setMaxCar(200);;
+
+
+V.addBotonADesactivar(ID_B_ACEPTAR_USUARIO);
+V.comprovarValidacionYDesactivar();
+
+
+const mngDlgError=new ManagerDlg_AceptarCancelar_Bootstrap("idDlgError");
+mngDlgError.idContenido="idContenido_DlgError";
+mngDlgError.idTitulo="idTitulo_idDlgError";
+mngDlgError.setIdBotonAceptar("idBotonAceptar_DlgError");
+
+const mngDlgEsperando=new ManagerDlg_Espera_ContenidoText_Bootstrap("idDlgEsperando");
+mngDlgEsperando.idContenido="idContenido_DlgEsperando";
+mngDlgEsperando.idTitulo="idTitulo_DlgEsperando";
+mngDlgEsperando.idMensajeCargando="idSpamEsperando_DlgEsperando";
+
+function showDlgFalloEnLaValidacion(mensaje){
+    //estado.mostrandoMensajeDeErrorAceptar=true
+    mngDlgError.showDlg("Datos Inválidos "
+    ,mensaje
+    ,"Aceptar",()=>{
+        //estado.mostrandoMensajeDeErrorAceptar=false
+
+        });
+}
+function showDlgComprobandoObjeto(){
+    mngDlgEsperando.setMensajeCargando("Espere");
+    mngDlgEsperando.showDlg("Comprobando "
+    ,"Espere mientras se comprueban los datos del usuario solicitado ");
+}
+addOnClick(ID_B_ACEPTAR_USUARIO,v=>{
+    showDlgComprobandoObjeto();
+
+    ejecutarAjax("/{{ urls.URL_POST_METODO_INTENTAR_CAMBIAR_CONTRASENA }}/"
+        ,{
+
+            "{{ form.usuario }}":"{{ form.usuario.valor }}"
+            ,"{{ form.contraseña }}":getValue(ID_INPUT_CONTRASEÑA)
+            ,"{{ form.confirmarContraseña }}":getValue(ID_INPUT_CONFIRMAR_CONTRASEÑA)
+
+        }
+            ,r=>{
+
+
+                if(!r.fueValido){
+                    mngDlgEsperando.hide();
+                    showDlgFalloEnLaValidacion(r.mensaje);
+                }else{
+                    //alert('fue valido');
+                    console.log("fue valido!!!!!!!!!!!");
+                    submit("idFormIrASalida");
+                }
+
+        });
+
+});
+ </script>
+
+{% endblock%}

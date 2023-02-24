@@ -1,0 +1,29 @@
+{% extends "Visual/plantillaPadre.html" %}
+{% load static %}
+{% load poll_extras_rene_app %}
+
+{% block titulo %}
+Error Url
+{% endblock %}
+
+{% block contenido %}
+
+<div class="jumbotron">
+                    <h1 class="display-4">Error en URL Manual</h1>
+                    <p class="lead">Para una mejor experiencia evite la introducción manual de urls en su navegador   </p>
+                    <hr class="my-4">
+                    <p>Utilice solo las direcciones correctas de nuestro sitio web  </p>
+                    <a class="btn btn-primary btn-lg" href="{% url urls.URL_VISTA_CLASIFICAR_IMAGEN %}" role="button">Volver</a>
+                  </div>
+
+ <form id="idFormRecargarPagina"  method="get" action="/{{urls.URL_VISTA_CLASIFICAR_IMAGEN}}/">
+        {% csrf_token %}
+{#        <button type="submit" class="btn btn-primary btn-lg ml-4">Guardar</button>#}
+{#        <input type="hidden" name="{{nombre_form_ubicacion_post}}" value="{{forms.GUARDAR_MODELO  }}">#}
+    </form>
+
+
+{% endblock%}
+
+{% block scripts_extras %}
+{% endblock%}

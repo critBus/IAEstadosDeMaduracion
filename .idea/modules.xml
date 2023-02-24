@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/ProyectoPCChar.iml" filepath="$PROJECT_DIR$/.idea/ProyectoPCChar.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../Externos/PruebasBD/.idea/PruebasBD.iml" filepath="$PROJECT_DIR$/../../Externos/PruebasBD/.idea/PruebasBD.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../Paquetes/RenePython/.idea/RenePython.iml" filepath="$PROJECT_DIR$/../../Paquetes/RenePython/.idea/RenePython.iml" />
+    </modules>
+  </component>
+</project>

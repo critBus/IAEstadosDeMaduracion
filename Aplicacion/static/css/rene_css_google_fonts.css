@@ -1,0 +1,109 @@
+@font-face {
+    font-family: Roboto-Black;
+    src: url('../libR/Google-fonts/Roboto/Roboto-Black.ttf');
+}
+.gf_roboto_black {
+    font-family: Roboto-Black;
+}
+@font-face {
+    font-family: Roboto-BlackItalic;
+    src: url('../libR/Google-fonts/Roboto/Roboto-BlackItalic.ttf');
+}
+@font-face {
+    font-family: Roboto-Bold;
+    src: url('../libR/Google-fonts/Roboto/Roboto-Bold.ttf');
+}
+@font-face {
+    font-family: Roboto-BoldItalic;
+    src: url('../libR/Google-fonts/Roboto/Roboto-BoldItalic.ttf');
+}
+@font-face {
+    font-family: Roboto-Italic;
+    src: url('../libR/Google-fonts/Roboto/Roboto-Italic.ttf');
+}
+@font-face {
+    font-family: Roboto-Light;
+    src: url('../libR/Google-fonts/Roboto/Roboto-Light.ttf');
+}
+@font-face {
+    font-family: Roboto-LightItalic;
+    src: url('../libR/Google-fonts/Roboto/Roboto-LightItalic.ttf');
+}
+@font-face {
+    font-family: Roboto-Medium;
+    src: url('../libR/Google-fonts/Roboto/Roboto-Medium.ttf');
+}
+@font-face {
+    font-family: Roboto-MediumItalic;
+    src: url('../libR/Google-fonts/Roboto/Roboto-MediumItalic.ttf');
+}
+@font-face {
+    font-family: Roboto-Regular;
+    src: url('../libR/Google-fonts/Roboto/Roboto-Regular.ttf');
+}
+@font-face {
+    font-family: Roboto-Thin;
+    src: url('../libR/Google-fonts/Roboto/Roboto-Thin.ttf');
+}
+@font-face {
+    font-family: Roboto-ThinItalic;
+    src: url('../libR/Google-fonts/Roboto/Roboto-ThinItalic.ttf');
+}
+
+
+.gf_AmiriQuran-Regular {
+    font-family: AmiriQuran-Regular;
+}
+@font-face {
+    font-family: AmiriQuran-Regular;
+    src: url('../libR/Google-fonts/Amiri_Quran/AmiriQuran-Regular.ttf');
+}
+.gf_ArefRuqaaInk-Bold {
+    font-family: ArefRuqaaInk-Bold;
+}
+@font-face {
+    font-family: ArefRuqaaInk-Bold;
+    src: url('../libR/Google-fonts/Aref_Ruqaa_Ink/ArefRuqaaInk-Bold.ttf');
+}
+.gf_BlakaInk-Regular {
+    font-family: BlakaInk-Regular;
+}
+@font-face {
+    font-family: BlakaInk-Regular;
+    src: url('../libR/Google-fonts/Blaka_Ink/BlakaInk-Regular.ttf');
+}
+.gf_BungeeSpice-Regular {
+    font-family:BungeeSpice-Regular ;
+}
+@font-face {
+    font-family:BungeeSpice-Regular;
+    src: url('../libR/Google-fonts/Bungee_Spice/BungeeSpice-Regular.ttf');
+}
+.gf_Lora_Lora-Italic-VariableFont_wght {
+    font-family: Lora_Lora-Italic-VariableFont_wght;
+}
+@font-face {
+    font-family: Lora_Lora-Italic-VariableFont_wght;
+    src: url('../libR/Google-fonts/Lora/Lora-Italic-VariableFont_wght.ttf');
+}
+.gf_Passions_Conflict_Lora-Italic-VariableFont_wght {
+    font-family:Passions_Conflict_Lora-Italic-VariableFont_wght ;
+}
+@font-face {
+    font-family: Lora-Italic-VariableFont_wght;
+    src: url('../libR/Google-fonts/Passions_Conflict/Lora-Italic-VariableFont_wght.ttf');
+}
+.gf_Raleway-Italic-VariableFont_wght {
+    font-family: Raleway-Italic-VariableFont_wght;
+}
+@font-face {
+    font-family: Raleway-Italic-VariableFont_wght;
+    src: url('../libR/Google-fonts/Raleway/Raleway-Italic-VariableFont_wght.ttf');
+}
+.gf_RubikDirt-Regular {
+    font-family: RubikDirt-Regular;
+}
+@font-face {
+    font-family: RubikDirt-Regular;
+    src: url('../libR/Google-fonts/Rubik_Dirt/RubikDirt-Regular.ttf');
+}

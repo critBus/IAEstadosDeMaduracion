@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="es">
+{% load static %}
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'img/favicon.png' %}">
+    <title>{% block titulo %}{% endblock %}</title>
+    <!-- Custom CSS -->
+    <link href="{% static 'css/c3.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/chartist.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/jquery-jvectormap-2.0.2.css' %}" rel="stylesheet" />
+    <!-- Custom CSS -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'css/rene_boostrap_hide.css' %}" rel="stylesheet">
+    <link href="{% static 'css/rene_style.css' %}" rel="stylesheet">
+    <link href="{% static 'css/rene_css_google_fonts.css' %}" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+
+</head>
+<body>
+<script src="{% static 'js/rene_app.js' %}"></script>
+ <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+    <div class="preloader">
+        <div class="lds-ripple">
+            <div class="lds-pos"></div>
+            <div class="lds-pos"></div>
+        </div>
+    </div>
+
+<!-- ============================================================== -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+        data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
+        <!-- ============================================================== -->
+        <!-- Topbar header - style you can find in pages.scss -->
+        <!-- ============================================================== {{ user.username }} -->
+        <header class="topbar" data-navbarbg="skin6">
+            <nav class="navbar top-navbar navbar-expand-md">
+                <div class="navbar-header" data-logobg="skin6">
+                    <!-- This is for the sidebar toggle which is visible on mobile only -->
+                    <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i
+                            class="ti-menu ti-close"></i></a>
+                    <!-- ============================================================== -->
+                    <!-- Logo -->
+                    <!-- ============================================================== -->
+                    <div class="navbar-brand">
+                        <!-- Logo icon -->
+                        <a href="index.html">
+                            <b class="logo-icon">
+                                <!-- Dark Logo icon -->
+                                <img src="{% static 'img/logo-icon.png' %}" alt="homepage" class="dark-logo" />
+                                <!-- Light Logo icon -->
+                                <img src="{% static 'img/logo-icon.png' %}" alt="homepage" class="light-logo" />
+                            </b>
+                            <!--End Logo icon -->
+                            <!-- Logo text -->
+                            <span class="logo-text">
+                                <!-- dark Logo text -->
+                                <img src="{% static 'img/logo practias.png' %}" alt="homepage" class="dark-logo" />
+                                <!-- Light Logo text -->
+                                <img src="{% static 'img/logo-light-text.png' %}" class="light-logo" alt="homepage" />
+                            </span>
+                        </a>
+                    </div>
+                    <!-- ============================================================== -->
+                    <!-- End Logo -->
+                    <!-- ============================================================== -->
+                    <!-- ============================================================== -->
+                    <!-- Toggle which is visible on mobile only -->
+                    <!-- ============================================================== -->
+                    <a class="topbartoggler d-block d-md-none waves-effect waves-light" href="javascript:void(0)"
+                        data-toggle="collapse" data-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i
+                            class="ti-more"></i></a>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Logo -->
+                <!-- ============================================================== -->
+                <div class="navbar-collapse collapse justify-content-between " id="navbarSupportedContent">
+
+                    <nav  aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            {% for e in localizacionDePagina.listaLocalizacion %}
+                          <li class="breadcrumb-item {% if e.esElUltimo %} active {% endif %}" {% if e.esElUltimo %} aria-current="page" {% endif %}>{{ e.nombre }}</li>
+                            {% endfor %}
+
+                        </ol>
+                      </nav>
+                    <!-- ============================================================== -->
+                    <!-- Right side toggle and nav items -->
+                    <!-- ============================================================== -->
+                    <ul class="navbar-nav float-right flex-column-reverse ">
+                        <!-- ============================================================== -->
+                        <!-- Search -->
+                        <!-- ============================================================== -->
+
+                        <!-- ============================================================== -->
+                        <!-- User profile and search -->
+                        <!-- ============================================================== -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <img src="{% static 'img/u4.png' %}" alt="user" class="rounded-circle"
+                                    width="40">
+                                <span class="ml-2 d-none d-lg-inline-block"><span
+                                        class="text-dark">{{ user.username }}</span> <i data-feather="chevron-down"
+                                        class="svg-icon"></i></span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
+                                {% if estaAutenticado %}
+                                    <a class="dropdown-item mt-2" href="{% url urls.URL_VISTA_CAMBIAR_CONTRASENA_PROPIA %}">
+                                        <i
+                                        class=" fas fa-key mr-2 ml-1"></i>
+                                    Cambiar Contraseña </a>
+                                <a class="dropdown-item mt-2" href="{% url urls.URL_VISTA_DESLOGUEARSE %}"><i data-feather="power"
+                                        class="svg-icon mr-2 ml-1"></i>
+                                    Cerrar sesión </a>
+                                    {% else %}
+                                    <a class="dropdown-item mt-2" href="{% url urls.URL_VISTA_LOGUIN %}">
+                                        <i
+                                        class=" fas fa-user  mr-2 ml-1"></i>
+                                    Iniciar Sesión   </a>
+                                {% endif %}
+
+                            </div>
+                        </li>
+                        <!-- ============================================================== -->
+                        <!-- User profile and search -->
+                        <!-- ============================================================== -->
+                    </ul>
+
+
+
+                </div>
+            </nav>
+        </header>
+        <!-- ============================================================== -->
+        <!-- End Topbar header -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <aside class="left-sidebar" data-sidebarbg="skin6">
+            <!-- Sidebar scroll-->
+            <div class="scroll-sidebar" data-sidebarbg="skin6">
+                <!-- Sidebar navigation-->
+                <nav class="sidebar-nav">
+                    <ul id="sidebarnav">
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{% url urls.URL_VISTA_CLASIFICAR_IMAGEN %}"
+                                aria-expanded="false"><i  class="fas fa-image"></i><span
+                                    class="hide-menu">Clasificar</span></a></li>
+                        <li class="list-divider"></li>
+                        <li class="nav-small-cap"><span class="hide-menu">Aplicación</span></li>
+
+                        <li class="sidebar-item"> <a class="sidebar-link" href="{% url urls.URL_VISTA_LISTA_CLASIFICACIONES_USUARIO %}"
+                                aria-expanded="false"><i class="fas fa-images"></i><span
+                                    class="hide-menu">Clasificaciones 
+                                </span></a>
+                        </li>
+                        {% if esInvestigador %}
+                        <li class="nav-small-cap"><span class="hide-menu">Investigación</span></li>
+
+                        
+
+                        <li class="sidebar-item"> <a class="sidebar-link" href="{% url urls.URL_VISTA_ENTRENAMIENTO %}"
+                            aria-expanded="false"><i  class="fas fa-chart-area"></i><span
+                                class="hide-menu">Entrenamiento
+                            </span></a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="{% url urls.URL_VISTA_LISTAR_MODELO_NEURONAL %}"
+                                                    aria-expanded="false">
+                                <i  class="fas fa-chart-pie"></i>
+                                <span
+                                                        class="hide-menu">Modelos Neuronales
+                                </span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item"> <a class="sidebar-link" href="{% url urls.URL_VISTA_AGREGAR_DATASET %}"
+                            aria-expanded="false"><i  class="fas fa-cube"></i><span
+                                class="hide-menu">Crear Dataset
+                            </span></a>
+                        </li>
+
+                            <li class="sidebar-item"> <a class="sidebar-link" href="{% url urls.URL_VISTA_LISTAR_DATASET %}"
+                            aria-expanded="false"><i  class="fas fa-cubes"></i><span
+                                class="hide-menu">Datasets
+                            </span></a>
+
+
+                        </li>
+                            <li class="sidebar-item"> <a class="sidebar-link" href="{% url urls.URL_VISTA_LISTAR_FRUTO %}"
+                            aria-expanded="false"><i  class="fas fa-tablets"></i><span
+                                class="hide-menu">Frutos
+                            </span></a>
+
+
+                        </li>
+
+                            {% endif %}
+                    {% if esAdmin %}
+                            <li class="nav-small-cap"><span class="hide-menu">Administración</span></li>
+							<li class="sidebar-item"> <a class="sidebar-link" href="{% url urls.URL_VISTA_ADMINISTRACION %}"
+                                aria-expanded="false"><i  class=" fas fa-cogs"></i><span
+                                    class="hide-menu">Configuración
+                                </span></a>
+                        </li>
+<li class="sidebar-item"> <a class="sidebar-link" href="{% url urls.URL_VISTA_AGREGAR_USUARIO %}"
+                            aria-expanded="false"><i  class="fas fa-user-plus"></i><span
+                                class="hide-menu">Agregar Usuarios
+                            </span></a>
+
+
+                        </li>
+                            <li class="sidebar-item"> <a class="sidebar-link" href="{% url urls.URL_VISTA_LISTAR_USUARIO %}"
+                            aria-expanded="false"><i  class=" fas fa-users"></i><span
+                                class="hide-menu">Usuarios
+                            </span></a>
+
+
+                        </li>
+                        {% endif %}
+
+                    </ul>
+                </nav>
+                <!-- End Sidebar navigation -->
+            </div>
+            <!-- End Sidebar scroll-->
+        </aside>
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+<!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
+        <div class="page-wrapper">
+
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid" style="min-height: 450px;">
+                {% block contenido %}{% endblock%}
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Container fluid  -->
+            <!-- ============================================================== -->
+
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Page wrapper  -->
+        <!-- ============================================================== -->
+
+
+</div>
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
+
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+
+
+    <script src="{% static 'js/Librerias/jquery.min.js' %}"></script>
+    <script src="{% static 'js/Librerias/popper.min.js' %}"></script>
+    <script src="{% static 'js/Librerias/bootstrap.min.js' %}"></script>
+    <!-- apps -->
+    <!-- apps -->
+    <script src="{% static 'js/Librerias/plantilla/app-style-switcher.js' %}"></script>
+    <script src="{% static 'js/Librerias/plantilla/feather.min.js' %}"></script>
+    <script src="{% static 'js/Librerias/plantilla/perfect-scrollbar.jquery.min.js' %}"></script>
+
+    <script src="{% static 'js/Librerias/plantilla/sparkline.js' %}"></script>
+
+    <script src="{% static 'js/Librerias/plantilla/sidebarmenu.js' %}"></script>
+    <!--Custom JavaScript -->
+    <script src="{% static 'js/Librerias/plantilla/custom.js' %}"></script>
+    <!--This page JavaScript -->
+    <script src="{% static 'js/Librerias/plantilla/d3.min.js' %}"></script>
+    <script src="{% static 'js/Librerias/plantilla/c3.min.js' %}"></script>
+    <script src="{% static 'js/Librerias/plantilla/chartist.min.js' %}"></script>
+    <script src="{% static 'js/Librerias/plantilla/chartist-plugin-tooltip.min.js' %}"></script>
+    <script src="{% static 'js/Librerias/plantilla/jquery-jvectormap-2.0.2.min.js' %}"></script>
+    <script src="{% static 'js/Librerias/plantilla/jquery-jvectormap-world-mill-en.js' %}"></script>
+    <script src="{% static 'js/Librerias/plantilla/dashboard1.js' %}"></script>
+
+    <script src="{% static 'js/Librerias/sprintf.js' %}"></script>
+{#{% block scripts_js_lib %}{% endblock%}#}
+
+    <script src="{% static 'js/reneJavaScritp/reneJavaScrip.js' %}"></script>
+    <script src="{% static 'js/reneJavaScritp/reneJS_ArchivosUtiles.js' %}"></script>
+    <script src="{% static 'js/reneJavaScritp/reneJS_Clases.js' %}"></script>
+    <script src="{% static 'js/reneJavaScritp/reneJS_Img.js' %}"></script>
+    <script src="{% static 'js/reneJavaScritp/reneJS_Repetidores.js' %}"></script>
+    <script src="{% static 'js/reneJavaScritp/reneJS_UtilesParaControles.js' %}"></script>
+    <script src="{% static 'js/reneJavaScritp/reneJS_Filtros.js' %}"></script>
+    <script src="{% static 'js/reneJavaScritp/reneJS_Validacion.js' %}"></script>
+    <script src="{% static 'js/reneJavaScritp/reneJS_Paginación.js' %}"></script>
+
+    <script src="{% static 'js/reneJavaScritp/reneJS_Componentes/reneJS_PaginacionVisual.js' %}"></script>
+    <script src="{% static 'js/reneJavaScritp/reneJS_Boostrap/reneJS_Bootstrap.js' %}"></script>
+    <script src="{% static 'js/reneJavaScritp/reneJS_Boostrap/reneJS_Bootstrap_Validacion.js' %}"></script>
+    <script src="{% static 'js/reneJavaScritp/reneJS_Boostrap/reneJS_Bootstrap_PaginacionVisual.js' %}"></script>
+
+
+    <script src="{% static 'js/reneJavaScritp/reneJS_JQuery.js' %}"></script>
+    <script src="{% static 'js/reneJavaScritp/reneJS_Django.js' %}"></script>
+
+
+
+
+
+{% block scripts_extras %}{% endblock%}
+{#<!--    <script src="{% static 'js/docsearch.min.js' %}"></script>-->#}
+{#<!--    <script src="{% static 'js/docs.min.js' %}"></script>-->#}
+
+
+</body>
+</html>

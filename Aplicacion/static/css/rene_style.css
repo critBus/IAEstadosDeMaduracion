@@ -1,0 +1,170 @@
+b, strong {
+    font-weight: bolder;
+}
+.text_strong{
+    font-weight: bolder;
+}
+.text_large{
+    font-size: larger;
+}
+
+.card_img{
+    border-width:thin;
+}
+
+
+.tini_btn_icon{
+    width: 25px;
+    height: auto;
+    padding: 0 !important;
+}
+
+
+
+.iten_navegacion_carpeta{
+    cursor: pointer;
+    border-width: 2px;
+}
+.iten_navegacion_carpeta:hover{
+    border-color: brown;
+
+}
+.boton_en_navegacion{
+    font-size: 20px;
+    padding: revert;
+    border-radius: 30%;
+}
+.subtexto_iten_navegacion{
+    font-size: x-small;
+}
+
+
+
+.label_input_archivo::after{
+    content: "Buscar";
+}
+.h-100{
+    height: 100%;
+}
+
+
+
+.div_i{
+    display: contents;
+}
+/*en smx se ve  */
+@media (max-width: 450px) {
+    .v-smx{
+        display: none;
+    }
+}
+/*en smx no se ve  */
+@media (min-width: 450px) {
+    .h-smx{
+        display: none;
+    }
+}
+/*en sm se ve  */
+@media (max-width: 768px) {
+    .v-sm{
+        display: none;
+    }
+}
+/*en sm no se ve  */
+@media (min-width: 768px) {
+    .h-sm{
+        display: none;
+    }
+}
+
+
+/*en sm se ve  */
+@media (max-width: 992px) {
+    .v-lg{
+        display: none;
+    }
+}
+/*en sm no se ve  */
+@media (min-width: 992px) {
+    .h-lg{
+        display: none;
+    }
+}
+
+/*
+@media (min-width: 992px) {
+    @media (min-width: 1200px) {
+.item_de_columna_parametro{} */
+
+
+.fondoNegroTransparente{
+    background-color: rgba(0, 0, 0, .5);
+    /* height: 2em;
+    width: 150px;
+    position: absolute;
+    top: 10px;
+    color: #fff;
+    text-align: center;
+    padding-top: 1em; */
+    border-radius: 15%;
+  }
+
+.mouse_escritura{
+    cursor: initial;
+}
+.mouse_togle{
+    cursor: pointer;
+}
+.mouse_normal{
+    cursor:inherit;
+}
+
+
+
+
+/* 1: 0.25rem 2: 0.5rem  3: 1rem 4: 1.5rem           !important;        */
+/*en sm se ve  */
+@media (max-width: 450px) {
+    .mr-o-smx-1{
+        margin-right: 0.25rem !important;
+    }
+    .mr-o-smx-2{
+        margin-right: 0.5rem !important;
+    }
+
+    .mr-o-smx-3{
+        margin-right: 1rem !important;
+    }
+
+    .mr-o-smx-4{
+        margin-right: 1.5rem !important;
+    }
+
+
+
+}
+
+
+@media (max-width: 768px) {
+    .mr-o-sm-1{
+        margin-right: 0.25rem !important;
+    }
+    .mr-o-sm-2{
+        margin-right: 0.5rem !important;
+    }
+
+    .mr-o-sm-3{
+        margin-right: 1rem !important;
+    }
+
+    .mr-o-sm-4{
+        margin-right: 1.5rem !important;
+    }
+
+
+
+}
+
+.active .subtexto_iten_navegacion{
+    color: white !important;
+}

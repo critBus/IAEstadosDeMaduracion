@@ -1,0 +1,770 @@
+{% extends "Visual/plantillaPadre.html" %}
+{% load static %}
+{% load poll_extras_rene_app %}
+
+{% block titulo %}
+Listar Frutos
+{% endblock %}
+
+{% block contenido %}
+
+<div class="row justify-content-between">
+                    <div class="col-10">
+                            <div class="input-group">
+                                <input name="{{nombre_text_filtro}}" id="idTextoFiltro" type="text" class="form-control"
+                                    aria-label="Text input with segmented dropdown button">
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-secondary "><i class="fas fa-search"></i></button>
+                                    <button type="button" class="btn btn-secondary  dropdown-toggle dropdown-toggle-split"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-angle-down"></i>
+                                        <span class="sr-only">Toggle Dropdown</span>
+                                    </button>
+                                    <div class="dropdown-menu ">
+                                        <label class="btn btn-outline btn-info dropdown-item">
+                                            <div class="custom-control custom-radio">
+                                                <input type="checkbox" id="idCBFiltroFecha" name="idCBFiltroFecha" value="idCBFiltroFecha"
+                                                    class="custom-control-input" >
+                                                <label class="custom-control-label" for="idCBFiltroFecha">
+                                                    Fecha</label>
+                                            </div>
+                                        </label>
+
+                                        <label class="btn btn-outline btn-info dropdown-item">
+                                            <div class="custom-control custom-radio">
+                                                <input type="checkbox" id="idCBFiltroNombre" name="idCBFiltroNombre" value="idCBFiltroNombre"
+                                                    class="custom-control-input">
+                                                <label class="custom-control-label" for="idCBFiltroNombre">
+                                                    Nombre</label>
+                                            </div>
+                                        </label>
+
+                                        <label class="btn btn-outline btn-info dropdown-item">
+                                            <div class="custom-control custom-radio">
+                                                <input type="checkbox" id="idCBFiltroVariedad" name="idCBFiltroVariedad" value="idCBFiltroVariedad"
+                                                    class="custom-control-input">
+                                                <label class="custom-control-label" for="idCBFiltroVariedad">
+                                                    Variedad</label>
+                                            </div>
+                                        </label>
+                                        <label class="btn btn-outline btn-info dropdown-item">
+                                            <div class="custom-control custom-radio">
+                                                <input type="checkbox" id="idCBFiltroNombreCientifico" name="idCBFiltroNombreCientifico" value="idCBFiltroNombreCientifico"
+                                                    class="custom-control-input">
+                                                <label class="custom-control-label" for="idCBFiltroNombreCientifico">
+                                                    Nombre Científico</label>
+                                            </div>
+                                        </label>
+
+
+
+
+
+                                        <div role="separator" class="dropdown-divider"></div>
+                                        <label class="btn btn-outline btn-info dropdown-item">
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" id="idCBFiltroTodos" name="idCBFiltroTodos" value="idCBFiltroTodos"
+                                                    class="custom-control-input" checked>
+                                                <label class="custom-control-label" for="idCBFiltroTodos">
+                                                    Todos</label>
+                                            </div>
+                                        </label>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                    </div>
+
+                    <div class="col-1 ">
+
+                        <div class="input-group d-flex justify-content-end">
+                            <div class="input-group-append ">
+                                <button id="idBDireccionDeOrden" type="button" class="btn btn-secondary ">
+
+                                    <i id="idIconoDireccionDeOrden" class="fas fa-search"></i></button>
+                                <button type="button" class="btn btn-secondary  dropdown-toggle dropdown-toggle-split"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i id="idIconoOrdenSeleccionado" class="fas fa-angle-down"></i>
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <div class="dropdown-menu ">
+                                    <label class="btn btn-outline btn-info dropdown-item">
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" id="idCBOrdenarFecha" name="Ordenar" value="idCBOrdenarFecha"
+                                                class="custom-control-input" >
+                                            <label class="custom-control-label" for="idCBOrdenarFecha">
+                                                Fecha</label>
+                                        </div>
+                                    </label>
+                                    <label class="btn btn-outline btn-info dropdown-item">
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" id="idCBOrdenarNombre" name="Ordenar" value="idCBOrdenarNombre"
+                                                class="custom-control-input">
+                                            <label class="custom-control-label" for="idCBOrdenarNombre">
+                                                Nombre</label>
+                                        </div>
+                                    </label>
+                                    <label class="btn btn-outline btn-info dropdown-item">
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" id="idCBOrdenarVariedad" name="Ordenar" value="idCBOrdenarVariedad"
+                                                class="custom-control-input">
+                                            <label class="custom-control-label" for="idCBOrdenarVariedad">
+                                                Variedad</label>
+                                        </div>
+                                    </label>
+                                    <label class="btn btn-outline btn-info dropdown-item">
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" id="idCBOrdenarCientifico" name="Ordenar" value="idCBOrdenarCientifico"
+                                                class="custom-control-input">
+                                            <label class="custom-control-label" for="idCBOrdenarCientifico">
+                                                Nombre Científico</label>
+                                        </div>
+                                    </label>
+
+
+
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+    <div class="row">
+                    <div class="col w-100 overflow-auto mt-2 " style="max-height: 400px; min-height: 400px;">
+                        <ul id="idListaDeDatos" class="list-group  mt-3 w-100">
+                            <li onclick="es.setIdSeleccionado('{id}')" id="{idItem}" class="list-group-item   iten_navegacion_carpeta">
+                              <div class="row align-items-center">
+
+                                  <div class="col-6 col-md-4 col-lg-3 text-truncate">
+                                    {Nombre}
+                                  </div>
+                                  <div class=" col-lg-2 text-truncate v-lg">
+                                    {Variedad}
+                                  </div>
+                                  <div class="col-md-3 col-lg-2 v-sm">
+                                    <!-- bg-secondary -->
+                                    <div id="{idSpinner1_}" style="width: 20%; " class="card-img-top div_i">
+                                        <div  class="spinner-border spinner-border-sm text-primary"  role="status">
+                                            <span class="sr-only">Loading...</span>
+                                          </div>
+                                    </div>
+
+
+                                    <img id="{idImg1_}" src="img/temp/50.jpg" style="width: 50%; display: none;" class="card-img-top" style="width: 20%;" alt="...">
+
+
+                                    <!-- <img id="{idImg1_}" src="img/temp/50.jpg" style="width: 20%; display: none;" class="card-img-top" style="width: 20%;" alt="...">
+                                    <img id="{idImg2_}" src="img/50 transparente.png" class="card-img-top" style="width: 20%;" alt="...">
+                                    <img id="{idImg3_}" src="img/50 blanco.jpg" class="card-img-top" style="width: 20%;" alt="...">
+                                    <img id="{idImg4_}" src="img/temp/50.jpg" class="card-img-top" style="width: 20%;" alt="..."> -->
+                                  </div>
+                                  <div class="col-4 col-md-2 col-lg-3 ">
+                                    <!-- border-success -->
+                                    <div class="row text-truncate font-weight-lighter text-muted subtexto_iten_navegacion h-lg">{Variedad}</div>
+
+                                    <div class="row text-truncate font-weight-lighter text-muted subtexto_iten_navegacion">{NombreCientifico}</div>
+                                    <div class="row text-truncate font-weight-lighter text-muted subtexto_iten_navegacion v-lg">{Fecha}</div>
+                                    <!-- <div class="row text-truncate font-weight-lighter text-muted subtexto_iten_navegacion">{Fecha}</div> -->
+                                  </div>
+                                  <!-- <div class="col-2 border ">
+                                    border-success
+                                    <div class="row text-truncate font-weight-lighter text-muted subtexto_iten_navegacion">1120 Imagenes</div>
+                                    <div class="row text-truncate font-weight-lighter text-muted subtexto_iten_navegacion">4 Clasificaciones</div>
+                                    <div class="row text-truncate font-weight-lighter text-muted subtexto_iten_navegacion"></div>
+                                  </div> fas fa-prescription-bottle-alt  fas fa-window-close-->
+
+                                  <div class="col-2 col-md-2 col-lg-2 d-flex justify-content-center ">
+                                    <!-- bg-primary -->
+                                    <button onclick="alApretarEnDetalles('{id}')" type="button" class="btn  btn-dark boton_en_navegacion mr-1"
+                                    data-toggle="tooltip" data-placement="top" title="Detalles"
+                                    >
+                                        <i class="far fa-question-circle"></i>
+                                    </button>
+                                    <button onclick="alApretarEnEditar('{id}')" type="button" class="btn  btn-dark boton_en_navegacion mr-1"
+                                    data-toggle="tooltip" data-placement="top" title="Editar"
+                                    >
+                                        <i class="fas fa-pencil-alt"></i>
+                                    </button>
+                                    <button onclick="alApretarEnEliminar('{id}')" type="button" class="btn  btn-dark boton_en_navegacion"
+                                    data-toggle="tooltip" data-placement="top" title="Eliminar"
+
+                                    >
+                                        <i class=" fas fa-times" style="padding: 3px;"></i>
+                                    </button>
+                                  </div>
+
+                              </div>
+
+
+
+
+                            </li>
+
+                          </ul>
+                    </div>
+
+                </div>
+                <!-- active -->
+                <div class="row mt-3 d-flex flex-sm-row-reverse ">
+
+                    <div class="col-12 col-sm-2 d-flex justify-content-center flex-sm-row-reverse">
+                        <button id="idBotonAgregar" type="button" class="btn btn-success btn-lg">
+                            <span class="mr-1" >Agregar</span>
+
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+
+                    <div class="col-12 col-sm-4 d-flex justify-content-center flex-sm-row-reverse mt-3 mt-sm-0">
+                        <button id="idBotonEliminarSeleccionados" type="button" class="btn btn-danger btn-lg">
+                            <span class="mr-1" >Eliminar Seleccionados</span>
+
+                            <i class="fas fa-minus"></i>
+                        </button>
+                    </div>
+                    <div class="col-12 col-sm-3 d-flex justify-content-center flex-sm-row-reverse mt-3 mt-sm-0">
+                        <button id="idBotonEliminarTodos" type="button" class="btn btn-danger btn-lg">
+                            <span class="mr-1" >Eliminar Todos</span>
+
+                            <i class="fas fa-exclamation-triangle"></i>
+
+                        </button>
+                    </div>
+
+
+
+
+                </div>
+
+
+
+<div id="idDlgEsperando" data-backdrop="static" class="modal fade" tabindex="-1" role="dialog"
+                    style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-body p-4">
+                                <div class="text-center">
+                                    <i class="dripicons-information h1 text-dark"></i>
+                                    <h4 id="idTitulo_DlgEsperando" class="mt-2 text-dark">Aviso</h4>
+                                    <p id="idContenido_DlgEsperando" class="mt-3 text-dark">Espere mientras ultimamos los detalles de la detención
+                                        solicitada </p>
+
+
+                                    <button type="button" class="btn btn-info my-2" data-dismiss="modal" disabled>
+                                        <span class="spinner-border spinner-border-sm" role="status"
+                                            aria-hidden="true"></span>
+                                            <span id="idSpamEsperando_DlgEsperando">Deteniendo</span>
+
+                                    </button>
+                                </div>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div>
+
+
+
+
+
+                <div id="idDlgError" data-backdrop="static" class="modal fade" tabindex="-1" role="dialog"
+                    style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-body p-4">
+                                <div class="text-center">
+                                    <i class="dripicons-information h1 text-dark"></i>
+                                    <h4 id="idTitulo_idDlgError" class="mt-2 text-dark">Aviso</h4>
+                                    <p id="idContenido_DlgError" class="mt-3 text-dark">Le informamos de la existencia
+                                        de un error interno del servidor </p>
+
+
+                                    <button id="idBotonAceptar_DlgError" type="button" class="btn btn-info my-2" data-dismiss="modal">
+                                        <!-- <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> -->
+                                        Aceptar
+                                    </button>
+                                </div>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div>
+
+                <div id="idDlgAceptarCancelarAdvertencia" class="modal fade" tabindex="-1" role="dialog"
+                    aria-labelledby="fill-dark-modalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content modal-filled bg-dark">
+                            <div class="modal-header">
+                                <h4  id="idTitulo_DlgAceptarCancelarAdvertencia" class="modal-title">Detener el Entrenamiento</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            </div>
+                            <div id="idContenido_DlgAceptarCancelarAdvertencia" class="modal-body">
+                                <p>¿Estás seguro de detener el entrenamiento? Se perderá el progreso actual   </p>
+                            </div>
+                            <div class="modal-footer">
+                                <button id="idBotonCancelar_DlgAceptarCancelarAdvertencia" type="button" class="btn btn-light" data-dismiss="modal">Cancelar </button>
+                                <button id="idBotonAceptar_DlgAceptarCancelarAdvertencia"
+                                data-dismiss="modal"
+                                type="button" class="btn btn-outline-light">Detener</button>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+
+                </div>
+
+<form id="idFormRecargarPagina"  method="post" action="/{{urls.URL_VISTA_LISTAR_FRUTO}}/">
+        {% csrf_token %}
+{#        <button type="submit" class="btn btn-primary btn-lg ml-4">Guardar</button>#}
+{#        <input type="hidden" name="{{nombre_form_ubicacion_post}}" value="{{forms.GUARDAR_MODELO  }}">#}
+    </form>
+
+
+
+
+<form id="idFormEditar"  method="post" action="/{{urls.URL_VISTA_EDITAR_FRUTO}}/">
+        {% csrf_token %}
+{#        <button type="submit" class="btn btn-primary btn-lg ml-4">Guardar</button>#}
+        <input id="idHiden_FormEditar" type="hidden" name="idDelFruto" >
+    </form>
+
+
+    <form id="idFormAgregar"  method="post" action="/{{urls.URL_VISTA_AGREGAR_FRUTO}}/">
+        {% csrf_token %}
+{#        <button type="submit" class="btn btn-primary btn-lg ml-4">Guardar</button>#}
+{#        <input type="hidden" name="{{nombre_form_ubicacion_post}}" value="{{forms.GUARDAR_MODELO  }}">#}
+    </form>
+{% endblock%}
+
+{% block scripts_extras %}
+
+    <script src="{% static 'js/Librerias/date.format.js' %}"></script>
+
+
+    <script src="{% static 'js/reneJavaScritp/reneJS_UtilesDeLibrerias.js' %}"></script>
+    <script src="{% static 'js/reneJavaScritp/reneJS_Componentes/reneJS_ListaSeleccionableMultiple.js' %}"></script>
+    <script>
+
+const KEY_ID="id";
+const KEY_ID_ITEM="idItem";
+const KEY_ID_IMG_1="idImg1_";
+
+
+const KEY_ID_SPINNER_1="idSpinner1_";
+
+
+listaKeysParafiltro=["Fecha","Nombre","Variedad","NombreCientifico"]
+function vbdD(y,m,d){
+    
+    let va=new ValorBD(newDate(y,m,d));
+    va.getStr=v=>{
+        //console.log("pasa por aqui v="+v);
+        let r=getStrFromDate(v,"mm/dd/yy hh:MM TT");
+        return r;
+    };
+    return va;
+}
+
+
+const bd=new BD_RowElement();
+listaDeLlaves=getCopia(listaKeysParafiltro);
+listaDeLlaves.push(KEY_ID);
+
+bd.llaves=listaDeLlaves;
+bd.listaDeNombresIds=[
+    KEY_ID_ITEM,KEY_ID_IMG_1
+    ,KEY_ID_SPINNER_1];
+
+
+
+{% for e in listaDatosDeFrutos %}
+    bd.addRow([
+        vbdD({{ e.fecha.year }},{{ e.fecha.month }},{{ e.fecha.day }})
+        ,"{{e.nombre}}"
+    ,"{{ e.variedad }}"
+    
+    ,"{{ e.nombreCientifico }}"
+    ,"{{ e.id }}"
+        
+    ]);
+{% endfor %}
+
+
+
+
+function actualizarImagenes() {
+    for (let index = 0; index < bd.size(); index++) {
+        let fila = bd.getFila(index);
+        let mapActual = fila.map;
+        let mIds=[
+            [KEY_ID_IMG_1,KEY_ID_SPINNER_1]
+            
+        ];
+        let cantidaDeImagenes=1;//inT(mapActual.get(KEY_CANTIDAD_DE_CLASIFICACIONES));
+       // console.log("cantidaDeImagenes="+cantidaDeImagenes);
+        for (let j = 0; j < mIds.length; j++) {
+            const ids = mIds[j];
+            //console.log("j="+j+" "+ids);
+            const idImg=ids[0];
+            //console.log("idImg="+idImg);
+            const idDelSpiner=ids[1];
+
+            const mgb=new ManagerCargaLentaImgBase64();
+            mgb.setIdElementoQueSustituyeLaImagen(mapActual.get(idDelSpiner));
+            mgb.setIdImagen(mapActual.get(idImg));
+
+            function noMostrarImg() {
+                displayNone(mapActual.get(idImg),true);
+                displayNone(mapActual.get(idDelSpiner),true);
+            }
+            
+            if(!(j<cantidaDeImagenes)){
+                 noMostrarImg();
+                continue;
+            }
+             ejecutarAjax("/{{ urls.URL_POST_METODO_GET_IMG_DE_EJEMPLO_50_PX_FRUTO }}/",{
+                    "idDelFruto":mapActual.get(KEY_ID)
+                 
+                 },r=>{
+                if(r.existeFruto){
+                    mgb.cargarImgBase64(r.imgBase64);
+
+                }else{ noMostrarImg()}
+
+            }
+            ,r=>{
+                 noMostrarImg()
+                });
+        }
+        
+
+
+
+
+    }
+}
+
+const ID_B_ELIMINAR_TODOS_LOS_SELECCIONADOS="idBotonEliminarSeleccionados";
+const ID_B_ELIMINAR_TODOS="idBotonEliminarTodos";
+// const mngRp=new ManagerRepetidor("idListaDeDatos",bd);
+// mngRp.repetir();
+
+const L=new ListaSeleccionableMultiple();
+L.bd=bd;
+L.idLista="idListaDeDatos";
+L.KEY_ID_ITEM_LISTA=KEY_ID_ITEM;
+
+function comprobarSiHaySeleccionados(){
+    setDisabled(!L.haySeleccionado(),[ID_B_ELIMINAR_TODOS_LOS_SELECCIONADOS]);
+}
+L.addAlSeleccionar(comprobarSiHaySeleccionados);
+L.addAlDeseleccionar(comprobarSiHaySeleccionados);
+L.aplicarConfiguracion();
+
+comprobarSiHaySeleccionados();
+
+const dt=new FiltroText_CByTodos_v2(bd);
+dt.llaves=listaKeysParafiltro;
+dt.setIdBaseElemtosAOcultar(KEY_ID_ITEM);
+dt.IdCB_Todo="idCBFiltroTodos";
+dt.setIdsCb([
+    "idCBFiltroFecha"
+    ,"idCBFiltroNombre"
+    ,"idCBFiltroVariedad"
+    ,"idCBFiltroNombreCientifico"
+]);
+dt.idText="idTextoFiltro";
+
+dt.addAlTerminarDeFiltrar(()=>{
+    L.deseleccionarTodo();
+    setDisabled(dt.indicesVisibles.length==0,[ID_B_ELIMINAR_TODOS]);
+});
+
+dt.aplicarConfiguracionToggle();
+dt.setFiltroText();
+
+
+
+or=new OrdenadorRB_Visual_BD(bd);
+or.llaves=listaKeysParafiltro;
+
+or.accionDespuesDeOrdenar=()=>{
+    // console.log("7todo seleccionado="+estaSeleccionado(dt.IdCB_Todo));
+    L.actualizarVisual_APartirDeBD();
+    //mngRp.repetir();
+    //actualizarImagenes();
+    // console.log("7todo seleccionado="+estaSeleccionado(dt.IdCB_Todo));
+    dt.filtrar();
+    actualizarImagenes();
+    // console.log("7todo seleccionado="+estaSeleccionado(dt.IdCB_Todo));
+}
+or.idBToggleOrdenamiento="idBDireccionDeOrden";
+or.setMapIdsRByIcono(new Map([
+    ["idCBOrdenarFecha","fas fa-calendar-alt"]
+    ,["idCBOrdenarNombre","fas fa-database"]
+    ,["idCBOrdenarVariedad","fas fa-braille"]
+    ,["idCBOrdenarCientifico"," fas fa-dna" ]
+    
+    
+    
+]));
+or.idIconoOrdenSeleccionado="idIconoOrdenSeleccionado";
+or.idIconoDireccionDeOrden="idIconoDireccionDeOrden";
+or.iconoOrdenAscendente="fas fa-angle-double-down";
+or.iconoOrdenDescendente="fas fa-angle-double-up";
+
+// console.log("0todo seleccionado="+estaSeleccionado(dt.IdCB_Todo));
+or.aplicarConfiguracionToggle();
+// console.log("1todo seleccionado="+estaSeleccionado(dt.IdCB_Todo));
+or.aplicarConfiguracionVisual(1);
+
+
+
+
+
+
+class Estado{
+    constructor(){
+        this.idSeleccionado=null;
+    }
+    setIdSeleccionado(id){
+        this.idSeleccionado=id;
+    }
+}
+
+const es=new Estado();
+
+
+
+
+const mngDlgAceptarCancelar=new ManagerDlg_AceptarCancelar_Bootstrap("idDlgAceptarCancelarAdvertencia");
+mngDlgAceptarCancelar.idContenido="idContenido_DlgAceptarCancelarAdvertencia";
+mngDlgAceptarCancelar.idTitulo="idTitulo_DlgAceptarCancelarAdvertencia";
+mngDlgAceptarCancelar.setIdBotonAceptar("idBotonAceptar_DlgAceptarCancelarAdvertencia");
+mngDlgAceptarCancelar.setIdBotonCancelar("idBotonCancelar_DlgAceptarCancelarAdvertencia")
+
+const mngDlgEsperando=new ManagerDlg_Espera_ContenidoText_Bootstrap("idDlgEsperando");
+mngDlgEsperando.idContenido="idContenido_DlgEsperando";
+mngDlgEsperando.idTitulo="idTitulo_DlgEsperando";
+mngDlgEsperando.idMensajeCargando="idSpamEsperando_DlgEsperando";
+
+
+
+
+const mngDlgError=new ManagerDlg_AceptarCancelar_Bootstrap("idDlgError");
+mngDlgError.idContenido="idContenido_DlgError";
+mngDlgError.idTitulo="idTitulo_idDlgError";
+mngDlgError.setIdBotonAceptar("idBotonAceptar_DlgError");
+
+function showDlgError(){
+    mngDlgError.showDlg("Advertencia "
+    ,"Le informamos de la existencia de un error interno del servidor"
+    ,"Aceptar",()=>{
+        submit("idFormRecargarPagina");
+        });
+}
+function showDlgErrorConMensaje(mensaje){
+    mngDlgError.showDlg("Advertencia"
+    ,mensaje
+    ,"Aceptar",()=>{
+       submit("idFormRecargarPagina");
+        });
+}
+
+function showDlgEliminandoObjeto(){
+    mngDlgEsperando.setMensajeCargando("Espere");
+    mngDlgEsperando.showDlg("Eliminando "
+    ,"Espere mientras se está eliminando los datos del fruto solicitado ");
+}
+
+function showDlgInfo_ObjetoEliminadoConExito(){
+    mngDlgError.showDlg("Información "
+    ,"El fruto solicitado fue eliminado con éxito"
+    ,"Aceptar",()=>{
+
+        }); 
+    }
+function showDlgEliminarObjeto(){
+    mngDlgAceptarCancelar.showDlg("Eliminar el fruto  "
+    ,"Estas seguro de eliminar el fruto solicitado "
+    ,"Eliminar",()=>{
+        
+        
+        showDlgEliminandoObjeto();
+        
+        ejecutarAjax("/{{ urls.URL_POST_METODO_INTENTAR_ELIMINAR_FRUTO }}/"
+            ,{"idDelFruto":es.idSeleccionado}
+        ,r=>{
+            //console.log("r.existeDataset="+r.existeDataset);
+
+            if(r.fueValido){
+                for (let index = 0; index < bd.size(); index++) {
+                    let fila = bd.getFila(index);
+                    let mapActual = fila.map;
+                    
+                    let id=mapActual.get(KEY_ID);
+                    if(id==es.idSeleccionado){
+                        L.remove(index);
+                        break;
+                    }
+                }
+                or.aplicarOrden();
+                mngDlgEsperando.hide();
+            }else{
+                mngDlgEsperando.hide();
+                showDlgErrorConMensaje("El Fruto solicitado ya fue eliminado, por favor recargue la pagina ");
+            }
+
+
+        }
+        ,r=>{
+            console.log("error en mandar a eliminar modelo ");
+            mngDlgEsperando.hide();
+            showDlgError();
+            });
+        
+        
+        
+        
+        
+        
+    });
+}
+
+
+
+
+
+
+
+
+function alApretarEnEliminar(id) {
+    es.setIdSeleccionado(id);
+    showDlgEliminarObjeto();
+}
+
+function showDlgEliminandoObjetos(){
+    mngDlgEsperando.setMensajeCargando("Espere");
+    mngDlgEsperando.showDlg("Eliminando "
+    ,"Espere mientras se está eliminan los datos de los frutos  ");
+}
+function showDlgEliminarSeleccionados(){
+    mngDlgAceptarCancelar.showDlg("Eliminar los frutos  "
+    ,"Estas seguro de eliminar los frutos solicitados "
+    ,"Eliminar",()=>{
+        showDlgEliminandoObjetos()
+
+            const listaDeIds=[];
+            for (let i = 0; i < L.indicesSeleccionados.length; i++) {
+                let fila=bd.getFila(L.indicesSeleccionados[i]);
+                let map=fila.map;
+                listaDeIds.push(map.get(KEY_ID))
+            }
+        ejecutarAjax("/{{ urls.URL_POST_METODO_INTENTAR_ELIMINAR_TODOS_LOS_FRUTO_SELECCIONADOS }}/"
+            ,{"listaIds":listaDeIds}
+        ,r=>{
+            //console.log("r.existeDataset="+r.existeDataset);
+            if(!r.dioError){
+                 //bd.remove(L.indicesSeleccionados);
+                L.removeLosSeleccionados();
+                or.aplicarOrden();
+                mngDlgEsperando.hide();
+            }else{
+                mngDlgEsperando.hide();
+                showDlgErrorConMensaje(r.mensaje);
+            }
+
+
+        }
+        ,r=>{
+            console.log("error en mandar a eliminar modelo ");
+            mngDlgEsperando.hide();
+            showDlgError();
+            });
+
+
+    });
+}
+
+function showDlgEliminarTodos(){
+    mngDlgAceptarCancelar.showDlg("Eliminar los frutos  "
+    ,"Estas seguro de eliminar todos los frutos "
+    ,"Eliminar",()=>{
+        showDlgEliminandoObjetos()
+
+            ejecutarAjax("/{{ urls.URL_POST_METODO_INTENTAR_ELIMINAR_TODOS_LOS_FRUTO }}/"
+            ,{}
+        ,r=>{
+            //console.log("r.existeDataset="+r.existeDataset);
+            if(!r.dioError){
+                 L.clear();
+                or.aplicarOrden();
+                mngDlgEsperando.hide();
+            }else{
+                mngDlgEsperando.hide();
+                showDlgErrorConMensaje(r.mensaje);
+            }
+
+
+        }
+        ,r=>{
+            console.log("error en mandar a eliminar modelo ");
+            mngDlgEsperando.hide();
+            showDlgError();
+            });
+
+
+    });
+}
+
+
+
+addOnClick(ID_B_ELIMINAR_TODOS_LOS_SELECCIONADOS,v=>{
+    showDlgEliminarSeleccionados();
+});
+addOnClick(ID_B_ELIMINAR_TODOS,v=>{
+    showDlgEliminarTodos();
+});
+
+function showDlgComprobandoObjeto(){
+    mngDlgEsperando.setMensajeCargando("Espere");
+    mngDlgEsperando.showDlg("Comprobando "
+    ,"Espere mientras se comprueban los datos del usuario solicitado ");
+}
+
+function showDlgEsperarAgregar(){
+    mngDlgEsperando.setMensajeCargando("Espere");
+    mngDlgEsperando.showDlg("Preparando "
+    ,"Espere mientras se prepara la ventana siguiente ");
+}
+
+addOnClick("idBotonAgregar",v=>{
+    showDlgEsperarAgregar();
+    submit("idFormAgregar");
+})
+
+function alApretarEnEditar(id) {
+    es.setIdSeleccionado(id);
+
+    showDlgComprobandoObjeto();
+    setValue("idHiden_FormEditar",id);
+    submit("idFormEditar");
+}
+
+
+function alApretarEnDetalles(id) {
+    es.setIdSeleccionado(id);
+    showDlgComprobandoObjeto();
+    setValue("idHiden_FormDetalles",id);
+    submit("idFormDetalles");
+}
+           </script>
+
+    <form id="idFormDetalles"  method="post" action="/{{urls.URL_VISTA_DETALLES_FRUTO}}/">
+        {% csrf_token %}
+{#        <button type="submit" class="btn btn-primary btn-lg ml-4">Guardar</button>#}
+        <input id="idHiden_FormDetalles" type="hidden" name="idDelFruto" >
+    </form>
+
+{% endblock%}

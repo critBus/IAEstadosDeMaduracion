@@ -1,0 +1,413 @@
+{% extends "Visual/plantillaPadre.html" %}
+{% load static %}
+{% load poll_extras_rene_app %}
+
+{% block titulo %}
+Clasificaciones
+{% endblock %}
+
+{% block contenido %}
+
+{% if datosDeBusqueda.seMuestranResultadosDeBusqueda %}
+<div class="row">
+                    <div class="alert alert-success btn-block text-center pb-0" role="alert">
+                        <p>Se muestran resultados de búsqueda de: <b>"{{datosDeBusqueda.textoBuscado}}"</b></p>
+                    </div>
+
+                </div>
+{% endif %}
+
+<div class="row">
+
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+
+                            <li class="page-item {% if not datosDePaginacion.anterior %}disabled{% endif %} ">
+                                <form  method="post" action="/{{urls.URL_VISTA_LISTA_CLASIFICACIONES_USUARIO}}/">
+                                    {% csrf_token %}
+                                    <button type="submit" class="page-link" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </button>
+<!--                                    <a class="page-link" href="#" aria-label="Previous">-->
+<!--                                        <span aria-hidden="true">&laquo;</span>-->
+<!--                                    </a>-->
+                                    <input type="hidden" name="{{idIndiceDePaginacion}}" value="{{valor_paginacion_anterior}}">
+                                    <input type="hidden" name="{{nombre_form_ubicacion_post}}" value="{{formuarioPaginacion}}">
+                                </form>
+                            </li>
+
+                            {% for  itemPaginacion in datosDePaginacion.listaDeIndices %}
+
+                            <li class="page-item {% if not itemPaginacion.enable %}disabled{% endif %} ">
+<!--                                <a class="page-link" href="#">1</a>-->
+
+                                <form  method="post" action="/{{urls.URL_VISTA_LISTA_CLASIFICACIONES_USUARIO}}/">
+                                    {% csrf_token %}
+                                    <button type="submit" class="page-link" aria-label="Previous">
+                                        {{itemPaginacion.indice}}
+
+                                    </button>
+<!--                                    <a class="page-link" href="#" aria-label="Previous">-->
+<!--                                        <span aria-hidden="true">&laquo;</span>-->
+<!--                                    </a>-->
+                                    <input type="hidden" name="{{idIndiceDePaginacion}}" value="{{itemPaginacion.indice}}">
+                                    <input type="hidden" name="{{nombre_form_ubicacion_post}}" value="{{formuarioPaginacion}}">
+                                </form>
+                            </li>
+                            {% endfor %}
+<!--                            <li class="page-item"><a class="page-link" href="#">2</a></li>-->
+<!--                            <li class="page-item"><a class="page-link" href="#">3</a></li>-->
+                            <li class="page-item {% if not datosDePaginacion.siguiente %}disabled{% endif %}">
+<!--                                <a class="page-link" href="#" aria-label="Next">-->
+<!--                                    <span aria-hidden="true">&raquo;</span>-->
+<!--                                </a>-->
+
+                                <form  method="post" action="/{{urls.URL_VISTA_LISTA_CLASIFICACIONES_USUARIO}}/">
+                                    {% csrf_token %}
+                                    <button type="submit" class="page-link" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </button>
+
+                                    <input type="hidden" name="{{idIndiceDePaginacion}}" value="{{valor_paginacion_siguiente}}">
+                                    <input type="hidden" name="{{nombre_form_ubicacion_post}}" value="{{formuarioPaginacion}}">
+                                </form>
+                            </li>
+                        </ul>
+                    </nav>
+
+
+
+                    <div class="col">
+                        <form  method="post" action="/{{urls.URL_VISTA_LISTA_CLASIFICACIONES_USUARIO}}/">
+                                    {% csrf_token %}
+                            <div class="input-group">
+                                <input name="{{ inputs.TEXT_FILTRO }}" id="idTextoFiltro" type="text" class="form-control"
+                                    aria-label="Text input with segmented dropdown button">
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-secondary "><i class="fas fa-search"></i></button>
+                                    <button type="button" class="btn btn-secondary  dropdown-toggle dropdown-toggle-split"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-angle-down"></i>
+                                        <span class="sr-only">Toggle Dropdown</span>
+                                    </button>
+                                    <div class="dropdown-menu ">
+                                        <!-- btn-group-vertical dropdown-item-->
+                                        <!-- <div class="btn-group-vertical" data-toggle="buttons"></div> -->
+                                        <label class="btn btn-outline btn-info dropdown-item">
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" id="idFiltroRadioFecha" name="{{ inputs.RADIO_FILTRO }}" value="{{ radios.FECHA }}"
+                                                    class="custom-control-input" >
+                                                <label class="custom-control-label" for="idFiltroRadioFecha">
+                                                    Fecha</label>
+                                            </div>
+                                        </label>
+
+                                        <label class="btn btn-outline btn-info dropdown-item">
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" id="idFiltroRadioClasificacion" name="{{inputs.RADIO_FILTRO}}" value="{{ radios.CLASIFICACION  }}"
+                                                    class="custom-control-input">
+                                                <label class="custom-control-label" for="idFiltroRadioClasificacion">
+                                                    Clasificación</label>
+                                            </div>
+                                        </label>
+                                        <label class="btn btn-outline btn-info dropdown-item">
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" id="idFiltroRadioFruto" name="{{inputs.RADIO_FILTRO}}" value="{{ radios.FRUTO  }}"
+                                                    class="custom-control-input">
+                                                <label class="custom-control-label" for="idFiltroRadioFruto">
+                                                    Fruto</label>
+                                            </div>
+                                        </label>
+                                        <label class="btn btn-outline btn-info dropdown-item">
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" id="idFiltroRadioModelo" name="{{inputs.RADIO_FILTRO}}" value="{{ radios.MODELO  }}"
+                                                    class="custom-control-input">
+                                                <label class="custom-control-label" for="idFiltroRadioModelo">
+                                                    Modelo</label>
+                                            </div>
+                                        </label>
+
+
+
+
+                                        <!-- <a class="dropdown-item" href="#">Action</a>
+                                        <a class="dropdown-item" href="#">Another action</a>
+                                        <a class="dropdown-item" href="#">Something else here</a> -->
+                                        <div role="separator" class="dropdown-divider"></div>
+                                        <label class="btn btn-outline btn-info dropdown-item">
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" id="idCBFiltroTodos" name="{{inputs.RADIO_FILTRO}}" value="{{ radios.TODO  }}"
+                                                    class="custom-control-input" checked>
+                                                <label class="custom-control-label" for="idCBFiltroTodos">
+                                                    Todos</label>
+                                            </div>
+                                        </label>
+                                        <!-- <a class="dropdown-item" href="#">Separated link</a> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="hidden" name="{{nombre_form_ubicacion_post}}" value="{{forms.FILTRO }}">
+                        </form>
+                    </div>
+
+
+
+
+{#{urlImagen}#}
+                </div>
+                <div class="row " id="idContenidoPrincipal">
+                    <form  method="post" action="/{{urls.URL_VISTA_DETALLES_CLASIFICACION}}/">
+                                    {% csrf_token %}
+                        <div id="{idItem}" class="card  border-primary mb-3 mr-3 p-1 card_img "
+                            style="width: 15rem;">
+                            <div class="card-header pb-1 pt-1">
+                                <div class="row justify-content-between">
+                                    <span class="">{fecha}</span>
+
+                                        <button onmouseenter="ponerActualizarDlgBorrar('{idClasificacion}');"
+                                                type="button" class="btn btn-outline-dark btn-circle btn-sm tini_btn_icon"
+                                            data-toggle="modal" data-target="#fill-dark-modal"><i
+                                                class="fas fa-prescription-bottle-alt"></i></button>
+
+                                </div>
+                            </div>
+
+
+                            <div id="{idSpinner1_}" style="width: 100%"  class="card-img-top div_i mb-0">
+                                        <div style=" width: 9rem; height: 9rem;" class="spinner-border spinner-border-sm text-primary"  role="status">
+                                            <span class="sr-only">Loading...</span>
+                                          </div>
+                                    </div>
+                            <img id="{idImg1_}" src="" class="card-img-top mb-0" alt="...">
+                            <div class="card-body pt-2 pb-2">
+                                <h5 class="card-title mt-0 mb-0">{clasificacion}</h5>
+                                <p class="card-text mt-0 mb-0">{fruto}</p>
+                                <p class="card-text mt-0 mb-2">{modelo}</p>
+                                <div class="  ">
+                                    <button type="submit" class="btn btn-outline-dark btn-rounded btn-block"><i
+                                            class="fas fa-align-left"></i> Detalles</button>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <input type="hidden" name="{{ inputs.ID_CLASIFICACION }}" value="{idClasificacion}">
+                        <input type="hidden" name="{{nombre_form_ubicacion_post}}" value="{{forms.DETALLES_LISTA_DE_CLASIFICACIONES_USUARIO  }}">
+                    </form>
+
+
+                </div>
+
+
+                <!-- Dark Filled Modal -->
+
+                <div id="fill-dark-modal" class="modal fade" tabindex="-1" role="dialog"
+                    aria-labelledby="fill-dark-modalLabel" aria-hidden="true">
+                    <form  method="post" action="/{{urls.URL_VISTA_LISTA_CLASIFICACIONES_USUARIO}}/">
+                                    {% csrf_token %}
+                        <div class="modal-dialog">
+                            <div class="modal-content modal-filled bg-dark">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="fill-dark-modalLabel">Eliminar Clasificación</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Estas seguro que desea eliminar los datos obtenidos al clasificar esta imagen, una
+                                        vez borrados no podrán recuperarse </p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar </button>
+                                    <button type="submit" class="btn btn-outline-light">Eliminar Datos</button>
+                                </div>
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+
+
+                    <input id="idHidendialogoBorrarIDClasificacion" type="hidden" name="{{inputs.ID_CLASIFICACION}}" value="nadaPorAhora">
+                    <input type="hidden" name="{{nombre_form_ubicacion_post}}" value="{{forms.DELETE_CLASIFICAION_LISTA_DE_CLASIFICACIONES_USUARIO  }}">
+
+
+                    </form>
+                </div><!-- /.modal -->
+
+
+
+                <div id="success-alert-modal" class="modal fade" tabindex="-1" role="dialog" style="display: none;"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content modal-filled bg-success">
+                            <div class="modal-body p-4">
+                                <div class="text-center">
+                                    <i class="dripicons-checkmark h1"></i>
+                                    <h4 class="mt-2">Clasificación Eliminada </h4>
+                                    <p class="mt-3">La clasificación seleccionada fue eliminada con éxito.</p>
+                                    <button type="button" class="btn btn-light my-2" data-dismiss="modal">Aceptar
+                                    </button>
+                                </div>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div>
+
+
+
+
+{% endblock%}
+
+
+
+{% block scripts_extras %}
+
+<script type="text/javascript">
+const       KEY_URL_IMAGEN = "urlImagen";
+const     KEY_CLASIFICACION = "clasificacion";
+const       KEY_FECHA = "fecha";
+const      KEY_MODELO = "modelo";
+const     KEY_FRUTO = "fruto";
+const     KEY_ID_CLASIFICACION = "idClasificacion";
+const    KEY_ID_HTML_CARD="idCard";
+
+const KEY_ID_ITEM="idItem";
+const KEY_ID_IMG_1="idImg1_";
+
+
+const KEY_ID_SPINNER_1="idSpinner1_";
+
+const bd=new BD_RowElement();
+bd.llaves=[KEY_URL_IMAGEN,KEY_CLASIFICACION,KEY_FECHA,KEY_MODELO,KEY_FRUTO,KEY_ID_CLASIFICACION,KEY_ID_HTML_CARD];
+bd.listaDeNombresIds=[
+    KEY_ID_ITEM,KEY_ID_IMG_1
+    ,KEY_ID_SPINNER_1];
+{% for dc in listaDatosClasificacion %}
+    bd.addRow([
+        "{% static dc.datosDeImagenOriginal %} "
+        ,"{{dc.clasificacion}}"
+        ,"{{dc.fecha}}"
+        ,"{{dc.modelo}}"
+        ,"{{dc.nombreCientificoFruto}}"
+        ,"{{dc.idClasificacion}}"
+        ,"cardClasificacion"
+    ]);
+{% endfor %}
+const mngRep=new ManagerRepetidor("idContenidoPrincipal",bd)
+mngRep.repetir();
+
+        {% comment %}
+        clasificaciones = [
+
+            {% for dc in listaDatosClasificacion %}
+            [
+                [KEY_URL_IMAGEN,"{% static dc.datosDeImagenOriginal %} "],
+                [KEY_CLASIFICACION, "{{dc.clasificacion}}"],
+                [KEY_FECHA, "{{dc.fecha}}"],
+                [KEY_MODELO, "{{dc.modelo}}"],
+                [KEY_FRUTO, "{{dc.nombreCientificoFruto}}"],
+                [KEY_ID_CLASIFICACION, "{{dc.idClasificacion}}"],
+
+                //ids elementos
+                [KEY_ID_HTML_CARD,"cardClasificacion" ],
+
+
+            ],
+                {% endfor %}
+
+
+
+
+
+
+        ]
+
+
+        repetidor("idContenidoPrincipal", clasificaciones);{% endcomment %}
+
+
+
+        {% comment %}function evaluarValorEnFiltro(key) {
+            if(estaSeleccionado("idFiltroRadioClasificacion")){
+                return key===KEY_CLASIFICACION;
+            }
+            if(estaSeleccionado("idFiltroRadioFecha")){
+                return key===KEY_FECHA;
+            }
+            if(estaSeleccionado("idFiltroRadioModelo")){
+                return key===KEY_MODELO;
+            }
+            if(estaSeleccionado("idFiltroRadioFruto")){
+                return key===KEY_FRUTO;
+            }
+            return or(key, KEY_CLASIFICACION, KEY_FECHA,KEY_MODELO,KEY_FRUTO);
+        }
+        setFiltroText("idTextoFiltro",clasificaciones,KEY_ID_HTML_CARD,evaluarValorEnFiltro);
+{% endcomment %}
+        const dt=new FiltroText_CByTodos_v2(bd);
+dt.llaves=[KEY_CLASIFICACION,KEY_FECHA,KEY_MODELO,KEY_FRUTO];
+dt.setIdBaseElemtosAOcultar(KEY_ID_ITEM);
+dt.IdCB_Todo="idCBFiltroTodos";
+dt.setIdsCb([
+    "idFiltroRadioClasificacion"
+    ,"idFiltroRadioFecha"
+    ,"idFiltroRadioModelo"
+    ,"idFiltroRadioFruto"
+]);
+dt.idText="idTextoFiltro";
+
+dt.addAlTerminarDeFiltrar(()=>{
+    {#L.deseleccionarTodo();#}
+    {#setDisabled(dt.indicesVisibles.length==0,[ID_B_ELIMINAR_TODOS]);#}
+});
+
+dt.aplicarConfiguracionToggle();
+dt.setFiltroText();
+function ponerActualizarDlgBorrar(idClasificacion){
+            setValue("idHidendialogoBorrarIDClasificacion",idClasificacion);
+
+        }
+        {% if mostrarMensajeSeBorroCorrectamenteLaClasificacion %}
+        showDlgBostrap("success-alert-modal")
+        {% endif %}
+
+
+
+
+function actualizarImagen(idImg,idDelSpiner,id) {
+
+
+            const mgb=new ManagerCargaLentaImgBase64();
+            mgb.setIdElementoQueSustituyeLaImagen(idDelSpiner);
+            mgb.setIdImagen(idImg);
+
+            function noMostrarImg() {
+                displayNone(idImg,true);
+                displayNone(idDelSpiner,true);
+            }
+
+
+             ejecutarAjax("/{{ urls.URL_POST_METODO_GET_IMG_ORIGINAL_DEL_CLASIFICACION }}/",{
+                    "idClasificacion":id
+
+                 },r=>{
+                if(r.existeClasificacion){
+                    mgb.cargarImgBase64(r.imgBase64);
+
+                }else{ noMostrarImg()}
+
+            }
+            ,r=>{
+                 noMostrarImg()
+                });
+}
+
+for (let i = 0; i < bd.size(); i++) {
+    let map=bd.getFila(i).map;
+    let idImg=map.get(KEY_ID_IMG_1);
+    let idDelSpiner=map.get(KEY_ID_SPINNER_1);
+    let id=map.get(KEY_ID_CLASIFICACION);
+    actualizarImagen(idImg,idDelSpiner,id);
+}
+
+    </script>
+
+
+
+{% endblock%}

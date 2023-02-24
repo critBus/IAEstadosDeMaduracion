@@ -1,0 +1,124 @@
+{% extends "Visual/plantillaPadre.html" %}
+{% load static %}
+{% load poll_extras_rene_app %}
+
+{% block titulo %}
+Detalles Del Dataset
+{% endblock %}
+
+{% block contenido %}
+
+{% include "Visual/DetallesDataset/DetallesDatasetHTML.html" %}
+
+
+
+{% endblock%}
+
+{% block scripts_extras %}
+
+    <div id="idReceptorDeHtml" style="display: none">
+    {{ datosDataset.descripcion|conHTML }}
+    </div>
+
+    <div style="display: none;" id="idReceptorDeHtmls">
+    {% for datos in datosDataset.matris_Clasificacion_Carpeta_Descripcion %}
+        <div>{{ datos|getHtmlEn:2 }}</div>
+
+
+            {% endfor %}
+    </div>
+
+    <script src="{% static 'js/Librerias/date.format.js' %}"></script>
+
+
+    <script src="{% static 'js/reneJavaScritp/reneJS_UtilesDeLibrerias.js' %}"></script>
+{#    <script src="{% static 'js/reneJavaScritp/reneJS_Componentes/reneJS_PaginacionVisual.js' %}"></script>#}
+{#    <script src="{% static 'js/reneJavaScritp/reneJS_Boostrap/reneJS_Bootstrap_PaginacionVisual.js' %}"></script>#}
+    <script src="{% static 'js/controladores/rene_controlador_detallesDataset.js' %}"></script>
+
+    <script>
+
+    if(!{{ existeDataset|lower }}){
+        showDlgError2();
+
+    }else{
+            function vbdD(y,m,d){
+
+                let va=new ValorBD(newDate(y,m,d));
+                va.getStr=v=>{
+                    //console.log("pasa por aqui v="+v);
+                    let r=getStrFromDate(v,"mm/dd/yy hh:MM TT");
+                    return r;
+                };
+                return va;
+            }
+
+
+            const dt=new DatosDelDataset();
+            dt.id="{{ datosDataset.id }}";
+            dt.nombre="{{ datosDataset.nombre }}";
+            dt.descripcion=getHTML("idReceptorDeHtml");
+            console.log("dt.descripcion="+dt.descripcion)
+            dt.tipoDeFruto="{{ datosDataset.fruto }}";
+            dt.usuario="{{ datosDataset.nombreUsuario }}";
+            dt.creacion=vbdD({{ datosDataset.fechaDeCreacion.year }},{{ datosDataset.fechaDeCreacion.month }},{{ datosDataset.fechaDeCreacion.day }});
+            dt.cantidadDeImagenes="{{  datosDataset.cantidadDeImagenes}}";
+            dt.cantidadDeClasificaciones="{{datosDataset.cantidadDeClasificaciones}}";
+            dt.listaPar_Clasificicacion_CantidadDeImagenes=[
+                {% for clas in datosDataset.matris_Clasificacion_CantidadDeImagenes %}
+                    ["{{ clas|getEn:0 }}",{{ clas|getEn:1 }} ],
+                {% endfor %}
+                {#["Madura",80]#}
+                {#,["Verde",85]#}
+                {#,["Pintona",34]#}
+                {#,["Lista",40]#}
+            ];
+            dt.lista_Clasificaciones=[ {% for clas in datosDataset.clasificaciones %} "{{ clas }}",{% endfor %}];//["Madura","Verde","Pintona","Lista"];
+
+
+            let contenedoresDeHtml=getHijosEl("idReceptorDeHtmls");
+            dt.matriz_clasificacion_detalles=[];
+
+            //console.log(contenedoresDeHtml);
+            for (let i = 0; i <contenedoresDeHtml.length ; i++) {
+                console.log("i="+i);
+                let clasi=dt.lista_Clasificaciones[i];
+                let detalle=getHTML(contenedoresDeHtml[i]);
+                let lista=[clasi,detalle];
+                dt.matriz_clasificacion_detalles.push(lista);
+            }
+            //console.log("0 dt.matriz_clasificacion_detalles=");
+            //console.log(dt.matriz_clasificacion_detalles);
+
+            actualizarDatosDeImg(dt
+                ,"{{ urls.URL_POST_METODO_GET_LISTA_IMAGENES_DEL_DATASET }}"
+                ,"{{ urls.URL_POST_METODO_GET_IMG_DE_EJEMPLO_900_600_PX }}"
+                ,"{{  urls.URL_POST_METODO_GET_IMG_DATASET_900_600_PX }}"
+            );
+
+
+
+
+            let li=[];
+            //let dicImagenes={{ dicDeImagenes }};
+            let dicImagenes=[{% for k in dicDeImagenes %} ["{{ dicDeImagenes|getEnDic:k }}",{{ k }}] ,{% endfor %}];
+            let cantidadDeimagenes={{ cantidadDeImg }};
+            let listaDeindices=[{% for indice in listaDeIndices %} {{ indice }} ,{% endfor %}];
+            let iActual={{ iActual }};
+            let primerIndiceDeImagen={{ primerIndiceDeImagen }};
+            {#console.log("r.primerIndiceDeImagen="+primerIndiceDeImagen);#}
+            {#console.log("r.dicDeImagenes="+dicImagenes);#}
+            {#console.log("r.listaDeIndices="+listaDeindices);#}
+           // let primerIndiceDeImagen=Number.parseInt(r.primerIndiceDeImagen);
+            for (let i = 0; i < cantidadDeimagenes; i++) {
+                //li.push([dicImagenes[primerIndiceDeImagen+i],primerIndiceDeImagen+i]);
+                li.push(dicImagenes[i]);
+            }
+            let p=new Paginacion(listaDeindices,iActual);
+            mngImg.actualizar(p,li);
+
+    }
+
+    </script>
+
+{% endblock%}

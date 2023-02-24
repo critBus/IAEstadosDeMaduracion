@@ -1,0 +1,996 @@
+{% extends "Visual/plantillaPadre.html" %}
+{% load static %}
+{% load poll_extras_rene_app %}
+
+{% block titulo %}
+Editar Modelo Neuronal
+{% endblock %}
+
+{% block contenido %}
+<div class="row">
+                    <div class="col">
+                        <ul class="nav nav-tabs " id="myTab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link active" id="descripcion-tab" data-toggle="tab" href="#descripcion"
+                                    role="tab" aria-controls="descripcion" aria-selected="false">Descripcion</a>
+                            </li>
+
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link " id="home-tab" data-toggle="tab" href="#home" role="tab"
+                                    aria-controls="home" aria-selected="true">Detalles</a>
+                            </li>
+
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                                    aria-controls="profile" aria-selected="false">Matriz de Confusión</a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link" id="estadisticas-tab" data-toggle="tab" href="#estadisticas" role="tab"
+                                    aria-controls="estadisticas" aria-selected="false">Estadísticas de Entrenamiento</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+
+
+
+                <div class="row">
+                    <div class="col">
+                        <div class="tab-content " id="myTabContent">
+                            <div class="tab-pane fade show active" id="descripcion" role="tabpanel" aria-labelledby="descripcion-tab">
+                                
+                                <div class="row mt-3">
+                                    <div class="col">
+                                     <div class="input-group mb-3">
+                                         <div class="input-group-prepend">
+                                           <span class="input-group-text" id="basic-addon1">Nombre</span>
+                                         </div>
+                                         <input id="idTextoNombreModelo" maxlength="50"
+                                                 type="text"
+                                                class="form-control" placeholder="Nombre"
+                                                aria-label="Nombre" aria-describedby="basic-addon1"
+                                               
+                                         >
+                                         <div id="idTextoNombreModelo_MensajeInvalidoBoostrap" class="invalid-feedback">
+                                                                Please select a valid state.
+                                                              </div>
+                
+                                       </div>
+                                    </div>
+                
+                
+{#                                   <div class="col-sm-6">#}
+{#                                     <div class="input-group mb-3">#}
+{#                                         <div class="input-group-prepend">#}
+{#                                           <span class="input-group-text" id="basic-addon2">Tipo De Fruto</span>#}
+{#                                         </div>#}
+{#                                         <input id="idTextoTipoDeFruto"#}
+{#                                                  type="text"#}
+{#                                                class="form-control" placeholder="Tipo De Fruto"#}
+{#                                                aria-label="Tipo De Fruto" aria-describedby="basic-addon2"#}
+{#                                                #}
+{#                                         >#}
+{#                                         <div id="idTextoTipoDeFruto_MensajeInvalidoBoostrap" class="invalid-feedback">#}
+{#                                                                otro mal.#}
+{#                                                            </div>#}
+{#                                       </div>#}
+{#                                   </div>#}
+
+                </div>
+                                <div class="row mt-3">
+                    <div class="col">
+
+
+                        <textarea class=" ckeditor" name="editor1" id="editor1">
+                                                {{ datosDelModelo.descripcion|conHTML }}
+                                            </textarea>
+
+                        <div id="editor1_MensajeInvalidoBoostrap" class="invalid-feedback">
+                                                otro mal.
+                                            </div>
+                    </div>
+
+                </div>
+                                
+                                <div class="row mt-3">
+                                    <div class="col d-flex justify-content-center">
+                                        <button id="idBotonAgregar" type="button" class="btn btn-dark btn-lg">Editar</button>
+                                    </div>
+                                </div>
+                                
+                            </div>
+
+                            <div class="tab-pane fade " id="home" role="tabpanel" aria-labelledby="home-tab">
+                                <div class="row mt-3 h-50 ">
+                                    <div class="col-sm-6 d-flex align-items-center">
+                                        <div id="idContenendorDeParesdeDetalles2" class="container">
+                                            <div class="row mb-sm-2 mb-lg-4">
+                                                <div class="col-6 d-flex justify-content-end  ">
+                                                    <p class="h4"><strong>{NombreDato}:</strong></p>
+                                                </div>
+                                                <div class="col-6 d-flex justify-content-start">
+                                                    <span>{Valor}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="col-sm-6">
+
+                                        <div id="carouselExampleCaptions2" class="carousel slide" data-ride="carousel">
+                                            <ol id="idListaItemsDataset2" class="carousel-indicators">
+                                                <li data-target="#carouselExampleCaptions2" data-slide-to="{iteracion}"
+                                                    ></li>
+                                                    <!-- class="active" active -->
+                                            </ol>
+                                            <div id="idContenidoDelCarrusel2" class="carousel-inner">
+                                                <div class="carousel-item ">
+
+                                                    <div class="d-block  bg-secondary text-center"
+                                                        style="display: none;"
+                                                    >
+                                                        <div id="{2KEY_ID_SPINNER_CARRUSEL_}" class=" spinner-border text-primary "
+                                                        style="width: 20rem; height: 20rem; display: none; " role="status">
+                                                            <span class="sr-only">Loading...</span>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <img id="{2KEY_ID_IMG_CARRUSEL_}" src="img/900_600.jpg" style="max-height: 400px;" class="d-block w-100" alt="...">
+                                                    <div
+                                                        class="carousel-caption d-none d-md-block fondoNegroTransparente">
+                                                        <h5>{Clasificacion}</h5>
+                                                        <p>{CantidadDeImagenes} imagenes</p>
+                                                    </div>
+                                                </div>
+
+
+
+                                            </div>
+                                            <a class="carousel-control-prev" href="#carouselExampleCaptions2"
+                                                role="button" data-slide="prev">
+                                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                <span class="sr-only">Previous</span>
+                                            </a>
+                                            <a class="carousel-control-next" href="#carouselExampleCaptions2"
+                                                role="button" data-slide="next">
+                                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                <span class="sr-only">Next</span>
+                                            </a>
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+
+
+
+                            </div>
+
+
+                            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-12 col-lg-6">
+                                            <div class="row mt-2">
+
+                                                <div class="input-group mb-3">
+                                                    <div class="input-group-prepend">
+                                                      <span class="input-group-text" id="idAdonDatasetValidacion">Dataset:</span>
+                                                    </div>
+                                                    <input disabled value="3.0" type="text" id="idSpamDatasetValidacion"
+                                                    class="form-control" placeholder="Dataset" aria-label="Dataset"
+                                                    aria-describedby="idAdonDatasetValidacion"
+                                                        style="    background-color: #fff;     text-align: center;"
+                                                    >
+                                                    <div class="input-group-append">
+                                                        <button class="btn btn-dark" type="button" id="idBotonDetallesDatasetValidacion">
+                                                            <i class="fas fa-eye"></i>
+                                                        </button>
+                                                      </div>
+                                                  </div>
+
+                                            </div>
+                                            <div class="row d-flex justify-content-center mt-2" >
+                                                <!-- style="background-color: aqua;" coral-->
+                                                <div id="idGraficoMatrisDeConfusion" ></div>
+
+
+
+
+                                            </div>
+
+                                        </div>
+                                        <div class="col-12 col-lg-6">
+
+                                            <div class="container">
+                                                <div class="row mt-2  ">
+                                                    <div class="col-12 col-lg-6">
+                                                        <div class="input-group mb-3">
+                                                            <div class="input-group-prepend">
+                                                              <span class="input-group-text" id="basic-addon1">Precisión</span>
+                                                            </div>
+                                                            <input disabled value="3.0" type="text" id="idSpamLotePresicionActual"
+                                                            class="form-control" placeholder="Precisión" aria-label="Precisión"
+                                                            aria-describedby="basic-addon1"
+                                                                style="    background-color: #fff;     text-align: center;"
+                                                            >
+                                                          </div>
+                                                    </div>
+                                                    <div class="col-12 col-lg-6">
+                                                        <div class="input-group mb-3">
+                                                            <div class="input-group-prepend">
+                                                              <span class="input-group-text" id="basic-addon2">Pérdida </span>
+                                                            </div>
+                                                            <input disabled  value="0.89" type="text" id="idSpamLotePerdidaActual"
+                                                            class="form-control"
+                                                            placeholder="Pérdida " aria-label="Pérdida " aria-describedby="basic-addon2"
+                                                            style="    background-color: #fff;     text-align: center;"
+                                                            >
+                                                          </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div id="idDondeVaLaTabla" class="col overflow-auto d-flex justify-content-center"
+                                                    style="max-height: 350px;"
+                                                    >
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                            <div class="tab-pane fade" id="estadisticas" role="tabpanel" aria-labelledby="estadisticas-tab">
+                                <div class="contanier">
+                                    <div class="row">
+                                        <div class="col-12 col-lg-6">
+                                            <div class="row mt-2">
+
+                                                <div class="input-group mb-3">
+                                                    <div class="input-group-prepend">
+                                                      <span class="input-group-text" id="idAdonDatasetEntrenamiento">Dataset:</span>
+                                                    </div>
+                                                    <input disabled value="3.0" type="text" id="idSpamDatasetEntrenamiento"
+                                                    class="form-control" placeholder="Dataset" aria-label="Dataset"
+                                                    aria-describedby="idAdonDatasetEntrenamiento"
+                                                        style="    background-color: #fff;     text-align: center;"
+                                                    >
+                                                    <div class="input-group-append">
+                                                        <button class="btn btn-dark" type="button" id="idBotonDetallesDatasetEntrenamiento">
+                                                            <i class="fas fa-eye"></i>
+                                                        </button>
+                                                      </div>
+                                                  </div>
+
+                                            </div>
+                                            <div class="row d-flex justify-content-center mt-2" >
+                                                <div id="idGraficoProgreso"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-lg-6">
+                                            <div class="contanier">
+                                                <div class="row mt-2 d-flex justify-content-center">
+                                                    <nav id="idPaginacionImg2" aria-label="Page navigation example">
+                                                        <ul id="idListaPaginacion2" class="pagination ">
+                                                            <li id="idPaginacionAnterior2" class="page-item">
+                                                                <a class="page-link" href="#" aria-label="Previous">
+                                                                    <span aria-hidden="true">&laquo;</span>
+                                                                </a>
+                                                            </li>
+                                                            <li id="idPaginacionNoSeleccionado2" class="page-item"><a class="page-link" href="#">{KEY_INDICE}</a></li>
+                                                            <li id="idPaginacionSeleccionado2" class="page-item active mouse_normal">
+                                                                <a class="page-link mouse_normal" href="#">{KEY_INDICE}</a></li>
+                                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                                            <li id="idPaginacionSiguiente2" class="page-item">
+                                                                <a class="page-link" href="#" aria-label="Next">
+                                                                    <span aria-hidden="true">&raquo;</span>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </nav>
+                                                </div>
+                                                <div class="row mt-1 d-flex justify-content-center">
+                                                    <div id="idGraficoProgreso2" ></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+    <div id="idDlgEsperando" data-backdrop="static" class="modal fade" tabindex="-1" role="dialog"
+                    style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-body p-4">
+                                <div class="text-center">
+                                    <i class="dripicons-information h1 text-dark"></i>
+                                    <h4 id="idTitulo_DlgEsperando" class="mt-2 text-dark">Aviso</h4>
+                                    <p id="idContenido_DlgEsperando" class="mt-3 text-dark">Espere mientras ultimamos
+                                        los detalles de la detención
+                                        solicitada </p>
+
+
+                                    <button type="button" class="btn btn-info my-2" data-dismiss="modal" disabled>
+                                        <span class="spinner-border spinner-border-sm" role="status"
+                                            aria-hidden="true"></span>
+                                        <span id="idSpamEsperando_DlgEsperando">Deteniendo</span>
+
+                                    </button>
+                                </div>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div>
+
+                <div id="idDlgError" data-backdrop="static" class="modal fade" tabindex="-1" role="dialog"
+                    style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-body p-4">
+                                <div class="text-center">
+                                    <i class="dripicons-information h1 text-dark"></i>
+                                    <h4 id="idTitulo_idDlgError" class="mt-2 text-dark">Aviso</h4>
+                                    <p id="idContenido_DlgError" class="mt-3 text-dark">Le informamos de la existencia
+                                        de un error interno del servidor </p>
+
+
+                                    <button type="button" class="btn btn-info my-2" data-dismiss="modal">
+                                        <!-- <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> -->
+                                        Aceptar
+                                    </button>
+                                </div>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div>
+
+
+    <div id="idDlgDetallesDelDataset" data-backdrop="static" class="modal fade" tabindex="-1" role="dialog"
+         style="display: none; " aria-hidden="true">
+{#    min-height: 550px; max-height: 550px;#}
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content" style="min-height: 550px;">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Detalles</h5>
+                                <button onclick="hideDlgBostrap('idDlgDetallesDelDataset')" type="button" class="close"  aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+{#                                data-dismiss="modal"#}
+                              </div>
+                            <div class="modal-body p-4" style="min-height: 500px;">
+                                    {% include "Visual/DetallesDataset/DetallesDatasetHTML.html" %}
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div>
+
+
+     <form id="idFormRecargarPaginaDatallesModeloNeronal"  method="get" action="/{{urls.URL_VISTA_LISTAR_MODELO_NEURONAL}}/">
+        {% csrf_token %}
+{#        <button type="submit" class="btn btn-primary btn-lg ml-4">Guardar</button>#}
+{#        <input type="hidden" name="{{nombre_form_ubicacion_post}}" value="{{forms.GUARDAR_MODELO  }}">#}
+    </form>
+<div id="idReceptorDeHtml" style="display: none">
+{{ datosDataset.descripcion|conHTML }}
+    </div>
+    <div id="idReceptorDeHtmlEntrenamiento" style="display: none">
+    {{ datosDatasetEntrenamiento.datosDataset.descripcion|conHTML }}
+    </div>
+    <div id="idReceptorDeHtmlValidacion" style="display: none">
+    {{ datosDatasetValidacion.datosDataset.descripcion|conHTML }}
+    </div>
+
+
+    <div style="display: none;" id="idReceptorDeHtmlsEntrenamiento">
+    {% for datos in datosDatasetEntrenamiento.datosDataset.matris_Clasificacion_Carpeta_Descripcion %}
+        <div>{{ datos|getHtmlEn:2 }}</div>
+
+
+            {% endfor %}
+    </div>
+
+    <div style="display: none;" id="idReceptorDeHtmlsValidacion">
+    {% for datos in datosDatasetValidacion.datosDataset.matris_Clasificacion_Carpeta_Descripcion %}
+        <div>{{ datos|getHtmlEn:2 }}</div>
+
+
+            {% endfor %}
+    </div>
+
+{% endblock%}
+
+
+
+{% block scripts_extras %}
+<script src="{% static 'js/Librerias/plotly.js' %}"></script>
+    <script src="{% static 'js/Librerias/ckeditor/ckeditor.js' %}"></script>
+    <script src="{% static 'js/reneJavaScritp/reneJS_GraficosIA.js' %}"></script>
+
+    <script src="{% static 'js/Librerias/date.format.js' %}"></script>
+
+
+    <script src="{% static 'js/reneJavaScritp/reneJS_UtilesDeLibrerias.js' %}"></script>
+    <script src="{% static 'js/controladores/rene_controlador_detallesDataset.js' %}"></script>
+
+    <script type="text/javascript">
+
+class DatosDelModeloNeuronal{
+    constructor(){
+        this.nombre=null;
+        this.usuario=null;
+        this.fecha_de_creacion=null;
+        this.descripcion=null;
+        this.idDataset=null;
+        this.idDatasetValidacion=null;
+        this.nombreDelDataset=null;
+        this.precision=null;
+        this.perdida=null;
+        this.cantidadDeEpocas=null;
+        this.tipoDefruto=null;
+        this.nombreCientificoFruto=null;
+        this.variedadFruto=null;
+
+        this.lista_historial_precision=[];
+        this.lista_historial_perdida=[];
+        this.matrizDeConfusion;
+
+        this.listaPar_Clasificicacion_CantidadDeImagenes=[];
+
+        this.lista_NombresClasificaciones=[];
+    }
+}
+
+
+
+
+const dm=new DatosDelModeloNeuronal();
+dm.nombre="{{ datosDelModelo.nombre }}";
+dm.usuario="{{ datosDelModelo.nombreUsuario }}";
+dm.fecha_de_creacion=vbdD({{ datosDelModelo.fechaDeCreacion.year }},{{ datosDelModelo.fechaDeCreacion.month }},{{ datosDelModelo.fechaDeCreacion.day }});
+dm.descripcion=getHTML("idReceptorDeHtml");
+dm.idDataset="{{ datosDelModelo.idDataset }}";
+dm.idDatasetValidacion="{{ datosDelModelo.idDatasetValidacion }}";
+dm.nombreDelDataset="{{ datosDelModelo.nombreDataset }}";
+dm.precision=sprintf("%02.2f ",Number.parseFloat({{ datosDelModelo.precision|numeroConComa }})*100)+"%";
+dm.perdida=sprintf("%02.2f ",Number.parseFloat({{ datosDelModelo.perdida|numeroConComa }}));
+dm.cantidadDeEpocas="{{ datosDelModelo.cantidadDeEpocas }}";
+dm.tipoDefruto="{{ datosDelModelo.fruto }}";
+dm.variedadFruto="{{ datosDelModelo.variedadFruto }}";
+dm.nombreCientificoFruto="{{ datosDelModelo.nombreCientificoFruto }}";
+dm.listaPar_Clasificicacion_CantidadDeImagenes=[
+    {% for clasificacion,cantidadDeImagenes in datosDelModelo.matriz_Clasificacion_CantidadDeImagenes %}
+        ["{{ clasificacion }}",{{ cantidadDeImagenes }}],
+    {% endfor %}
+];
+dm.lista_historial_precision=[{% for numero in datosDelModelo.listaDePrecision %}{{ numero|numeroConComa }},{% endfor %}];//[0.2,0.4,0.5,0.6,0.7]
+dm.lista_historial_perdida=[{% for numero in datosDelModelo.listaDePerdida %}{{ numero|numeroConComa }},{% endfor %}];//[50,40,30,20,10]
+dm.lista_NombresClasificaciones=[{% for etiqueta in datosDelModelo.clasificaciones %}"{{ etiqueta }}",{% endfor %}];//['A', 'B', 'C', 'D', 'E'];
+dm.matrizDeConfusion=[
+        {% for fila in datosDelModelo.matriz_de_confusion %}
+            [{% for numero in fila %}{{ numero }},{% endfor %}],
+        {% endfor %}
+
+
+    ];
+
+
+
+
+class MngDatosModelo{
+    constructor(){
+        this.bdDetalles=new BD_RowElement();
+        this.bdDetalles.llaves=["NombreDato","Valor"];
+        this.idContenendorDeParesdeDetalles="idContenendorDeParesdeDetalles2";
+    }
+    actualizar(datosDelModelo){
+        /*this.bdDetalles.addRow([
+            "Nombre",datosDelModelo.nombre
+        ]);*/
+        this.bdDetalles.addRow([
+            "Usuario",datosDelModelo.usuario
+        ]);
+        this.bdDetalles.addRow([
+            "Creación",datosDelModelo.fecha_de_creacion
+        ]);
+        /**/this.bdDetalles.addRow([
+            "Fruto",datosDelModelo.tipoDefruto
+        ]);
+        this.bdDetalles.addRow([
+            "Variedad Del Fruto",datosDelModelo.variedadFruto
+        ]);
+        this.bdDetalles.addRow([
+            "Nombre Científico",datosDelModelo.nombreCientificoFruto
+        ]);
+        this.bdDetalles.addRow([
+            "Dataset",datosDelModelo.nombreDelDataset
+        ]);
+        this.bdDetalles.addRow([
+            "Precision",datosDelModelo.precision
+        ]);
+        this.bdDetalles.addRow([
+            "Perdida",datosDelModelo.perdida
+        ]);
+
+        this.bdDetalles.addRow([
+            "Epocas",datosDelModelo.cantidadDeEpocas
+        ]);
+        repetidor(this.idContenendorDeParesdeDetalles,this.bdDetalles);
+    }
+}
+
+
+
+function siNoExisteElDatasetEntrenamiento() {
+    setDisabled(true,["idBotonDetallesDatasetEntrenamiento"]);
+}
+
+class MngCarrusel2{
+    constructor(){
+        this.KEY_ID_IMG_CARRUSEL="2KEY_ID_IMG_CARRUSEL_";
+        this.KEY_ID_SPINNER_CARRUSEL="2KEY_ID_SPINNER_CARRUSEL_";
+        this.bdImagenesClasificaciones=new BD_RowElement();
+        this.bdImagenesClasificaciones.llaves=["Clasificacion","CantidadDeImagenes"];
+        this.bdImagenesClasificaciones.listaDeNombresIds=[this.KEY_ID_IMG_CARRUSEL,this.KEY_ID_SPINNER_CARRUSEL];
+
+        this.idListaItemsDataset="idListaItemsDataset2";
+        this.idContenidoDelCarrusel="idContenidoDelCarrusel2";
+
+
+        this.urlAjaxGetImagen="{{ urls.URL_POST_METODO_GET_IMG_DE_EJEMPLO_900_600_PX }}";
+
+        this.mngRepetidor_itemsDataset=new ManagerRepetidor(this.idListaItemsDataset,this.bdImagenesClasificaciones);
+        this.mngRepetidor_Carrusel=new ManagerRepetidor(this.idContenidoDelCarrusel,this.bdImagenesClasificaciones);
+    }
+    actualizar(listaPar_Clasificacion_CantidadDeImagenes){
+        this.bdImagenesClasificaciones.clear();
+        for (const row of listaPar_Clasificacion_CantidadDeImagenes) {
+            this.bdImagenesClasificaciones.addRow(row);
+        }
+        this.mngRepetidor_itemsDataset.repetir();
+        this.mngRepetidor_Carrusel.repetir();
+        // repetidor(this.idListaItemsDataset,this.bdImagenesClasificaciones);
+        // repetidor(this.idContenidoDelCarrusel,this.bdImagenesClasificaciones);
+
+        let classActive="active";
+        let existeEl=existe(this.idListaItemsDataset);
+        console.log(this.idListaItemsDataset+" existe:"+existeEl);
+        let primerElementoEnLista=getFirsEl(this.idListaItemsDataset);
+        ponerClase(primerElementoEnLista,classActive);
+
+        existeEl=existe(this.idContenidoDelCarrusel);
+        console.log(this.idContenidoDelCarrusel+" existe:"+existeEl);
+        let primerElementoEnCarrusel=getFirsEl(this.idContenidoDelCarrusel);
+        ponerClase(primerElementoEnCarrusel,classActive);
+
+        for (let index = 0; index < this.bdImagenesClasificaciones.size(); index++) {
+            let fila = this.bdImagenesClasificaciones.getFila(index);
+            let map = fila.map;
+            let mgImg64=new ManagerCargaLentaImgBase64();
+            mgImg64.setIdElementoQueSustituyeLaImagen(map.get(this.KEY_ID_SPINNER_CARRUSEL));
+            mgImg64.setIdImagen(map.get(this.KEY_ID_IMG_CARRUSEL));
+            mgImg64.ocultarImagen();
+
+            const indiceDeEstaImagen=index;
+            ejecutarAjax("/"+this.urlAjaxGetImagen+"/",{
+                    "idDataset":dm.idDataset
+                 ,"indiceDeImagen":indiceDeEstaImagen
+                 },r=>{
+                if(r.existeDataset){
+                    mgImg64.cargarImgBase64(r.imgBase64);
+                    //mgb.cargarImgBase64(r.imgBase64);
+
+                }else{
+                     console.log("no existe dataset");
+                     siNoExisteElDatasetEntrenamiento();
+                    //noMostrarImg();
+                }
+
+            }
+            ,r=>{
+                console.log("error al pedir la imagen del dataset");
+                 //noMostrarImg();
+                });
+
+            //ajax
+            //mgImg64.cargarImgBase64(str64);
+        }
+
+        /*for (let index = 0; index < this.bdImagenesClasificaciones.size(); index++) {
+            let fila = this.bdImagenesClasificaciones.getFila(index);
+            let map = fila.map;
+            let mgImg64=new ManagerCargaLentaImgBase64();
+            mgImg64.setIdElementoQueSustituyeLaImagen(map.get(this.KEY_ID_SPINNER_CARRUSEL));
+            mgImg64.setIdImagen(map.get(this.KEY_ID_IMG_CARRUSEL));
+            mgImg64.ocultarImagen();
+            //ajax
+            //mgImg64.cargarImgBase64(str64);
+        }
+        */
+    }
+}
+function vbdD(y,m,d){
+
+    let va=new ValorBD(newDate(y,m,d));
+    va.getStr=v=>{
+        //console.log("pasa por aqui v="+v);
+        let r=getStrFromDate(v,"mm/dd/yy hh:MM TT");
+        return r;
+    };
+    return va;
+}
+
+
+
+const mngDtsModelo=new MngDatosModelo();
+mngDtsModelo.actualizar(dm);
+
+const mngCarr2=new MngCarrusel2();
+mngCarr2.actualizar(dm.listaPar_Clasificicacion_CantidadDeImagenes);
+
+
+const dv=new DatosVisualesDelGrafico();
+
+const dmc=new DatosParaMatrisDeConfusion();
+dmc.titulo="Matris de Confusion";
+dmc.listaDeEtiquetas=dm.lista_NombresClasificaciones;//['A', 'B', 'C', 'D', 'E'];
+dmc.matrizDeResultados=dm.matrizDeConfusion;
+dv.ancho=450;
+dv.alto=330;
+
+graficarMatrisDeConfusion_SinTitulo("idGraficoMatrisDeConfusion",dmc,dv);
+
+const dp=new DatosDeProgresoDeEntrenamiento();
+dp.listaDePrecisiones=dm.lista_historial_precision;//[0.2,0.4,0.5,0.6,0.7]
+dp.listaDePerdidas=dm.lista_historial_perdida;
+dv.ancho=500;
+dv.alto=400;
+dv.colorDeFondo='#f9fbfd';
+graficarProgresoDeEntrenamiento("idGraficoProgreso",dp,dv);
+
+
+
+
+
+
+
+listaDeHeader=["Clases","Exactitud","Sensibilidad"];
+// listaParesDeParametros=[["Clase1","90 %","91 %"]
+//                             ,["Clase2","90 %","91 %"]
+//                             ,["Clase3","90 %","91 %"]
+//                             ,["Clase4","90 %","91 %"]
+//                             ,["Clase5","90 %","91 %"]
+//                         ];
+listaParesDeParametros=[
+        {% for metrica in datosDelModelo.metricas %}
+            [{{ metrica.exactitud|numeroConComa }},{{ metrica.sensibilidad|numeroConComa }}],
+        {% endfor %}
+    ];
+function adaptarNumero(numeroConComaPorciento){
+        return sprintf("%02.2f ",Number.parseFloat(numeroConComaPorciento)*100);
+    }
+    for (let i = 0; i <listaParesDeParametros.length ; i++) {
+        let fila=listaParesDeParametros[i];
+        for (let j = 0; j < fila.length; j++) {
+            fila[j]=adaptarNumero(fila[j]);
+        }
+        fila.unshift(dm.lista_NombresClasificaciones[i]);
+    }
+
+    tablaStr='<table class="table ">';//table-dark
+    tablaStr+='<thead>';//colspan="2"
+    for (const titulo of listaDeHeader) {
+        tablaStr+='<th class="text-center text-dark" scope="col" ><b>'+titulo+'</b></th>';
+    }
+
+    tablaStr+='</thead>';//class="overflow-auto" style="max-height: 300px;"
+    tablaStr+='<tbody  >';
+        for (let i = 0; i < listaParesDeParametros.length; i++) {
+            const p = listaParesDeParametros[i];
+
+            tablaStr+='<tr class="text-center" >';
+            tablaStr+='<th scope="row" class="text-dark"><b>'+p[0]+'</b></th>';
+            tablaStr+='<td>'+p[1]+'%</td>';
+                tablaStr+='<td>'+p[2]+'%</td>';
+            tablaStr+='</tr>';
+
+        }
+    tablaStr+='</tbody>';
+    tablaStr+='</table>';
+
+    setHTML("idDondeVaLaTabla",tablaStr)
+
+
+
+
+
+    const dpL=[];
+    function addDP_Lotes(listaDePrecisiones,listaDePerdidas) {
+        let dp2=new DatosDeProgresoDeEntrenamiento();
+        dp2.listaDePrecisiones=listaDePrecisiones;
+        dp2.listaDePerdidas=listaDePerdidas;
+        dp2.tituloAxisX="Lotes";
+        dpL.push(dp2);
+    }
+    {% for epoca in datosDelModelo.matriz_RepresentacionDeEpoca %}
+        addDP_Lotes(
+            [{% for lote in epoca.listaDeLotes %} {{ lote.precision_Lote|numeroConComa }},{% endfor %}],
+            [{% for lote in epoca.listaDeLotes %} {{ lote.perdida_Lote|numeroConComa }},{% endfor %}]
+        );
+    {% endfor %}
+    function graficarLotes(indice){//indice comienza en 1
+        dv.alto=400;
+        graficarProgresoDeEntrenamiento("idGraficoProgreso2",dpL[indice-1],dv);
+    }
+    graficarLotes(1);
+
+
+    class ManagerHistorialLotes{
+        constructor(){
+            this.pagV=new PaginacionVisualIndependiente_Bootstrap();
+            this.pagV.idListaPaginacion="idListaPaginacion2";
+            this.pagV.idNodoSeleccionadoPlantilla="idPaginacionSeleccionado2";
+            this.pagV.idNodoNoSeleccionadoPlantilla="idPaginacionNoSeleccionado2";
+
+            this.matris_Epoca_CoordenadasLotes=[];//[ 1-[90,85,75,...] , 2-[60,54,34,...] ... ]
+        }
+        actualizar(paginacion){
+            this.pagV.actualizar(paginacion);
+        }
+        aplicarConfiguracion(){
+            this.pagV.addOnClickNoSeleccionado(
+                    (id,indice)=>{
+                        //alert("indice="+indice);
+                        graficarLotes(indice);
+                    }
+                );
+            this.pagV.aplicarConfiguracion();
+        }
+    }
+
+    mngLotes=new ManagerHistorialLotes();
+    mngLotes.pagV.gestorDePaginacion=new GestorDePaginacionSimple(1,len(dpL),1,7);
+    mngLotes.aplicarConfiguracion();
+    mngLotes.actualizar(mngLotes.pagV.gestorDePaginacion.getPaginacion());
+
+    setValue("idSpamLotePresicionActual",sprintf("%02.2f",{{ datosDelModelo.precision|numeroConComa }}))
+    setValue("idSpamLotePerdidaActual",sprintf("%02.2f",{{ datosDelModelo.perdida|numeroConComa }}))
+
+    setValue("idSpamDatasetEntrenamiento","{{ datosDelModelo.nombreDataset }}");
+    setValue("idSpamDatasetValidacion","{{ datosDelModelo.nombreDatasetValidacion }}");
+
+
+
+    function prepararDlgDetallesDatasetEntrenamiento() {
+
+        const dt=new DatosDelDataset();
+            dt.id="{{ datosDatasetEntrenamiento.datosDataset.id }}";
+            dt.nombre="{{ datosDatasetEntrenamiento.datosDataset.nombre }}";
+            dt.descripcion=getHTML("idReceptorDeHtmlEntrenamiento");
+            console.log("dt.descripcion="+dt.descripcion)
+            dt.tipoDeFruto="{{ datosDatasetEntrenamiento.datosDataset.fruto }}";
+            dt.variedadFruto="{{ datosDatasetEntrenamiento.datosDataset.variedadFruto }}";
+            dt.nombreCientificoFruto="{{ datosDatasetEntrenamiento.datosDataset.nombreCientificoFruto }}";
+            dt.usuario="{{ datosDatasetEntrenamiento.datosDataset.nombreUsuario }}";
+            dt.creacion=vbdD({{ datosDatasetEntrenamiento.datosDataset.fechaDeCreacion.year }},{{ datosDatasetEntrenamiento.datosDataset.fechaDeCreacion.month }},{{ datosDatasetEntrenamiento.datosDataset.fechaDeCreacion.day }});
+            dt.cantidadDeImagenes="{{  datosDatasetEntrenamiento.datosDataset.cantidadDeImagenes}}";
+            dt.cantidadDeClasificaciones="{{datosDatasetEntrenamiento.datosDataset.cantidadDeClasificaciones}}";
+            dt.listaPar_Clasificicacion_CantidadDeImagenes=[
+                {% for clas in datosDatasetEntrenamiento.datosDataset.matris_Clasificacion_CantidadDeImagenes %}
+                    ["{{ clas|getEn:0 }}",{{ clas|getEn:1 }} ],
+                {% endfor %}
+                {#["Madura",80]#}
+                {#,["Verde",85]#}
+                {#,["Pintona",34]#}
+                {#,["Lista",40]#}
+            ];
+            dt.lista_Clasificaciones=[ {% for clas in datosDatasetEntrenamiento.datosDataset.clasificaciones %} "{{ clas }}",{% endfor %}];//["Madura","Verde","Pintona","Lista"];
+
+             let contenedoresDeHtml=getHijosEl("idReceptorDeHtmlsEntrenamiento");
+            dt.matriz_clasificacion_detalles=[];
+
+            //console.log(contenedoresDeHtml);
+            for (let i = 0; i <contenedoresDeHtml.length ; i++) {
+                console.log("i="+i);
+                let clasi=dt.lista_Clasificaciones[i];
+                let detalle=getHTML(contenedoresDeHtml[i]);
+                let lista=[clasi,detalle];
+                dt.matriz_clasificacion_detalles.push(lista);
+            }
+
+            actualizarDatosDeImg(dt
+                ,"{{ urls.URL_POST_METODO_GET_LISTA_IMAGENES_DEL_DATASET }}"
+                ,"{{ urls.URL_POST_METODO_GET_IMG_DE_EJEMPLO_900_600_PX }}"
+                ,"{{  urls.URL_POST_METODO_GET_IMG_DATASET_900_600_PX }}"
+            );
+
+
+            let li=[];
+            //let dicImagenes={{ datosDatasetEntrenamiento.dicDeImagenes }};
+            let dicImagenes=[{% for k in datosDatasetEntrenamiento.dicDeImagenes %} ["{{ datosDatasetEntrenamiento.dicDeImagenes|getEnDic:k }}",{{ k }}] ,{% endfor %}];
+            let cantidadDeimagenes={{ datosDatasetEntrenamiento.cantidadDeImg }};
+            let listaDeindices=[{% for indice in datosDatasetEntrenamiento.listaDeIndices %} {{ indice }} ,{% endfor %}];
+            let iActual={{ datosDatasetEntrenamiento.iActual }};
+            let primerIndiceDeImagen={{ datosDatasetEntrenamiento.primerIndiceDeImagen }};
+
+            for (let i = 0; i < cantidadDeimagenes; i++) {
+                li.push(dicImagenes[i]);
+            }
+            let p=new Paginacion(listaDeindices,iActual);
+            mngImg.actualizar(p,li);
+    }
+
+
+    function prepararDlgDetallesDatasetValidacion() {
+
+        const dt=new DatosDelDataset();
+            dt.id="{{ datosDatasetValidacion.datosDataset.id }}";
+            dt.nombre="{{ datosDatasetValidacion.datosDataset.nombre }}";
+            dt.descripcion=getHTML("idReceptorDeHtmlValidacion");
+            console.log("dt.descripcion="+dt.descripcion)
+            dt.tipoDeFruto="{{ datosDatasetValidacion.datosDataset.fruto }}";
+            dt.variedadFruto="{{ datosDatasetValidacion.datosDataset.variedadFruto }}";
+            dt.nombreCientificoFruto="{{ datosDatasetValidacion.datosDataset.nombreCientificoFruto }}";
+            dt.usuario="{{ datosDatasetValidacion.datosDataset.nombreUsuario }}";
+            dt.creacion=vbdD({{ datosDatasetValidacion.datosDataset.fechaDeCreacion.year }},{{ datosDatasetValidacion.datosDataset.fechaDeCreacion.month }},{{ datosDatasetValidacion.datosDataset.fechaDeCreacion.day }});
+            dt.cantidadDeImagenes="{{  datosDatasetValidacion.datosDataset.cantidadDeImagenes}}";
+            dt.cantidadDeClasificaciones="{{datosDatasetValidacion.datosDataset.cantidadDeClasificaciones}}";
+            dt.listaPar_Clasificicacion_CantidadDeImagenes=[
+                {% for clas in datosDatasetValidacion.datosDataset.matris_Clasificacion_CantidadDeImagenes %}
+                    ["{{ clas|getEn:0 }}",{{ clas|getEn:1 }} ],
+                {% endfor %}
+                {#["Madura",80]#}
+                {#,["Verde",85]#}
+                {#,["Pintona",34]#}
+                {#,["Lista",40]#}
+            ];
+            dt.lista_Clasificaciones=[ {% for clas in datosDatasetValidacion.datosDataset.clasificaciones %} "{{ clas }}",{% endfor %}];//["Madura","Verde","Pintona","Lista"];
+
+            let contenedoresDeHtml=getHijosEl("idReceptorDeHtmlsValidacion");
+            dt.matriz_clasificacion_detalles=[];
+
+            //console.log(contenedoresDeHtml);
+            for (let i = 0; i <contenedoresDeHtml.length ; i++) {
+                console.log("i="+i);
+                let clasi=dt.lista_Clasificaciones[i];
+                let detalle=getHTML(contenedoresDeHtml[i]);
+                let lista=[clasi,detalle];
+                dt.matriz_clasificacion_detalles.push(lista);
+            }
+
+            actualizarDatosDeImg(dt
+                ,"{{ urls.URL_POST_METODO_GET_LISTA_IMAGENES_DEL_DATASET }}"
+                ,"{{ urls.URL_POST_METODO_GET_IMG_DE_EJEMPLO_900_600_PX }}"
+                ,"{{  urls.URL_POST_METODO_GET_IMG_DATASET_900_600_PX }}"
+            );
+
+
+            let li=[];
+            //let dicImagenes={{ datosDatasetValidacion.dicDeImagenes }};
+            let dicImagenes=[{% for k in datosDatasetValidacion.dicDeImagenes %} ["{{ datosDatasetValidacion.dicDeImagenes|getEnDic:k }}",{{ k }}] ,{% endfor %}];
+            let cantidadDeimagenes={{ datosDatasetValidacion.cantidadDeImg }};
+            let listaDeindices=[{% for indice in datosDatasetValidacion.listaDeIndices %} {{ indice }} ,{% endfor %}];
+            let iActual={{ datosDatasetValidacion.iActual }};
+            let primerIndiceDeImagen={{ datosDatasetValidacion.primerIndiceDeImagen }};
+
+            for (let i = 0; i < cantidadDeimagenes; i++) {
+                li.push(dicImagenes[i]);
+            }
+            let p=new Paginacion(listaDeindices,iActual);
+            mngImg.actualizar(p,li);
+    }
+
+
+    //"idBotonDetallesDatasetEntrenamiento"
+    //"idBotonDetallesDatasetValidacion"
+    const ID_DLG_DETALLES_DATASET="idDlgDetallesDelDataset";
+    addOnClick("idBotonDetallesDatasetEntrenamiento",v=>{
+        prepararDlgDetallesDatasetEntrenamiento();
+        showDlgBostrap(ID_DLG_DETALLES_DATASET);
+    });
+    addOnClick("idBotonDetallesDatasetValidacion",v=>{
+        prepararDlgDetallesDatasetValidacion();
+        showDlgBostrap(ID_DLG_DETALLES_DATASET);
+    });
+
+    //--------------------------------------
+    const mngDlgEsperando=new ManagerDlg_Espera_ContenidoText_Bootstrap("idDlgEsperando");
+mngDlgEsperando.idContenido="idContenido_DlgEsperando";
+mngDlgEsperando.idTitulo="idTitulo_DlgEsperando";
+mngDlgEsperando.idMensajeCargando="idSpamEsperando_DlgEsperando";
+
+function showDlgComprobandoObjeto(){
+    mngDlgEsperando.setMensajeCargando("Espere");
+    mngDlgEsperando.showDlg("Comprobando "
+    ,"Espere mientras se comprueban los datos del modelo solicitado ");
+}
+function showDlgFalloEnLaValidacion(mensaje){
+    //estado.mostrandoMensajeDeErrorAceptar=true
+    mngDlgError2.showDlg("Datos Inválidos "
+    ,mensaje
+    ,"Aceptar",()=>{
+        //estado.mostrandoMensajeDeErrorAceptar=false
+
+        });
+}
+
+function showDlgError() {
+    mngDlgError.showDlg("Advertencia "
+        , "Le informamos de la perdida de conexión con el servidor"
+        , "Aceptar", () => {
+            submit("idFormRecargarPaginaDatallesModeloNeronal");
+        });
+}
+    const ID_INPUT_NOMBRE_MODELO_NEURONAL = "idTextoNombreModelo"
+    {#const ID_INPUT_TIPO_DE_FRUTO = "idTextoTipoDeFruto"#}
+    const ID_INPUT_DESCRIPCION = "editor1"
+
+    setValue(ID_INPUT_NOMBRE_MODELO_NEURONAL, "{{ datosDelModelo.nombre }}");
+    {#setValue(ID_INPUT_TIPO_DE_FRUTO, "{{ datosDelModelo.fruto }}");#}
+
+
+    const ID_B_EDITAR_MODELO_NEURONAL = "idBotonAgregar";
+
+    const MIN_CARACTERES = 5;
+    const MAX_CARACTERES = 50;
+    const V = new ValidacionConEventos_Boostrap();
+    V.addText_CON_ALFANUMERICOS(ID_INPUT_NOMBRE_MODELO_NEURONAL).setMinCar(MIN_CARACTERES).setMaxCar(MAX_CARACTERES)
+    {#V.addText_CON_ALFANUMERICOS(ID_INPUT_TIPO_DE_FRUTO).setMinCar(MIN_CARACTERES).setMaxCar(MAX_CARACTERES)#}
+
+    V.addBotonADesactivar(ID_B_EDITAR_MODELO_NEURONAL);
+    V.comprovarValidacionYDesactivar();
+
+    {#CKEDITOR.replace( ID_INPUT_DESCRIPCION );#}
+    {#CKEDITOR.instances.editor1.setData(getHTML("idReceptorDeHtml"));#}
+
+    addOnClick(ID_B_EDITAR_MODELO_NEURONAL, v => {
+        showDlgComprobandoObjeto();
+
+        ejecutarAjax("/{{ urls.URL_POST_METODO_INTENTAR_EDITAR_MODELO_NEURONAL }}/",
+            {
+                "{{form.id}}": "{{ datosDelModelo.id }}"
+                , "{{form.nombre}}": getValue(ID_INPUT_NOMBRE_MODELO_NEURONAL)
+                {#, "{{form.tipoDeFruto}}": getValue(ID_INPUT_TIPO_DE_FRUTO)#}
+                , "{{form.descripcion}}": CKEDITOR.instances.editor1.getData()
+            }
+            , r => {//exito
+
+                if (!r.fueValido) {
+                    mngDlgEsperando.hide()
+                    showDlgFalloEnLaValidacion(r.mensaje);
+                } else {
+                    //alert('fue valido');
+                    submit("idFormRecargarPaginaDatallesModeloNeronal");
+                }
+            }
+            , r => { //error
+                mngDlgEsperando.hide()
+                showDlgError();
+            });
+
+    });
+
+
+    
+
+                </script>
+
+{% endblock%}
+
+

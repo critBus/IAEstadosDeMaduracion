@@ -1,0 +1,783 @@
+{% extends "Visual/plantillaPadre.html" %}
+{% load static %}
+{% load poll_extras_rene_app %}
+
+{% block titulo %}
+Detalles Del Fruto
+{% endblock %}
+
+{% block contenido %}
+
+      <nav>
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                        <a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
+                            aria-controls="nav-home" aria-selected="true">
+                            <span class="gf_ArefRuqaaInk-Bold">Clasificación</span>
+                        </a>
+                        <a class="nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab"
+                            aria-controls="nav-contact" aria-selected="false">
+                            <span class="gf_ArefRuqaaInk-Bold">Detalles Del Fruto</span>
+                            </a>
+                        <a class="nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
+                            aria-controls="nav-profile" aria-selected="false">
+
+                            <span class="gf_ArefRuqaaInk-Bold">Estados de Maduración del Fruto</span>
+                        </a>
+
+                    </div>
+                </nav>
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+
+                        <div class="row mt-3">
+                            <div class="col-12 col-sm-6 d-flex align-items-center">
+
+                                <div id="idContenendorDeParesdeDetalles" class="container">
+                                    <div class="row mb-sm-2 mb-lg-4">
+                                        <div class="col-6 d-flex justify-content-end ">
+                                            <h4 class="b" style="line-height: 1.5;"><strong>{NombreDato}:</strong></h4>
+                                            <!-- <p class="h4 d-flex align-items-center"></p> -->
+                                        </div>
+                                        <div class="col-6 d-flex justify-content-start gf_ArefRuqaaInk-Bold">
+                                            <span>{Valor}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-12 col-sm-6">
+
+                                <div class="card bg-dark text-white">
+
+                                    <img id="idImgClasificacion" style="max-height: 400px;"
+                                         src="{% static datosClasificacion.direccionImgOriginal %}"
+                                        class="card-img" alt="...">
+                                    </img>
+                                    <div
+                                        class="card-img-overlay ">
+                                        <div class="carousel-caption fondoNegroTransparente gf_ArefRuqaaInk-Bold">
+                                            <p>Estado de Maduración:</p>
+                                        <h3 id="IdTituloClasificacion" style="font-size: xx-large; color: lawngreen;">
+                                            Clasificacion</h3>
+                                        </div>
+
+                                        <!-- <p>10-12-2022 12:23 pm</p> d-none -->
+                                    </div>
+
+                                    <!-- <img src="..." class="card-img" alt="...">
+                                    <div class="card-img-overlay">
+                                        <h5 class="card-title">Card title</h5>
+                                        <p class="card-text">This is a wider card with supporting text below as a
+                                            natural lead-in to additional content. This content is a little bit longer.
+                                        </p>
+                                        <p class="card-text">Last updated 3 mins ago</p>
+                                    </div> -->
+                                </div>
+
+
+                                <!-- <img id="idImgClasificacion" style="max-height: 400px;" src="img/900_600.jpg"
+                                            class="d-block w-100" alt="...">
+                                        </img>
+                                        <div
+                                            class="carousel-caption  d-md-block fondoNegroTransparente gf_ArefRuqaaInk-Bold">
+                                            <p>Estado de Maduración:</p>
+                                            <h3 id="IdTituloClasificacion"
+                                                style="font-size: xx-large; color: lawngreen;">Clasificacion</h3>
+
+                                        </div> -->
+
+
+
+
+
+                            </div>
+                        </div>
+
+
+                        <div class="row mt-3">
+                            <div class="col text-center">
+                                <h3><strong>Pasos en la Predicción del Estado de Maduración</strong> </h3>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col ">
+                                <p id="idTextoDescripciónGeneralDeLosPasos">...</p>
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="col-12 col-sm-6">
+                                <div class="card bg-dark text-white">
+
+                                    <img id="idImgGrayWord" style="max-height: 400px;"
+                                         src="{% static datosClasificacion.direccionImgGrayWorld %}"
+                                        class="card-img" alt="...">
+                                    </img>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6">
+                                <div class="container overflow-auto"
+                                style="max-height: 400px;"
+                                >
+                                    <div class="row mb-2 d-flex justify-content-center">
+                                         <h4 class="gf_ArefRuqaaInk-Bold">Gray Word</h4>
+                                    </div>
+                                    <div id="idDetallesDelPasoGrayWord"
+                                     class="row   p-3"
+
+                                    >
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+
+
+                        </div>
+
+
+                        <div class="row mt-3">
+
+                            <div class="col-12 col-sm-6">
+                                <div class="container overflow-auto"
+                                style="max-height: 400px;"
+                                >
+                                    <div class="row mb-2 d-flex justify-content-center">
+                                         <h4 class="gf_ArefRuqaaInk-Bold">Bounding Box</h4>
+                                    </div>
+                                    <div id="idDetallesDelPasoBoundingBox"
+                                     class="row   p-3"
+
+                                    >
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-6  d-flex justify-content-center align-items-center">
+                                <div class="card bg-dark text-white ">
+
+                                    <img id="idImgBoundingBox" style="max-height: 400px;"
+                                         src="{% static datosClasificacion.direccionImgBoundingBox %}"
+                                        class="card-img" alt="...">
+                                    </img>
+                                </div>
+                            </div>
+
+
+
+
+
+                        </div>
+
+
+                        <div class="row mt-3">
+
+                            <div class="col-12 col-sm-3  d-flex justify-content-center align-items-center">
+                                <div class="card bg-dark text-white ">
+
+                                    <img id="idImgResize" style="min-width: 100px;"
+                                         src="{% static datosClasificacion.direccionImgMresize %}"
+                                        class="card-img" alt="...">
+                                    </img>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-9">
+                                <div class="container overflow-auto"
+                                style="max-height: 400px;"
+                                >
+                                    <div class="row mb-2 d-flex justify-content-center">
+                                         <h4 class="gf_ArefRuqaaInk-Bold">Resize</h4>
+                                    </div>
+                                    <div id="idDetallesDelPasoResize"
+                                     class="row   p-3"
+
+                                    >
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+
+
+
+
+
+                        </div>
+
+
+
+                        <div class="row mt-3">
+
+                            <div class="col-12 col-sm-9">
+                                <div class="container overflow-auto"
+                                style="max-height: 400px;"
+                                >
+                                    <div class="row mb-2 d-flex justify-content-center">
+                                         <h4 class="gf_ArefRuqaaInk-Bold">Ciel a* b*</h4>
+                                    </div>
+                                    <div id="idDetallesDelCielAB"
+                                     class="row   p-3"
+
+                                    >
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                            <div class="col-12 col-sm-3  d-flex justify-content-center align-items-center">
+                                <div class="card bg-dark text-white ">
+
+                                    <img id="idImgCielAB" style="min-width: 100px;"
+                                         src="{% static datosClasificacion.direccionImgCielAB %}"
+                                        class="card-img" alt="...">
+                                    </img>
+                                </div>
+                            </div>
+
+
+
+
+
+
+
+
+
+                        </div>
+
+
+                    </div>
+
+                    <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+
+                        <div class="row  mt-3">
+
+                            <div class="col-12 col-sm-6 overflow-auto"
+                            style="max-height: 400px;"
+                            >
+                               <div class="container">
+                                   <div class="row mb-2 d-flex justify-content-center">
+                                        <h4 class="gf_ArefRuqaaInk-Bold">Descripción</h4>
+                                   </div>
+                                   <div id="idDetallesDelFruto"
+                                    class="row border border-primary rounded  p-3"
+
+                                   >
+
+                                   </div>
+
+                               </div>
+                            </div>
+
+                            <div class="col-12 col-sm-6">
+
+                                <div class="card bg-dark text-white">
+                                    <div id="idCargandoImagenDlg"
+                                 class=" row  d-flex justify-content-center">
+                                            <div class="spinner-border text-primary" style="width: 20rem; height: 20rem; display: none;" role="status">
+                                                <span class="sr-only">Loading...</span>
+                                              </div>
+                                        </div>
+                                    <img id="idImgDelFruto" style="max-height: 400px;" src="img/900_600.jpg"
+                                        class="card-img" alt="...">
+
+                                    <div
+                                        class="card-img-overlay ">
+                                        <div class="carousel-caption fondoNegroTransparente gf_ArefRuqaaInk-Bold">
+                                            <p>Nombre Científico :</p>
+                                        <h3 id="IdTituloNombreCientificoDelFruto" style="font-size: xx-large; color: lawngreen;">
+                                            Nombre del Fruto</h3>
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                        <div class="row mt-3">
+                            <div class="col">
+                                <div class="container">
+                                    <div class="row mb-2">
+                                        <div class="col-4 d-flex justify-content-center">
+                                            <h4 class="gf_ArefRuqaaInk-Bold">Clasificaciones </h4>
+                                        </div>
+                                        <div class="col-8 d-flex justify-content-center">
+                                            <h4 class="gf_ArefRuqaaInk-Bold">Descripción</h4>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row">
+                                        <div class="col-4 overflow-auto" style="max-height: 400px;">
+                                            <div class="list-group" id="idHeaders_DetallesClasificaciones"
+                                                role="tablist">
+                                                <a class="list-group-item list-group-item-action "
+                                                    id="list-detalles-list-{indice}" data-toggle="list"
+                                                    href="#list-detalles-{indice}" role="tab"
+                                                    aria-controls="detalles-{indice}">{clasificacion}</a>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-8 border border-primary rounded overflow-auto"
+                                            style="max-height: 400px;">
+                                            <div class="tab-content " id="idContenido_DetallesClasificaciones">
+                                                <div class="tab-pane fade p-2" id="list-detalles-{indice}" role="tabpanel"
+                                                    aria-labelledby="list-detalles-list-{indice}">{detalles}</div>
+
+                                            </div>
+
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+ <div id="idDlgEsperando" data-backdrop="static" class="modal fade" tabindex="-1" role="dialog"
+                    style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-body p-4">
+                                <div class="text-center">
+                                    <i class="dripicons-information h1 text-dark"></i>
+                                    <h4 id="idTitulo_DlgEsperando" class="mt-2 text-dark">Aviso</h4>
+                                    <p id="idContenido_DlgEsperando" class="mt-3 text-dark">Espere mientras ultimamos los detalles de la detención
+                                        solicitada </p>
+
+
+                                    <button type="button" class="btn btn-info my-2" data-dismiss="modal" disabled>
+                                        <span class="spinner-border spinner-border-sm" role="status"
+                                            aria-hidden="true"></span>
+                                            <span id="idSpamEsperando_DlgEsperando">Deteniendo</span>
+
+                                    </button>
+                                </div>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div>
+
+
+
+                <div id="idDlgError" data-backdrop="static" class="modal fade" tabindex="-1" role="dialog"
+                    style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-body p-4">
+                                <div class="text-center">
+                                    <i class="dripicons-information h1 text-dark"></i>
+                                    <h4 id="idTitulo_idDlgError" class="mt-2 text-dark">Aviso</h4>
+                                    <p id="idContenido_DlgError" class="mt-3 text-dark">Le informamos de la existencia
+                                        de un error interno del servidor </p>
+
+
+                                    <button id="idBotonAceptar_DlgError"
+                                            type="button" class="btn btn-info my-2" data-dismiss="modal">
+                                        <!-- <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> -->
+                                        Aceptar
+                                    </button>
+                                </div>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div>
+
+                <div id="idDlgAceptarCancelarAdvertencia" class="modal fade" tabindex="-1" role="dialog"
+                    aria-labelledby="fill-dark-modalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content modal-filled bg-dark">
+                            <div class="modal-header">
+                                <h4  id="idTitulo_DlgAceptarCancelarAdvertencia" class="modal-title">Detener el Entrenamiento</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            </div>
+                            <div id="idContenido_DlgAceptarCancelarAdvertencia" class="modal-body">
+                                <p>¿Estás seguro de detener el entrenamiento? Se perderá el progreso actual   </p>
+                            </div>
+                            <div class="modal-footer">
+                                <button id="idBotonCancelar_DlgAceptarCancelarAdvertencia" type="button" class="btn btn-light" data-dismiss="modal">Cancelar </button>
+                                <button id="idBotonAceptar_DlgAceptarCancelarAdvertencia" type="button" class="btn btn-outline-light" data-dismiss="modal">Detener</button>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+
+                </div>
+<form id="idFormRecargarPagina"  method="get" action="/{{urls.URL_VISTA_CLASIFICAR_IMAGEN}}/">
+        {% csrf_token %}
+{#        <button type="submit" class="btn btn-primary btn-lg ml-4">Guardar</button>#}
+{#        <input type="hidden" name="{{nombre_form_ubicacion_post}}" value="{{forms.GUARDAR_MODELO  }}">#}
+    </form>
+{% endblock%}
+
+
+
+{% block scripts_extras %}
+
+    <script src="{% static 'js/Librerias/date.format.js' %}"></script>
+    <script src="{% static 'js/Librerias/ckeditor/ckeditor.js' %}"></script>
+
+    <script src="{% static 'js/reneJavaScritp/reneJS_UtilesDeLibrerias.js' %}"></script>
+{#    <script src="{% static 'js/reneJavaScritp/reneJS_Componentes/reneJS_ListaSeleccionableMultiple.js' %}"></script>#}
+
+    <script src="{% static 'js/reneJavaScritp/reneJS_Upload.js' %}"></script>
+<div id="idReceptorDeHtml_Dataset" style="display: none">
+    {{ datosDataset.descripcion|conHTML }}
+    </div>
+
+<div id="idReceptorDeHtml_Fruto" style="display: none">
+    {{ datosFruto.descripcion|conHTML }}
+    </div>
+    <div style="display: none;" id="idReceptorDeHtmls">
+    {% for datos in datosDataset.matris_Clasificacion_Carpeta_Descripcion %}
+        <div>{{ datos|getHtmlEn:2 }}</div>
+
+
+            {% endfor %}
+    </div>
+
+<script>
+
+
+const mngDlgError=new ManagerDlg_AceptarCancelar_Bootstrap("idDlgError");
+mngDlgError.idContenido="idContenido_DlgError";
+mngDlgError.idTitulo="idTitulo_idDlgError";
+mngDlgError.setIdBotonAceptar("idBotonAceptar_DlgError");
+
+const mngDlgEsperando=new ManagerDlg_Espera_ContenidoText_Bootstrap("idDlgEsperando");
+mngDlgEsperando.idContenido="idContenido_DlgEsperando";
+mngDlgEsperando.idTitulo="idTitulo_DlgEsperando";
+mngDlgEsperando.idMensajeCargando="idSpamEsperando_DlgEsperando";
+
+
+function showDlgError(){
+    mngDlgError.showDlg("Advertencia "
+    ,"Le informamos de la perdida de conexión con el servidor"
+    ,"Aceptar",()=>{
+        submit("idFormRecargarPagina");
+        });
+}
+
+function showDlgFalloEnLaValidacion(mensaje){
+    //estado.mostrandoMensajeDeErrorAceptar=true
+    mngDlgError.showDlg("Datos Inválidos "
+    ,mensaje
+    ,"Aceptar",()=>{
+        //estado.mostrandoMensajeDeErrorAceptar=false
+
+        });
+}
+function showDlgFalloEnLaValidacionYVolverAListar(mensaje){
+    //estado.mostrandoMensajeDeErrorAceptar=true
+    mngDlgError.showDlg("Datos Inválidos "
+    ,mensaje
+    ,"Aceptar",()=>{
+        //estado.mostrandoMensajeDeErrorAceptar=false
+            showDlgEsperarRedirigir();
+            submit("idFormIrAListar");
+        });
+}
+function showDlgComprobandoObjeto(){
+    mngDlgEsperando.setMensajeCargando("Espere");
+    mngDlgEsperando.showDlg("Comprobando "
+    ,"Espere mientras se comprueban los datos del fruto solicitado ");
+}
+
+function showDlgEsperarRedirigir(){
+    mngDlgEsperando.setMensajeCargando("Espere");
+    mngDlgEsperando.showDlg("Preparando "
+    ,"Espere mientras se prepara la ventana siguiente ");
+}
+
+if(!{{ fueValido|lower }}){
+    showDlgFalloEnLaValidacionYVolverAListar("{{ mensaje }}");
+}else {
+
+
+    class DatosClasificacion{
+    constructor(){
+        this.id=null;
+        this.clasificacion=null;
+        this.tipoDeFruto=null;
+        this.tipoDeFruto_Variedad=null;
+        this.tipoDeFruto_NombreCientifico=null;
+        this.usuario=null;
+        this.ip=null;
+        this.creacion=null;
+        this.modelo_neuronal=null;
+        this.presicion=null;
+        this.detallesDelFruto=null;
+
+
+    }
+}
+
+
+
+
+class MngDatosDeClasificacion{
+    constructor(){
+        this.bdDetalles=new BD_RowElement();
+        this.bdDetalles.llaves=["NombreDato","Valor"];
+
+        this.IdTituloClasificacion="IdTituloClasificacion";
+        this.idContenendorDeParesdeDetalles="idContenendorDeParesdeDetalles";
+        this.mngRe=new ManagerRepetidor(this.idContenendorDeParesdeDetalles,this.bdDetalles);
+
+        this.idImgClasificacion="idImgClasificacion";
+
+        this.IdTituloNombreCientificoDelFruto="IdTituloNombreCientificoDelFruto";
+        this.idImgDelFruto="idImgDelFruto";
+        this.idDetallesDelFruto="idDetallesDelFruto";
+    }
+    actualizar(datosDelDataset){
+        this.bdDetalles.addRow([
+            "Fruto",datosDelDataset.tipoDeFruto
+        ]);
+        this.bdDetalles.addRow([
+            "Variedad",datosDelDataset.tipoDeFruto_Variedad
+        ]);
+        this.bdDetalles.addRow([
+            "Nombre Científico",datosDelDataset.tipoDeFruto_NombreCientifico
+        ]);
+        this.bdDetalles.addRow([
+            "Modelo Neuronal",datosDelDataset.modelo_neuronal
+        ]);
+        this.bdDetalles.addRow([
+            "Precisión Del Modelo",datosDelDataset.presicion
+        ]);
+
+        this.bdDetalles.addRow([
+            "Usuario",datosDelDataset.usuario
+        ]);
+        this.bdDetalles.addRow([
+            "Fecha",datosDelDataset.creacion
+        ]);
+
+
+        this.mngRe.repetir();
+        setHTML(this.IdTituloClasificacion,datosDelDataset.clasificacion);
+
+        setHTML(this.IdTituloNombreCientificoDelFruto,datosDelDataset.tipoDeFruto_NombreCientifico);
+        setHTML(this.idDetallesDelFruto,datosDelDataset.detallesDelFruto);
+
+        //repetidor(this.idContenendorDeParesdeDetalles,this.bdDetalles);
+    }
+
+}
+
+
+class ManagerDetallesClasificacionesDataset{
+    constructor(){
+        this.idHeaders_DetallesClasificaciones="idHeaders_DetallesClasificaciones";
+        this.idContenido_DetallesClasificaciones="idContenido_DetallesClasificaciones";
+
+    }
+    aplicarConfiguracion(){
+        let parent=this;
+
+        this.KEY_CLASIFICACION="clasificacion";
+        this.KEY_DETALLES="detalles";
+
+        this.bd = new BD_RowElement();
+        this.bd.llaves = [parent.KEY_CLASIFICACION, parent.KEY_DETALLES];
+
+
+        this.mngRpHeaders=new ManagerRepetidor(this.idHeaders_DetallesClasificaciones,this.bd);
+        this.mngRpContenidos=new ManagerRepetidor(this.idContenido_DetallesClasificaciones,this.bd);
+
+    }
+    actualizar(matriz_Clasificacion_Detalles){
+        this.bd.clear();
+        for (const row of matriz_Clasificacion_Detalles) {
+            let clasificacion=row[0];
+            let detalles=row[1];
+            this.bd.addRow([clasificacion,detalles]);
+        }
+        this.mngRpHeaders.repetir();
+        this.mngRpContenidos.repetir();
+
+        ponerClase(getFirsEl(this.idHeaders_DetallesClasificaciones),"active");
+        let content1=getFirsEl(this.idContenido_DetallesClasificaciones);
+        ponerClase(content1,"show");
+        ponerClase(content1,"active");
+    }
+}
+
+class DatosDePasosclasificacion{
+    constructor(){
+        this.descripcionGeneral=null;
+        this.descripcionGrayWord=null;
+        this.descripcionBoundingBox=null;
+        this.descripcionResize=null;
+        this.descripcionCiealAB=null;
+    }
+
+}
+
+class ManagerDetallesDePasosClasificacion{
+    constructor(){
+        this.idTextoDescripciónGeneralDeLosPasos="idTextoDescripciónGeneralDeLosPasos";
+        this.idDetallesDelPasoGrayWord="idDetallesDelPasoGrayWord";
+        this.idImgGrayWord="idImgGrayWord";
+        this.idDetallesDelPasoBoundingBox="idDetallesDelPasoBoundingBox";
+        this.idImgBoundingBox="idImgBoundingBox";
+        this.idDetallesDelPasoResize="idDetallesDelPasoResize";
+        this.idImgResize="idImgResize";
+        this.idDetallesDelCielAB="idDetallesDelCielAB";
+        this.idImgCielAB="idImgCielAB";
+    }
+    actualizar(dpc){
+        setHTML(this.idTextoDescripciónGeneralDeLosPasos,dpc.descripcionGeneral);
+        setHTML(this.idDetallesDelPasoGrayWord,dpc.descripcionGrayWord);
+        setHTML(this.idDetallesDelPasoBoundingBox,dpc.descripcionBoundingBox);
+        setHTML(this.idDetallesDelPasoResize,dpc.descripcionResize);
+        setHTML(this.idDetallesDelCielAB,dpc.descripcionCiealAB);
+    }
+}
+
+const pdc=new DatosDePasosclasificacion();
+pdc.descripcionGeneral="Con el fin de lograr obtener la clasificación del estado de maduración correspondiente a un fruto que represente a una imagen es necesario realizar sobre la misma un procesamiento. El procesamiento de imágenes digitales es la asociación de prácticas que permiten modificar las imágenes con el fin de incrementar la visualización de sus características más relevantes para su extracción y utilización. En nuestro caso es la aplicación en orden consecutivo de los algoritmos GrayWord, Boundin Box, Resize y la transformación entre el espacio de color RGB a Ciel *a *b. A Continuación de mostraran una breve descripción de la utilización de estos algoritmos sobre la imagen clasificada ";
+pdc.descripcionGrayWord="la constancia de color es la trasformación de una imagen de entrada obtenida bajo una iluminación desconocida en otra imagen que si contenga una iluminación conocida. En este proceso se estima el color de la fuente de luz en la imagen original y con estos valores se crea una imagen que aparenta ser tomada bajo una fuente de luz blanca. El algoritmo por preferencia en la constancia de color es el GrayWorld o Mundo Gris en español, este asume que, en promedio, el mundo es gris, y estima el iluminante usando el color promedio de todos los píxeles";
+pdc.descripcionBoundingBox="El empleo del Bounding Box (Cuadro delimitador) permite delimitar en la imagen la región de la fruta con todas las características importantes. Esto se realiza con el objetivo de reducir el rango de búsqueda de las características del objeto y así conservar recursos informáticos como la asignación de memoria, procesadores, núcleos, tiempo de procesamiento, algún otro recurso o una combinación de ellos. Tener concentradas todas las características del objeto a analizar, aumenta la precisión de las aplicaciones de visión por computadora y aprendizaje profundo.";
+pdc.descripcionResize="Puesto que tenemos como objetivo detecta las características del color para el estado de maduración donde las características físicas como deformidades no son relevantes se redimensiona la imagen a un tamaño ideal de 32x32 pixeles el cual permite conservar los datos necesarios para la extracción del color, y además se disminuye las características a procesar por el modelo incrementando la rapidez de la predicción ";
+pdc.descripcionCiealAB="Los aspectos del color en los frutos son evaluados por medio de los modelos de color que especifican cada punto de color en su sistema de coordenadas tridimensional tridimensional, el cual está definido en un subespacio donde cada color queda representado por un único punto que se obtiene del promedio de color verdadero de la epidermis del producto agrícola en cuestión, proceso con el que se le realiza un seguimiento a la evolución de la maduración. El modelo de color CIEL*a*b* se destaca como el que tiene mayor empleo en la medición de este atributo en los alimentos puesto que de él se obtiene una distribución uniforme de los colores y es muy cercano a las características de la percepción humana sobre el color";
+
+const mngPdc=new ManagerDetallesDePasosClasificacion();
+mngPdc.actualizar(pdc);
+
+const mngDtaCla=new ManagerDetallesClasificacionesDataset();
+mngDtaCla.idHeaders_DetallesClasificaciones="idHeaders_DetallesClasificaciones";
+mngDtaCla.idContenido_DetallesClasificaciones="idContenido_DetallesClasificaciones";
+mngDtaCla.aplicarConfiguracion();
+
+
+
+//let m=[]   //[ [C,NC,D],[...].. ]
+
+function vbdD(y,m,d){
+
+                let va=new ValorBD(newDate(y,m,d));
+                va.getStr=v=>{
+                    //console.log("pasa por aqui v="+v);
+                    let r=getStrFromDate(v,"mm/dd/yy hh:MM TT");
+                    return r;
+                };
+                return va;
+            }
+
+const dc=new DatosClasificacion();
+dc.id="{{datosClasificacion.id}}";
+dc.clasificacion="{{datosClasificacion.resultado}}";
+dc.tipoDeFruto="{{ datosFruto.nombre }}";
+let usuario="{{ datosClasificacion.username }}"
+dc.usuario=usuario=="USUARIO_ANONIMO"?"---":usuario;
+dc.creacion=vbdD({{ datosClasificacion.fecha.year }},{{ datosClasificacion.fecha.month }},{{ datosClasificacion.fecha.day }});;
+dc.tipoDeFruto_Variedad="{{ datosFruto.variedad  }}";
+dc.tipoDeFruto_NombreCientifico="{{  datosFruto.nombreCientifico}}";
+dc.ip="{{ datosFruto.ip }}";
+dc.modelo_neuronal="{{ datosDelModelo.nombre }}";
+dc.presicion=sprintf("%02.2f ",Number.parseFloat({{ datosDelModelo.precision|numeroConComa }})*100)+"%";
+dc.detallesDelFruto=getHTML("idReceptorDeHtml_Fruto");
+
+const mngDts=new MngDatosDeClasificacion();
+mngDts.actualizar(dc);
+
+
+
+{% comment %}
+
+const dt=new DatosDelDataset();
+dt.id="{{ datosDataset.id }}";
+dt.nombre="{{ datosDataset.nombre }}";
+dt.descripcion=getHTML("idReceptorDeHtml_Dataset");
+console.log("dt.descripcion="+dt.descripcion)
+dt.tipoDeFruto="{{ datosDataset.fruto }}";
+dt.usuario="{{ datosDataset.nombreUsuario }}";
+dt.creacion=vbdD({{ datosDataset.fechaDeCreacion.year }},{{ datosDataset.fechaDeCreacion.month }},{{ datosDataset.fechaDeCreacion.day }});
+dt.cantidadDeImagenes="{{  datosDataset.cantidadDeImagenes}}";
+dt.cantidadDeClasificaciones="{{datosDataset.cantidadDeClasificaciones}}";
+dt.listaPar_Clasificicacion_CantidadDeImagenes=[
+    {% for clas in datosDataset.matris_Clasificacion_CantidadDeImagenes %}
+        ["{{ clas|getEn:0 }}",{{ clas|getEn:1 }} ],
+    {% endfor %}
+    {#["Madura",80]#}
+    {#,["Verde",85]#}
+    {#,["Pintona",34]#}
+    {#,["Lista",40]#}
+];
+dt.lista_Clasificaciones=[ {% for clas in datosDataset.clasificaciones %} "{{ clas }}",{% endfor %}];//["Madura","Verde","Pintona","Lista"];
+{% endcomment %}
+
+let lista_Clasificaciones=[ {% for clas in datosDataset.clasificaciones %} "{{ clas }}",{% endfor %}];
+let contenedoresDeHtml=getHijosEl("idReceptorDeHtmls");
+let matriz_clasificacion_detalles=[];
+
+//console.log(contenedoresDeHtml);
+for (let i = 0; i <contenedoresDeHtml.length ; i++) {
+    console.log("i="+i);
+    let clasi=lista_Clasificaciones[i];
+    let detalle=getHTML(contenedoresDeHtml[i]);
+    let lista=[clasi,detalle];
+    matriz_clasificacion_detalles.push(lista);
+}
+
+mngDtaCla.actualizar(matriz_clasificacion_detalles);
+
+//idImgDelFruto
+
+ const ID_IMAGEN="idImgDelFruto";
+const ID_SUSTITUTO_IMAGEN="idCargandoImagenDlg";
+const mgb=new ManagerCargaLentaImgBase64();
+mgb.setIdElementoQueSustituyeLaImagen(ID_SUSTITUTO_IMAGEN);
+mgb.setIdImagen(ID_IMAGEN);
+
+    function noMostrarImg() {
+        displayNone(ID_IMAGEN,true);
+        displayNone(ID_SUSTITUTO_IMAGEN,true);
+    }
+
+
+     ejecutarAjax("/{{ urls.URL_POST_METODO_GET_IMG_DE_FRUTO }}/",{
+            "idDelFruto":"{{ datosFruto.id }}"
+
+         },r=>{
+        if(r.existeFruto){
+            console.log("cargo el fruto");
+            mgb.cargarImgBase64(r.imgBase64);
+
+        }else{ noMostrarImg()}
+
+    }
+    ,r=>{
+         noMostrarImg()
+        });
+
+
+
+}
+
+    </script>
+
+{% endblock%}

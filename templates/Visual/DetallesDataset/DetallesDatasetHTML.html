@@ -1,0 +1,354 @@
+ <div class="row">
+
+                    <div class="col">
+                        <ul class="nav nav-tabs " id="myTab2" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link active" id="home-tab2" data-toggle="tab" href="#home2" role="tab"
+                                    aria-controls="home2" aria-selected="true">Detalles</a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link " id="clasificaciones-tab2" data-toggle="tab" href="#clasificaciones"
+                                    role="tab" aria-controls="clasificaciones" aria-selected="false">Clasificaciones</a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link " id="descripcion-tab2" data-toggle="tab" href="#descripcion2"
+                                    role="tab" aria-controls="descripcion2" aria-selected="false">Descripcion</a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link" id="profile-tab2" data-toggle="tab" href="#profile2" role="tab"
+                                    aria-controls="profile2" aria-selected="false">Imagenes</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+
+
+
+                <div class="row">
+                    <div class="col">
+                        <div class="tab-content " id="myTabContent2">
+                            <div class="tab-pane fade show active" id="home2" role="tabpanel" aria-labelledby="home-tab2">
+                                <!-- border border-primary -->
+
+                            <div class="row mt-3 h-50 ">
+                                    <div class="col-sm-6 d-flex align-items-center">
+                                        <div id="idContenendorDeParesdeDetalles" class="container">
+                                            <div class="row mb-sm-2 mb-lg-4">
+                                                <div class="col-6 d-flex justify-content-end  ">
+                                                    <p class="h4"><strong>{NombreDato}:</strong></p>
+                                                </div>
+                                                <div class="col-6 d-flex justify-content-start">
+                                                    <span>{Valor}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="col-sm-6">
+
+                                        <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+                                            <ol id="idListaItemsDataset" class="carousel-indicators">
+                                                <li data-target="#carouselExampleCaptions" data-slide-to="{iteracion}"
+                                                    ></li>
+                                                    <!-- class="active" active -->
+                                            </ol>
+                                            <div id="idContenidoDelCarrusel" class="carousel-inner">
+                                                <div class="carousel-item ">
+
+                                                    <div class="d-block  bg-secondary text-center"
+                                                        style="display: none;"
+                                                    >
+                                                        <div id="{KEY_ID_SPINNER_CARRUSEL_}" class=" spinner-border text-primary "
+                                                        style="width: 20rem; height: 20rem; display: none; " role="status">
+                                                            <span class="sr-only">Loading...</span>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <img id="{KEY_ID_IMG_CARRUSEL_}" style="max-height: 400px;" src="img/900_600.jpg" class="d-block w-100" alt="...">
+                                                    <div
+                                                        class="carousel-caption d-none d-md-block fondoNegroTransparente">
+                                                        <h5>{Clasificacion}</h5>
+                                                        <p>{CantidadDeImagenes} imagenes</p>
+                                                    </div>
+                                                </div>
+
+
+
+                                            </div>
+                                            <a class="carousel-control-prev" href="#carouselExampleCaptions"
+                                                role="button" data-slide="prev">
+                                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                <span class="sr-only">Previous</span>
+                                            </a>
+                                            <a class="carousel-control-next" href="#carouselExampleCaptions"
+                                                role="button" data-slide="next">
+                                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                <span class="sr-only">Next</span>
+                                            </a>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div class="tab-pane fade" id="clasificaciones" role="tabpanel" aria-labelledby="clasificaciones-tab2">
+                                <div class="row mt-3">
+                                    <div class="col-4 d-flex justify-content-center">
+                                        <h4>Clasificaciones </h4>
+                                    </div>
+                                    <div class="col-8 d-flex justify-content-center">
+                                        <h4>Descripción</h4>
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col-4 overflow-auto" style="max-height: 400px;">
+                                      <div class="list-group" id="idHeaders_DetallesClasificaciones" role="tablist">
+                                        <a class="list-group-item list-group-item-action " id="list-detalles-list-{indice}" data-toggle="list" href="#list-detalles-{indice}" role="tab" aria-controls="detalles-{indice}">{clasificacion}</a>
+
+                                      </div>
+                                    </div>
+                                    <div class="col-8 border border-primary rounded overflow-auto" style="max-height: 400px;">
+                                        <div class="tab-content " id="idContenido_DetallesClasificaciones">
+                                            <div class="tab-pane fade " id="list-detalles-{indice}" role="tabpanel" aria-labelledby="list-detalles-list-{indice}">{detalles}</div>
+
+                                          </div>
+
+
+
+                                    </div>
+                                  </div>
+                            </div>
+                            <div class="tab-pane fade" id="descripcion2" role="tabpanel" aria-labelledby="descripcion-tab2">
+                                <div class="row mt-3">
+                                    <div class="col p-2">
+                                        <p id="idContenidoDescripcion"></p>
+                                    </div>
+                                </div>
+
+
+
+
+
+                            </div>
+                            <div class="tab-pane fade" id="profile2" role="tabpanel" aria-labelledby="profile-tab2">
+
+                                <div class="row mt-2">
+
+                                    <div class="col-12 col-lg-4">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <label class="input-group-text"
+                                                    for="idSelectImgProcesadas">Imagenes</label>
+                                            </div>
+                                            <select class="custom-select" id="idSelectImgProcesadas">
+                                                <option value="Originales" selected>Originales</option>
+                                                <option value="Procesadas">Procesadas</option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-lg-4">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <label class="input-group-text"
+                                                    for="idSelectClasificacion">Clasificacion</label>
+                                            </div>
+                                            <select class="custom-select" id="idSelectClasificacion">
+                                                <option value="{Clasificacion}" >{Clasificacion}</option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-lg-4 d-flex justify-content-center d-lg-flex flex-lg-row-reverse">
+
+                                        <nav id="idCargandoPaginacion"  style="display: none;"
+                                        aria-label="Page navigation example">
+                                            <ul  class="pagination ">
+                                                <li  class="page-item disabled">
+                                                    <a class="page-link" href="#" aria-label="Previous"
+                                                    tabindex="-1" aria-disabled="true"
+                                                    >
+                                                        <span aria-hidden="true">&laquo;</span>
+                                                    </a>
+                                                </li>
+                                                <li class="page-item">
+                                                    <div class="spinner-border text-primary"  role="status">
+                                                        <span class="sr-only">Loading...</span>
+                                                      </div>
+                                                </li>
+
+                                                <li  class="page-item disabled">
+                                                    <a class="page-link" href="#" aria-label="Next"
+                                                    tabindex="-1" aria-disabled="true"
+                                                    >
+                                                        <span aria-hidden="true">&raquo;</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </nav>
+
+
+                                        <nav id="idPaginacionImg" aria-label="Page navigation example">
+                                            <ul id="idListaPaginacion" class="pagination ">
+                                                <li id="idPaginacionAnterior" class="page-item">
+                                                    <a class="page-link" href="#" aria-label="Previous">
+                                                        <span aria-hidden="true">&laquo;</span>
+                                                    </a>
+                                                </li>
+                                                <li id="idPaginacionNoSeleccionado" class="page-item"><a class="page-link" href="#">{KEY_INDICE}</a></li>
+                                                <li id="idPaginacionSeleccionado" class="page-item active mouse_normal">
+                                                    <a class="page-link mouse_normal" href="#">{KEY_INDICE}</a></li>
+                                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                                <li id="idPaginacionSiguiente" class="page-item">
+                                                    <a class="page-link" href="#" aria-label="Next">
+                                                        <span aria-hidden="true">&raquo;</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </nav>
+                                    </div>
+
+
+
+
+
+                                </div>
+                                <div class="row overflow-auto">
+                                    <div class="col">
+                                        <div class="container">
+                                            <div class="row bg-dark text-light">
+                                                <div class="container">
+                                                    <div class="row text-center mb-2 mt-2">
+                                                        <div class="col-1">#</div>
+                                                        <div class="col-8 border-left">Nombre</div>
+                                                        <div class="col-2 border-left">Opciones</div>
+                                                    </div>
+
+                                                    <div id="idCargandoTablaImagenes"
+                                                    style="display: none;"
+                                                     class=" row bg-light d-flex justify-content-center">
+                                                                <div class="spinner-border text-primary" style="width: 10rem; height: 10rem;" role="status">
+                                                                    <span class="sr-only">Loading...</span>
+                                                                  </div>
+                                                            </div>
+
+                                                    <div id="idBodyTableImagenes" class="row overflow-auto"
+                                                        style="max-height: 400px;">
+
+                                                        <div class="list-group w-100 ">
+
+
+
+
+                                                            <div id="{idItemLista}"
+                                                                class="list-group-item list-group-item-action">
+                                                                <div class="row">
+                                                                    <div class="col-1 d-flex justify-content-center  ">{IndiceImagen}</div>
+                                                                    <div class="col-8 ">{NombreImagen}</div>
+                                                                    <div class="col-3 d-flex justify-content-center ">
+                                                                        <button onclick="alApretarEnVerImagen('{IndiceImagen}')"
+                                                                            type="button"
+                                                                            class="btn  btn-dark boton_en_navegacion"
+                                                                            data-toggle="tooltip" data-placement="top"
+                                                                            title="Ver Imagen">
+                                                                            <i class="  fas fa-eye"
+                                                                                style="padding: 3px;"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+
+
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+    <div id="idDlgImagenSelecciondada" class="modal fade" tabindex="-1" role="dialog"
+
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-xl">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Imagen</h5>
+                                <button onclick="hideDlgBostrap('idDlgImagenSelecciondada')" type="button" class="close"  aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+{#                                data-dismiss="modal"#}
+                              </div>
+
+                            <div class="modal-body text-center">
+
+
+                                <div id="idCargandoImagenDlg"
+                                 class=" row  d-flex justify-content-center">
+                                            <div class="spinner-border text-primary" style="width: 20rem; height: 20rem; display: none;" role="status">
+                                                <span class="sr-only">Loading...</span>
+                                              </div>
+                                        </div>
+
+
+
+                                <img id="idImgSeleccionada" src="..."  class="card-img-top " style="max-height: 450px;"  alt="...">
+
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div>
+
+    <div id="idDlgError2" data-backdrop="static" class="modal fade" tabindex="-1" role="dialog"
+                    style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-body p-4">
+                                <div class="text-center">
+                                    <i class="dripicons-information h1 text-dark"></i>
+                                    <h4 id="idTitulo_idDlgError2" class="mt-2 text-dark">Aviso</h4>
+                                    <p id="idContenido_DlgError2" class="mt-3 text-dark">Le informamos de la existencia
+                                        de un error interno del servidor </p>
+
+
+                                    <button id="idBotonAceptar_DlgError2"
+                                            type="button" class="btn btn-info my-2" data-dismiss="modal">
+                                        <!-- <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> -->
+                                        Aceptar
+                                    </button>
+                                </div>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div>
+
+
+ <form id="idFormRecargarPaginaDatallesDataset"  method="get" action="/{{urls.URL_VISTA_CLASIFICAR_IMAGEN}}/">
+        {% csrf_token %}
+{#        <button type="submit" class="btn btn-primary btn-lg ml-4">Guardar</button>#}
+{#        <input type="hidden" name="{{nombre_form_ubicacion_post}}" value="{{forms.GUARDAR_MODELO  }}">#}
+    </form>

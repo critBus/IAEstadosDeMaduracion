@@ -1,0 +1,20 @@
+b, strong {
+    font-weight: bolder;
+}
+.text_strong{
+    font-weight: bolder;
+}
+.text_large{
+    font-size: larger;
+}
+
+.card_img{
+    border-width:thin;
+}
+
+
+.tini_btn_icon{
+    width: 25px;
+    height: auto;
+    padding: 0 !important;
+}

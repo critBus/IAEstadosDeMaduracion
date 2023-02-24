@@ -1,0 +1,349 @@
+{% extends "Visual/plantillaPadre.html" %}
+{% load static %}
+{% load poll_extras_rene_app %}
+
+{% block titulo %}
+Agregar Usuario
+{% endblock %}
+
+{% block contenido %}
+<div class="row  mb-4">
+                    <div class="col d-flex justify-content-center">
+                        <h6 class="display-4 text-center">Agregar Usuario</h6>
+
+                    </div>
+
+                </div>
+
+                <div class="row ">
+                    <div class="col mb-4">
+                        <div class="input-group">
+                            <div class="input-group-prepend ">
+                                <span class="input-group-text">Usuario</span>
+                            </div>
+                            <input id="idInputUsuario" maxlength="50"
+                                   type="text" aria-label="First name" class="form-control">
+                            <div id="idInputUsuario_MensajeInvalidoBoostrap" class="invalid-feedback">
+                                otro mal.
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+                <div class="row ">
+                    <div class="col-sm-6 mb-4">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Nombre</span>
+                            </div>
+                            <input id="idInputNombre" maxlength="50"
+                                   type="text" aria-label="First name" class="form-control">
+                            <div id="idInputNombre_MensajeInvalidoBoostrap" class="invalid-feedback">
+                                otro mal.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 mb-4">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Apellidos</span>
+                            </div>
+                            <input id="idInputApellidos" maxlength="50"
+                                   type="text" aria-label="First name" class="form-control">
+                            <div id="idInputApellidos_MensajeInvalidoBoostrap" class="invalid-feedback">
+                                otro mal.
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row ">
+                    <div class="col-sm-6 mb-4">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Contraseña</span>
+                            </div>
+                            <input id="idInputContraseña" maxlength="50"
+                                   type="password" aria-label="First name" class="form-control">
+                            <div id="idInputContraseña_MensajeInvalidoBoostrap" class="invalid-feedback">
+                                otro mal.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 mb-4">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Confirmar</span>
+                            </div>
+                            <input id="idInputConfirmarContraseña" maxlength="50"
+                                   type="password" aria-label="First name" class="form-control">
+                            <div id="idInputConfirmarContraseña_MensajeInvalidoBoostrap" class="invalid-feedback">
+                                otro mal.
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+                <div class="row ">
+                    <div class="col-sm-6 mb-4">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Correo</span>
+                            </div>
+                            <input id="idInputCorreo" maxlength="256"
+                                   type="email" aria-label="First name" class="form-control">
+                            <div id="idInputCorreo_MensajeInvalidoBoostrap" class="invalid-feedback">
+                                otro mal.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 mb-4">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="idSelectPermiso">Permisos</label>
+                            </div>
+                            <select class="custom-select" id="idSelectPermiso">
+                                <option selected value="1">Usuario</option>
+                                <option value="2">Investigador</option>
+                                <option value="3">Administrador</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+
+                <div class="row m-4 justify-content-center">
+                    <!-- <div class="col d-flex justify-content-center">
+                        <button type="button" class="btn btn-dark  btn-lg">Cancelar</button>
+
+                    </div> -->
+                    <div class="col-6 col-sm-3 d-flex justify-content-center ">
+                        <button id="idBotonAceptar" type="button" class="btn btn-dark   btn-lg w-100">Aceptar</button>
+                    </div>
+
+
+                </div>
+
+
+
+     <div id="idDlgHayCamposInvalidos" data-backdrop="static" class="modal fade" tabindex="-1" role="dialog"
+                    style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-body p-4">
+                                <div class="text-center">
+                                    <i class="dripicons-information h1 text-dark"></i>
+                                    <h4 class="mt-2 text-dark">Aviso</h4>
+                                    <p class="mt-3 text-dark">Existen campos con informaciones erróneas!, por favor
+                                        rectifique sus datos y vuelva a intentarlo </p>
+                                    <p id="idSpamContenidoDlgHayCamposInvalidos" style="display: none;"
+                                        class="mt-3 text-dark"></p>
+
+                                    <button type="button" class="btn btn-info my-2" data-dismiss="modal">
+                                        <!-- <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> -->
+                                        Aceptar
+                                    </button>
+                                </div>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div>
+
+    <div id="idDlgEsperando" data-backdrop="static" class="modal fade" tabindex="-1" role="dialog"
+                    style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-body p-4">
+                                <div class="text-center">
+                                    <i class="dripicons-information h1 text-dark"></i>
+                                    <h4 id="idTitulo_DlgEsperando" class="mt-2 text-dark">Aviso</h4>
+                                    <p id="idContenido_DlgEsperando" class="mt-3 text-dark">Espere mientras ultimamos los detalles de la detención
+                                        solicitada </p>
+
+
+                                    <button type="button" class="btn btn-info my-2" data-dismiss="modal" disabled>
+                                        <span class="spinner-border spinner-border-sm" role="status"
+                                            aria-hidden="true"></span>
+                                            <span id="idSpamEsperando_DlgEsperando">Deteniendo</span>
+
+                                    </button>
+                                </div>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div>
+
+                <div id="idDlgError" data-backdrop="static" class="modal fade" tabindex="-1" role="dialog"
+                    style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog modal-sm" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body p-4">
+                                <div class="text-center">
+                                    <i class="dripicons-information h1 text-dark"></i>
+                                    <h4 id="idTitulo_idDlgError" class="mt-2 text-dark">Aviso</h4>
+                                    <p id="idContenido_DlgError" class="mt-3 text-dark">Le informamos de la existencia
+                                        de un error interno del servidor </p>
+
+
+                                    <button id="idBotonAceptar_DlgError"
+                                            type="button" class="btn btn-info my-2" data-dismiss="modal">
+                                        <!-- <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> -->
+                                        Aceptar
+                                    </button>
+                                </div>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div>
+
+
+{#    <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">#}
+{#  <div class="modal-dialog">#}
+{#    <div class="modal-content">#}
+{#      <div class="modal-header">#}
+{#        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>#}
+{#        <button type="button" class="close" data-dismiss="modal" aria-label="Close">#}
+{#          <span aria-hidden="true">&times;</span>#}
+{#        </button>#}
+{#      </div>#}
+{#      <div class="modal-body">#}
+{#        ...#}
+{#      </div>#}
+{#      <div class="modal-footer">#}
+{#        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>#}
+{#        <button type="button" class="btn btn-primary">Understood</button>#}
+{#      </div>#}
+{#    </div>#}
+{#  </div>#}
+{#</div>#}
+
+
+    <form id="idFormRecargarPagina"  method="post" action="/{{urls.URL_VISTA_AGREGAR_USUARIO}}/">
+        {% csrf_token %}
+{#        <button type="submit" class="btn btn-primary btn-lg ml-4">Guardar</button>#}
+{#        <input type="hidden" name="{{nombre_form_ubicacion_post}}" value="{{forms.GUARDAR_MODELO  }}">#}
+    </form>
+    <form id="idFormIrAListarUsuarios"  method="get" action="/{{urls.URL_VISTA_LISTAR_USUARIO}}/">
+        {% csrf_token %}
+{#        <button type="submit" class="btn btn-primary btn-lg ml-4">Guardar</button>#}
+{#        <input type="hidden" name="{{nombre_form_ubicacion_post}}" value="{{forms.GUARDAR_MODELO  }}">#}
+    </form>
+{% endblock%}
+
+{% block scripts_extras %}
+   <script>
+
+const ID_B_AGREGAR_USUARIO="idBotonAceptar";
+const ID_INPUT_NOMBRE="idInputNombre";
+const ID_INPUT_APELLIDOS="idInputApellidos";
+const ID_INPUT_USUARIO="idInputUsuario";
+const ID_INPUT_CONTRASEÑA="idInputContraseña";
+const ID_INPUT_CONFIRMAR_CONTRASEÑA="idInputConfirmarContraseña";
+const ID_INPUT_CORREO="idInputCorreo";
+
+const MIN_CARACTERES=5;
+const MIN_CARACTERES_NOMBRE=4;
+const MAX_CARACTERES=50;
+const V = new ValidacionConEventos_Boostrap();
+V.addText_SOLO_LETRAS(ID_INPUT_NOMBRE).setMinCar(MIN_CARACTERES_NOMBRE).setMaxCar(MAX_CARACTERES).setRespuestaValidacionDelServidor("asdef","Ya existe este nombre");
+V.addText_SOLO_LETRAS(ID_INPUT_APELLIDOS).setMinCar(MIN_CARACTERES).setMaxCar(MAX_CARACTERES);
+V.addText_SOLO_ALFANUMERICOS(ID_INPUT_USUARIO).setMinCar(MIN_CARACTERES).setMaxCar(MAX_CARACTERES);
+V.addTexts_Contraseña(ID_INPUT_CONTRASEÑA,ID_INPUT_CONFIRMAR_CONTRASEÑA).setMaxCar(200);
+V.addText_CORREO(ID_INPUT_CORREO);
+
+V.addBotonADesactivar(ID_B_AGREGAR_USUARIO);
+V.comprovarValidacionYDesactivar();
+
+
+const mngDlgError=new ManagerDlg_AceptarCancelar_Bootstrap("idDlgError");
+mngDlgError.idContenido="idContenido_DlgError";
+mngDlgError.idTitulo="idTitulo_idDlgError";
+mngDlgError.setIdBotonAceptar("idBotonAceptar_DlgError");
+
+const mngDlgEsperando=new ManagerDlg_Espera_ContenidoText_Bootstrap("idDlgEsperando");
+mngDlgEsperando.idContenido="idContenido_DlgEsperando";
+mngDlgEsperando.idTitulo="idTitulo_DlgEsperando";
+mngDlgEsperando.idMensajeCargando="idSpamEsperando_DlgEsperando";
+
+function showDlgFalloEnLaValidacion(mensaje){
+    //estado.mostrandoMensajeDeErrorAceptar=true
+    mngDlgError.showDlg("Datos Inválidos "
+    ,mensaje
+    ,"Aceptar",()=>{
+        //estado.mostrandoMensajeDeErrorAceptar=false
+
+        });
+}
+function showDlgComprobandoObjeto(){
+    mngDlgEsperando.setMensajeCargando("Espere");
+    mngDlgEsperando.showDlg("Comprobando "
+    ,"Espere mientras se comprueban los datos del usuario solicitado ");
+}
+class Estado{
+    constructor() {
+        this.ocultarDlg=false;
+    }
+}
+const es=new Estado();
+/*$('#idDlgEsperando').on('shown.bs.modal', function (e) {
+    if(es.ocultarDlg){
+        console.log("se llamo a hide");
+        mngDlgEsperando.hide();
+        //hideDlgBostrap("staticBackdrop");
+    }
+})*/
+addOnClick(ID_B_AGREGAR_USUARIO,v=>{
+    showDlgComprobandoObjeto();
+    //es.ocultarDlg=false;
+    //showDlgBostrap("staticBackdrop");
+    ejecutarAjax("/{{ urls.URL_POST_METODO_INTENTAR_AGREGAR_USUARIO }}/"
+        ,{
+        "{{ form.nombre }}":getValue(ID_INPUT_NOMBRE)
+        ,"{{ form.apellidos }}":getValue(ID_INPUT_APELLIDOS)
+            ,"{{ form.usuario }}":getValue(ID_INPUT_USUARIO)
+            ,"{{ form.contraseña }}":getValue(ID_INPUT_CONTRASEÑA)
+            ,"{{ form.confirmarContraseña }}":getValue(ID_INPUT_CONFIRMAR_CONTRASEÑA)
+            ,"{{ form.correo }}":getValue(ID_INPUT_CORREO) //
+            ,"{{ form.permisosDeUsuario }}":getValue("idSelectPermiso")
+        }
+            ,r=>{
+        //es.ocultarDlg=true;
+        console.log("window.jquery="+window.jquery);
+        console.log("window.$="+window.$);
+        //hideDlgBostrap("staticBackdrop");
+
+                if(!r.fueValido){
+                    mngDlgEsperando.hide();
+                    showDlgFalloEnLaValidacion(r.mensaje);
+                }else{
+                    //alert('fue valido');
+                    console.log("fue valido!!!!!!!!!!!");
+                    submit("idFormIrAListarUsuarios");
+                }
+
+        });
+
+});
+
+function pru() {
+    setValue(ID_INPUT_NOMBRE,"Alberto");
+    setValue(ID_INPUT_APELLIDOS,"Juarés Peña ");
+    setValue(ID_INPUT_USUARIO,"alberto");
+    setValue(ID_INPUT_CONTRASEÑA,"asd123asd");
+    setValue(ID_INPUT_CONFIRMAR_CONTRASEÑA,"asd123asd");
+    setValue(ID_INPUT_CORREO,"asd@gmail.com");
+
+}
+      </script>
+
+{% endblock%}
